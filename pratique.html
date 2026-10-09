@@ -1,1 +1,957 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infos pratiques - Le village de Luynes (13) | village.13080.fr</title>
+<meta name="description" content="Mairie de quartier, déchets, transports, écoles, santé, numéros d'urgence : toutes les infos pratiques pour vivre à Luynes (Aix-en-Provence).">
+<link rel="icon" href="https://actus.13080.fr/wp-content/uploads/2026/08/CIQ-LEA-Logo-carre-bleu.png">
 
+<!-- Matomo -->
+<script>
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://vigie.siweb.13080.fr/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '19']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+  :root{
+    --navy: #242E63;
+    --navy-deep: #171B41;
+    --gold: #FFC500;
+    --gold-dark: #AD8901;
+    --white: #FFFFFF;
+    --navy-muted-on-white: rgba(36,46,99,.62);
+    --white-muted-on-navy: rgba(255,255,255,.72);
+    --line-on-white: rgba(36,46,99,.12);
+    --line-on-navy: rgba(255,255,255,.16);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--white);
+    color:var(--navy);
+    font-family:'Outfit', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+  button{ font-family:inherit; }
+  h1,h2,h3{
+    font-family:'Outfit', sans-serif;
+    font-weight:700;
+    margin:0;
+    letter-spacing:-0.015em;
+  }
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+  :focus-visible{
+    outline:2px solid var(--gold-dark);
+    outline-offset:3px;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+
+  /* =========================================================
+     HEADER 1 : bandeau logo
+     ========================================================= */
+  .site-header {
+    background-color: #242E63;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 0;
+  }
+  .site-header__logo-link { display: block; line-height: 0; }
+  .site-header__logo {
+    display: block !important;
+    width: 300px !important;
+    height: auto !important;
+    max-width: 90vw !important;
+  }
+
+  /* =========================================================
+     HEADER 2 : navigation
+     ========================================================= */
+  .sub-header {
+    background-color: #242E63;
+    padding: 16px 24px;
+    position: relative;
+    z-index: 1000;
+  }
+  .sub-header__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
+  .sub-header__brand { display: flex; align-items: center; gap: 16px; }
+  .sub-header__site-link {
+    color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 16px; white-space: nowrap;
+  }
+  .sub-header__site-link:hover, .sub-header__site-link:focus { color: #FFC500; }
+  .sub-header__back-link {
+    color: rgba(255, 255, 255, 0.55); text-decoration: none; font-size: 13px; font-weight: 400;
+    white-space: nowrap; transition: color 0.2s ease;
+  }
+  .sub-header__back-link:hover, .sub-header__back-link:focus { color: #FFC500; }
+  .sub-header__toggle { display: none; }
+  .sub-header__burger {
+    display: none; flex-direction: column; justify-content: space-between;
+    width: 26px; height: 18px; cursor: pointer; z-index: 1002;
+  }
+  .sub-header__burger span {
+    display: block; height: 2px; width: 100%; background-color: #FFFFFF; border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  .sub-header__nav { display: flex; align-items: center; gap: 24px; }
+  .sub-header__link { color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 400; white-space: nowrap; }
+  .sub-header__link:hover, .sub-header__link:focus { color: #FFC500; }
+  .sub-header__btn {
+    text-decoration: none; font-size: 15px; font-weight: 600; padding: 8px 18px; border-radius: 6px;
+    white-space: nowrap; transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  .sub-header__btn--primary { background-color: #FFC500; color: #242E63; }
+  .sub-header__btn--primary:hover, .sub-header__btn--primary:focus { background-color: #e6b100; }
+  .sub-header__btn--secondary { background-color: transparent; color: #FFFFFF; border: 1px solid #FFFFFF; }
+  .sub-header__btn--secondary:hover, .sub-header__btn--secondary:focus { background-color: #FFFFFF; color: #242E63; }
+
+  @media (max-width: 860px) {
+    .sub-header__burger { display: flex; }
+    .sub-header__nav {
+      position: absolute; z-index: 1001; top: 100%; left: 0; right: 0; margin-top: 16px;
+      background-color: #242E63; flex-direction: column; align-items: flex-start; gap: 16px;
+      padding: 20px 24px; border-radius: 8px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+      max-height: 0; overflow: hidden; padding-top: 0; padding-bottom: 0;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+    .sub-header__toggle:checked ~ .sub-header__nav { max-height: 400px; padding-top: 20px; padding-bottom: 20px; }
+    .sub-header__btn { width: 100%; text-align: center; box-sizing: border-box; }
+    .sub-header__toggle:checked ~ .sub-header__burger span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .sub-header__toggle:checked ~ .sub-header__burger span:nth-child(2) { opacity: 0; }
+    .sub-header__toggle:checked ~ .sub-header__burger span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+  }
+
+  /* =========================================================
+     BOUTONS
+     ========================================================= */
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:14px 26px;
+    border-radius:8px;
+    font-weight:600;
+    font-size:15px;
+    text-decoration:none;
+    border:1.5px solid transparent;
+    cursor:pointer;
+    transition:transform .15s ease, background-color .15s ease;
+  }
+  .btn:hover{ transform:translateY(-1px); }
+  .btn--primary{ background:var(--gold); color:var(--navy); }
+  .btn--primary:hover{ background:#e6b200; }
+  /* Sur fond clair : jamais de --gold (FFC500), on utilise --gold-dark avec texte blanc */
+  .btn--accent{ background:var(--gold-dark); color:var(--white); border:none; }
+  .btn--accent:hover{ background:#8f6f02; }
+  .btn--outline-navy{ background:transparent; color:var(--navy); border-color:rgba(36,46,99,.35); }
+  .btn--outline-navy:hover{ background:rgba(36,46,99,.06); }
+
+  /* =========================================================
+     SECTIONS PARTAGÉES
+     ========================================================= */
+  section{ padding:64px 0; scroll-margin-top:16px; }
+  .section--alt{ background:#FAFAF8; }
+  .section-head{ max-width:660px; margin-bottom:32px; }
+  .section-head h2{
+    font-size:clamp(1.55rem,2.6vw,2rem);
+    font-weight:700;
+    color:var(--navy);
+    line-height:1.2;
+  }
+  .section-head p{
+    color:var(--navy-muted-on-white);
+    font-size:1rem;
+    line-height:1.6;
+    margin:10px 0 0;
+  }
+  .link-more{
+    font-weight:600;
+    font-size:14.5px;
+    color:var(--gold-dark);
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+  .link-more:hover{ text-decoration:underline; }
+  .link-more svg{ transition:transform .15s ease; }
+  .link-more:hover svg{ transform:translateX(3px); }
+  .link-more--block{ margin-top:18px; }
+
+  /* =========================================================
+     EN-TÊTE DE PAGE + NAVIGATION PAR ANCRES
+     ========================================================= */
+  .page-intro{ padding:56px 0 40px; }
+  .page-intro h1{
+    font-size:clamp(2.1rem,4vw,3rem);
+    font-weight:800;
+    line-height:1.1;
+    letter-spacing:-0.02em;
+  }
+  .page-intro__lead{
+    margin:14px 0 0;
+    max-width:60ch;
+    font-size:1.05rem;
+    line-height:1.6;
+    color:var(--navy-muted-on-white);
+  }
+  .jump{
+    list-style:none;
+    margin:28px 0 0;
+    padding:0;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .jump a{
+    display:inline-block;
+    padding:9px 16px;
+    border:1.5px solid rgba(36,46,99,.25);
+    border-radius:999px;
+    font-size:14.5px;
+    font-weight:600;
+    text-decoration:none;
+    color:var(--navy);
+    transition:background-color .15s ease, border-color .15s ease;
+  }
+  .jump a:hover{ background:rgba(36,46,99,.06); border-color:var(--navy); }
+
+  /* =========================================================
+     URGENCES
+     ========================================================= */
+  .emergency{ background:var(--navy); color:var(--white); padding:52px 0; }
+  .emergency h2{ color:var(--white); font-size:clamp(1.5rem,2.6vw,1.9rem); }
+  .emergency__lead{
+    margin:10px 0 28px;
+    color:var(--white-muted-on-navy);
+    line-height:1.6;
+    max-width:62ch;
+  }
+  .emergency__grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    list-style:none;
+    margin:0;
+    padding:0;
+  }
+  .emergency__item{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+    padding:18px 20px;
+    border:1px solid var(--line-on-navy);
+    border-radius:12px;
+    text-decoration:none;
+    color:var(--white);
+    background:rgba(255,255,255,.04);
+    transition:background-color .15s ease;
+  }
+  .emergency__item:hover{ background:rgba(255,255,255,.1); }
+  .emergency__num{ font-size:1.9rem; font-weight:800; color:var(--gold); line-height:1.1; }
+  .emergency__label{ font-weight:600; font-size:.98rem; }
+  .emergency__sub{ font-size:.85rem; color:var(--white-muted-on-navy); line-height:1.4; }
+
+  /* =========================================================
+     CARTES GÉNÉRIQUES
+     ========================================================= */
+  .grid-2{ display:grid; grid-template-columns:1.1fr .9fr; gap:24px; align-items:start; }
+  .grid-3{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; align-items:stretch; }
+
+  .card{
+    background:var(--white);
+    border:1px solid var(--line-on-white);
+    border-top:3px solid var(--gold-dark);
+    border-radius:14px;
+    padding:30px 28px;
+  }
+  .card--plain{ border-top:1px solid var(--line-on-white); background:#FAFAF8; }
+  .card h3{ font-size:1.2rem; color:var(--navy); margin-bottom:6px; }
+  .card p{ margin:8px 0 0; font-size:.95rem; line-height:1.55; color:var(--navy-muted-on-white); }
+  .card__big{
+    display:inline-block;
+    margin-top:12px;
+    font-size:1.5rem;
+    font-weight:800;
+    color:var(--navy);
+    text-decoration:none;
+  }
+  .card__big:hover{ color:var(--gold-dark); }
+  .card address{ font-style:normal; margin-top:6px; line-height:1.5; color:var(--navy-muted-on-white); font-size:.97rem; }
+
+  .hours{ margin-top:22px; padding-top:18px; border-top:1px solid var(--line-on-white); }
+  .hours__row{ display:flex; justify-content:space-between; gap:16px; padding:6px 0; font-size:.95rem; }
+  .hours__label{ color:var(--navy-muted-on-white); }
+  .hours__value{ font-weight:600; text-align:right; }
+
+  .facts{ list-style:none; margin:16px 0 0; padding:0; border-top:1px solid var(--line-on-white); }
+  .facts li{ padding:14px 0; border-bottom:1px solid var(--line-on-white); }
+  .facts__title{ font-weight:700; font-size:1rem; }
+  .facts__text{ margin-top:2px; font-size:.9rem; line-height:1.5; color:var(--navy-muted-on-white); }
+  .facts a.inline{ color:var(--gold-dark); font-weight:600; text-decoration:underline; }
+
+  .tel{ font-weight:700; color:var(--navy); text-decoration:none; }
+  .tel:hover{ color:var(--gold-dark); }
+
+  /* =========================================================
+     TRANSPORTS
+     ========================================================= */
+  .lines{ display:grid; gap:14px; }
+  .line{
+    background:var(--white);
+    border:1px solid var(--line-on-white);
+    border-radius:14px;
+    overflow:hidden;
+  }
+  .line > summary{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:20px 24px;
+    cursor:pointer;
+    list-style:none;
+  }
+  .line > summary::-webkit-details-marker{ display:none; }
+  .line__badge{
+    flex:none;
+    min-width:64px;
+    padding:6px 10px;
+    border-radius:8px;
+    text-align:center;
+    font-weight:800;
+    font-size:.95rem;
+    background:var(--navy);
+    color:var(--white);
+  }
+  .line__badge--car{ background:var(--gold-dark); }
+  .line__name{ flex:1; }
+  .line__name strong{ display:block; font-size:1.05rem; }
+  .line__name span{ font-size:.9rem; color:var(--navy-muted-on-white); }
+  .line__chevron{ flex:none; transition:transform .2s ease; color:var(--gold-dark); }
+  .line[open] .line__chevron{ transform:rotate(180deg); }
+  .line__body{ padding:4px 24px 24px; border-top:1px solid var(--line-on-white); }
+  .line__body p{ margin:16px 0 12px; font-size:.92rem; color:var(--navy-muted-on-white); line-height:1.5; }
+  .stops{ list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:8px; }
+  .stops a{
+    display:inline-block;
+    padding:7px 13px;
+    border-radius:999px;
+    background:#FAFAF8;
+    border:1px solid var(--line-on-white);
+    font-size:.88rem;
+    font-weight:500;
+    text-decoration:none;
+    color:var(--navy);
+  }
+  .stops a:hover{ border-color:var(--gold-dark); color:var(--gold-dark); }
+  .line__links{ margin-top:18px; }
+
+  .callout{
+    margin-top:24px;
+    padding:20px 22px;
+    background:#FAFAF8;
+    border:1px solid var(--line-on-white);
+    border-left:3px solid var(--gold-dark);
+    border-radius:10px;
+    font-size:.95rem;
+    line-height:1.6;
+  }
+  .callout strong{ font-weight:700; }
+  .section--alt .callout{ background:var(--white); }
+
+  /* =========================================================
+     ÉCOLES
+     ========================================================= */
+  .school-group h3{ font-size:1.05rem; margin-bottom:4px; }
+  .school-group__note{ font-size:.85rem; color:var(--navy-muted-on-white); margin:0 0 6px; }
+  .links-list{ list-style:none; margin:12px 0 0; padding:0; border-top:1px solid var(--line-on-white); }
+  .links-list li{ border-bottom:1px solid var(--line-on-white); }
+  .links-list a{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    padding:13px 2px;
+    text-decoration:none;
+    font-weight:500;
+    font-size:.97rem;
+    color:var(--navy);
+  }
+  .links-list a:hover{ color:var(--gold-dark); }
+  .links-list svg{ flex:none; color:var(--gold-dark); }
+
+  /* =========================================================
+     HISTOIRE (bandeau)
+     ========================================================= */
+  .history-band{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:28px;
+    flex-wrap:wrap;
+    background:var(--navy);
+    color:var(--white);
+    border-radius:16px;
+    padding:38px 36px;
+  }
+  .history-band h2{ font-size:1.4rem; color:var(--white); }
+  .history-band p{ margin:8px 0 0; color:var(--white-muted-on-navy); max-width:52ch; line-height:1.55; }
+
+  /* =========================================================
+     FOOTER
+     ========================================================= */
+  .site-footer {
+    background-color: #242E63;
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 16px;
+    text-align: center;
+  }
+  .site-footer__logo { display: block; width: 300px; height: auto; max-width: 90vw; margin: 0 0 20px 0; }
+  .site-footer__links { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px; }
+  .site-footer__link { color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 500; }
+  .site-footer__link:hover, .site-footer__link:focus { color: #FFC500; text-decoration: underline; }
+  .site-footer__separator { color: #FFC500; font-size: 14px; }
+
+  /* =========================================================
+     RESPONSIVE
+     ========================================================= */
+  @media (max-width:1000px){
+    .emergency__grid{ grid-template-columns:repeat(2,1fr); }
+    .grid-3{ grid-template-columns:1fr; }
+  }
+  @media (max-width:900px){
+    .grid-2{ grid-template-columns:1fr; }
+  }
+  @media (max-width:600px){
+    .wrap{ padding:0 18px; }
+    section{ padding:48px 0; }
+    .page-intro{ padding:40px 0 28px; }
+    .emergency{ padding:44px 0; }
+    .emergency__grid{ gap:10px; }
+    .emergency__item{ padding:14px 14px; }
+    .emergency__num{ font-size:1.55rem; }
+    .card{ padding:24px 20px; }
+    .line > summary{ padding:16px 16px; gap:12px; }
+    .line__body{ padding:2px 16px 20px; }
+    .history-band{ flex-direction:column; align-items:flex-start; padding:30px 24px; }
+    .history-band .btn{ width:100%; justify-content:center; }
+    .site-footer__logo{ width:220px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- =========================================================
+     HEADER 1 : logo
+     ========================================================= -->
+<header class="site-header">
+  <a href="https://village.13080.fr" class="site-header__logo-link" aria-label="Retour à l'accueil">
+    <img src="https://actus.13080.fr/wp-content/uploads/2026/08/CIQ-LEA-VILLAGE-Logo-rectangulaire-blanc.png" alt="Village de Luynes" class="site-header__logo">
+  </a>
+</header>
+
+<!-- =========================================================
+     HEADER 2 : navigation
+     ========================================================= -->
+<header class="sub-header">
+  <div class="sub-header__inner">
+    <div class="sub-header__brand">
+      <a href="https://village.13080.fr/" class="sub-header__site-link">village.13080.fr</a>
+      <a href="https://13080.fr" class="sub-header__back-link" aria-label="Retour vers 13080.fr">← 13080.fr</a>
+    </div>
+
+    <input type="checkbox" id="sub-header-toggle" class="sub-header__toggle" />
+    <label for="sub-header-toggle" class="sub-header__burger" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </label>
+
+    <nav class="sub-header__nav" aria-label="Menu principal">
+      <a href="https://village.13080.fr/" class="sub-header__link">Accueil</a>
+      <a href="https://village.13080.fr/pratique" class="sub-header__link">Mon village</a>
+      <a href="https://actus.13080.fr/village" class="sub-header__link">Actualités</a>
+      <a href="https://village.13080.fr/annuaire" class="sub-header__btn sub-header__btn--primary">Annuaire</a>
+      <a href="https://ciq.13080.fr/contact" class="sub-header__btn sub-header__btn--secondary">Nous contacter</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- =========================================================
+     INTRO + ANCRES
+     ========================================================= -->
+<div class="page-intro">
+  <div class="wrap">
+    <h1>Infos pratiques</h1>
+    <p class="page-intro__lead">Mairie, déchets, transports, écoles, santé : tout ce qu'il faut savoir pour vivre au quotidien à Luynes.</p>
+    <ul class="jump" aria-label="Aller à une rubrique">
+      <li><a href="#urgences">Urgences</a></li>
+      <li><a href="#mairie">Ma mairie</a></li>
+      <li><a href="#dechets">Déchets</a></li>
+      <li><a href="#transports">Se déplacer</a></li>
+      <li><a href="#ecoles">Écoles</a></li>
+      <li><a href="#sante">Santé</a></li>
+      <li><a href="#commerces">Marché et commerces</a></li>
+      <li><a href="#signaler">Signaler un problème</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- =========================================================
+     URGENCES
+     ========================================================= -->
+<div class="emergency" id="urgences">
+  <div class="wrap">
+    <h2>En cas d'urgence</h2>
+    <p class="emergency__lead">Ces numéros sont gratuits depuis un téléphone fixe ou mobile. Touchez un numéro pour appeler.</p>
+    <ul class="emergency__grid">
+      <li><a class="emergency__item" href="tel:15"><span class="emergency__num">15</span><span class="emergency__label">SAMU</span><span class="emergency__sub">Urgence médicale</span></a></li>
+      <li><a class="emergency__item" href="tel:17"><span class="emergency__num">17</span><span class="emergency__label">Police / Gendarmerie</span><span class="emergency__sub">Danger, agression, cambriolage</span></a></li>
+      <li><a class="emergency__item" href="tel:18"><span class="emergency__num">18</span><span class="emergency__label">Pompiers</span><span class="emergency__sub">Incendie, accident, secours</span></a></li>
+      <li><a class="emergency__item" href="tel:112"><span class="emergency__num">112</span><span class="emergency__label">Numéro européen</span><span class="emergency__sub">Toutes urgences</span></a></li>
+      <li><a class="emergency__item" href="tel:3114"><span class="emergency__num">3114</span><span class="emergency__label">Prévention du suicide</span><span class="emergency__sub">24 h/24, 7 j/7</span></a></li>
+      <li><a class="emergency__item" href="tel:119"><span class="emergency__num">119</span><span class="emergency__label">Enfance en danger</span><span class="emergency__sub">Écoute et signalement</span></a></li>
+      <li><a class="emergency__item" href="tel:3919"><span class="emergency__num">3919</span><span class="emergency__label">Violences faites aux femmes</span><span class="emergency__sub">Écoute et orientation</span></a></li>
+      <li><a class="emergency__item" href="sms:114"><span class="emergency__num">114</span><span class="emergency__label">Par SMS</span><span class="emergency__sub">Personnes sourdes ou malentendantes</span></a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- =========================================================
+     MA MAIRIE
+     ========================================================= -->
+<section id="mairie" aria-labelledby="mairie-title">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="mairie-title">Ma mairie</h2>
+      <p>Luynes fait partie de la Ville d'Aix-en-Provence. Votre point d'accueil au village est la mairie de quartier.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Mairie de quartier de Luynes</h3>
+        <address>Place de la Libération<br>13080 Luynes</address>
+        <a class="card__big" href="tel:+33488717465">04 88 71 74 65</a>
+        <div class="hours">
+          <div class="hours__row"><span class="hours__label">Lundi au vendredi</span><span class="hours__value">8h45 – 12h15 / 13h15 – 16h45</span></div>
+          <div class="hours__row"><span class="hours__label">Samedi et dimanche</span><span class="hours__value">Fermé</span></div>
+        </div>
+        <a class="link-more link-more--block" href="https://www.aixenprovence.fr/Mairie-de-quartier-de-Luynes">
+          Page de la mairie de quartier
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <div class="card card--plain">
+        <h3>Démarches et services</h3>
+        <ul class="facts">
+          <li>
+            <div class="facts__title">Standard de l'Hôtel de Ville</div>
+            <div class="facts__text"><a class="tel" href="tel:+33442919000">04 42 91 90 00</a> · <a class="inline" href="https://aixenprovence.fr/">aixenprovence.fr</a></div>
+          </li>
+          <li>
+            <div class="facts__title">Agence postale communale</div>
+            <div class="facts__text">Dans les locaux de la mairie de quartier. Ouverte lundi, mardi, jeudi et vendredi (mêmes horaires), fermée le mercredi.</div>
+          </li>
+          <li>
+            <div class="facts__title">Permanences France Services</div>
+            <div class="facts__text">Aide pour vos démarches (CAF, impôts, retraite, Assurance Maladie…). Prenez rendez-vous auprès de la mairie de quartier.</div>
+          </li>
+          <li>
+            <div class="facts__title">Cartes d'identité et passeports</div>
+            <div class="facts__text">Service des titres sécurisés à Aix (26 rue Chastel), sur rendez-vous : <a class="tel" href="tel:+33442919000">04 42 91 90 00</a>.</div>
+          </li>
+          <li>
+            <div class="facts__title">Point numérique</div>
+            <div class="facts__text">Un ordinateur en libre accès ou avec accompagnement est disponible pour les démarches en ligne.</div>
+          </li>
+        </ul>
+        <a class="link-more link-more--block" href="https://www.aixenprovence.fr/Luynes-1642">
+          Actualités du village sur le site de la Mairie d'Aix-en-Provence
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     DÉCHETS
+     ========================================================= -->
+<section id="dechets" class="section--alt" aria-labelledby="dechets-title">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="dechets-title">Je gère mes déchets</h2>
+      <p>La collecte et les déchèteries sont gérées par la Métropole Aix-Marseille-Provence.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>Encombrants</h3>
+        <p>Prenez rendez-vous pour faire enlever vos encombrants (meubles, matelas, électroménager).</p>
+        <a class="card__big" href="tel:0800949408">0800 94 94 08</a>
+      </div>
+      <div class="card">
+        <h3>Conteneurs</h3>
+        <p>Demander un conteneur ou signaler un conteneur plein ou endommagé.</p>
+        <a class="card__big" href="tel:0800949408">0800 94 94 08</a>
+      </div>
+      <div class="card">
+        <h3>Composteur</h3>
+        <p>Réduisez vos déchets et nourrissez votre jardin : commandez un composteur individuel.</p>
+        <a class="link-more link-more--block" href="https://dechets.ampmetropole.fr/particuliers/je-reduis-mes-dechets/je-nourris-mon-jardin-avec-le-compost/je-commande-un-composteur-individuel/">
+          Commander un composteur
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Jours de collecte, déchèteries, consignes de tri :</strong> retrouvez-les sur le portail déchets de la Métropole en indiquant votre adresse.
+      <br><a class="link-more link-more--block" href="https://dechets.ampmetropole.fr/">
+        Portail déchets de la Métropole
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     TRANSPORTS
+     ========================================================= -->
+<section id="transports" aria-labelledby="transports-title">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="transports-title">Je me déplace</h2>
+      <p>Trois lignes desservent Luynes. Dépliez une ligne pour voir ses arrêts dans le village ; chaque arrêt s'ouvre sur une carte.</p>
+    </div>
+
+    <div class="lines">
+
+      <details class="line">
+        <summary>
+          <span class="line__badge">11</span>
+          <span class="line__name"><strong>Aix-en-Bus · Ligne 11</strong><span>Luynes Mail ⇄ Aix-en-Provence</span></span>
+          <svg class="line__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="line__body">
+          <p>Les dimanches et jours fériés, un service de transport à la demande complète la ligne : réservation avant le samedi 17h au <a class="tel" href="tel:+33970809013">09 70 80 90 13</a>.</p>
+          <ul class="stops">
+            <li><a href="https://maps.app.goo.gl/7YHA2EncEDmiJQqW6">Luynes Mail</a></li>
+            <li><a href="https://maps.app.goo.gl/gCKQckD5KYwEmAS36">Vidal</a></li>
+            <li><a href="https://maps.app.goo.gl/Mk1j4NSnxTsDQhCd6">Chamson</a></li>
+            <li><a href="https://maps.app.goo.gl/3D41MpLsUCy1CB6x5">Roseaux</a></li>
+            <li><a href="https://maps.app.goo.gl/Q5kxT64QBMB7tDtw9">Mavel</a></li>
+            <li><a href="https://maps.app.goo.gl/arUWaeSi9cLDhfbu8">Commanderie</a></li>
+            <li><a href="https://maps.app.goo.gl/54zypF3waE71VnoM9">De Green</a></li>
+            <li><a href="https://maps.app.goo.gl/QxjE9nNMKUwbGwJr6">Chapuis</a></li>
+            <li><a href="https://maps.app.goo.gl/PFT6rarWiZgSFJ339">Luynes Centre</a></li>
+            <li><a href="https://maps.app.goo.gl/KhoZg1ALiYoCXphD9">Luynes Sud</a></li>
+            <li><a href="https://maps.app.goo.gl/UB7mktNzSCVLASL97">Luynes Lycée</a></li>
+          </ul>
+          <div class="line__links">
+            <a class="link-more" href="https://www.aixenbus.fr/fr/ME2-La-grille-horaire-de-votre-arret-en-version-imprimable.html">
+              Horaires de la ligne
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+      </details>
+
+      <details class="line">
+        <summary>
+          <span class="line__badge">14</span>
+          <span class="line__name"><strong>Aix-en-Bus · Ligne 14</strong><span>Centre Cial. des Milles ⇄ Brossolette</span></span>
+          <svg class="line__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="line__body">
+          <ul class="stops">
+            <li><a href="https://maps.app.goo.gl/MqXqFNQHvY16Qhx28">Frères Gris</a></li>
+            <li><a href="https://maps.app.goo.gl/Xn5vu9GRrxoGheNt6">Bon Rencontre</a></li>
+            <li><a href="https://maps.app.goo.gl/esiQdrzLZQDFjfye7">La Blaque</a></li>
+            <li><a href="https://maps.app.goo.gl/Z7LWbd5wxjAYt57r7">Chapuis</a></li>
+            <li><a href="https://maps.app.goo.gl/HAHdbJYGd2JbqJtJ6">Luynes Centre</a></li>
+            <li><a href="https://maps.app.goo.gl/RQA516UevKuNLG2d6">Luynes Sud</a></li>
+            <li><a href="https://maps.app.goo.gl/oqPGQPrnKzGySSqD8">Luynes Lycée</a></li>
+            <li><a href="https://maps.app.goo.gl/PC8vGg6FvD2v8t2d8">Rampelin</a></li>
+            <li><a href="https://maps.app.goo.gl/xFXMhJzH1rbQXgkr5">Trois Pigeons</a></li>
+            <li><a href="https://maps.app.goo.gl/jsm4p2o5HyyGsS4h9">P+R Arena Quai 7</a></li>
+          </ul>
+          <div class="line__links">
+            <a class="link-more" href="https://www.aixenbus.fr/fr/ME2-La-grille-horaire-de-votre-arret-en-version-imprimable.html">
+              Horaires de la ligne
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+      </details>
+
+      <details class="line">
+        <summary>
+          <span class="line__badge line__badge--car">51</span>
+          <span class="line__name"><strong>leCar · Ligne 51</strong><span>Aix-Gare Routière ⇄ Marseille Saint-Charles</span></span>
+          <svg class="line__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="line__body">
+          <ul class="stops">
+            <li><a href="https://maps.app.goo.gl/MqXqFNQHvY16Qhx28">Frères Gris</a></li>
+            <li><a href="https://maps.app.goo.gl/Xn5vu9GRrxoGheNt6">Bon Rencontre</a></li>
+            <li><a href="https://maps.app.goo.gl/esiQdrzLZQDFjfye7">La Blaque</a></li>
+            <li><a href="https://maps.app.goo.gl/Z7LWbd5wxjAYt57r7">Chapuis</a></li>
+            <li><a href="https://maps.app.goo.gl/RQA516UevKuNLG2d6">Luynes Sud</a></li>
+            <li><a href="https://maps.app.goo.gl/oqPGQPrnKzGySSqD8">Luynes Lycée</a></li>
+            <li><a href="https://maps.app.goo.gl/PC8vGg6FvD2v8t2d8">Rampelin</a></li>
+            <li><a href="https://maps.app.goo.gl/xFXMhJzH1rbQXgkr5">Trois Pigeons</a></li>
+          </ul>
+          <div class="line__links">
+            <a class="link-more" href="https://www.lecaraixmarseille.com/ligne-51">
+              Horaires de la ligne
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <div class="callout">
+      <strong>Horaires :</strong> ils changent à chaque nouveau service. Pour l'heure exacte de passage à votre arrêt, utilisez l'horaire officiel de la ligne ou le site de La Métropole Mobilité.
+      <br><strong>Besoin d'un renseignement ?</strong>
+      Aix-en-Bus (service clientèle) : <a class="tel" href="tel:+33970809013">09 70 80 90 13</a> ·
+      La Métropole Mobilité (numéro gratuit) : <a class="tel" href="tel:0800713137">0800 713 137</a>.
+      <br>
+      <a class="link-more link-more--block" href="https://www.aixenbus.fr/">
+        aixenbus.fr
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     ÉCOLES
+     ========================================================= -->
+<section id="ecoles" class="section--alt" aria-labelledby="ecoles-title">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="ecoles-title">Pôle éducatif</h2>
+      <p>De la maternelle au lycée, les établissements du village.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card school-group">
+        <h3>Établissements publics</h3>
+        <ul class="links-list">
+          <li><a href="https://www.education.gouv.fr/annuaire/13080/aix-en-provence/ecole/0132354n/ecole-maternelle-edouard-peisson.html">École maternelle Édouard Peisson
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+          <li><a href="https://www.education.gouv.fr/annuaire/13080/aix-en-provence/ecole/0131206r/ecole-elementaire-edouard-peisson.html">École élémentaire Édouard Peisson
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+          <li><a href="https://www.education.gouv.fr/annuaire/13080/aix-en-provence/college/0134094e/college-sophie-germain.html">Collège Sophie Germain
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+          <li><a href="https://www.education.gouv.fr/annuaire/13080/aix-en-provence/lycee/0133525l/lycee-international-georges-duby.html">Lycée international Georges Duby
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+        </ul>
+      </div>
+
+      <div class="card school-group">
+        <h3>Privé sous contrat</h3>
+        <ul class="links-list">
+          <li><a href="https://www.education.gouv.fr/annuaire/13080/aix-en-provence/ecole/0132018y/ecole-primaire-privee-saint-francois-d-assise.html">École Saint François d'Assise
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+        </ul>
+        <p class="school-group__note" style="margin-top:10px;">Maternelle et élémentaire.</p>
+      </div>
+
+      <div class="card school-group">
+        <h3>Privé hors contrat</h3>
+        <ul class="links-list">
+          <li><a href="https://www.ibsofprovence.com/">IBS of Provence
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+          <li><a href="https://www.education.gouv.fr/annuaire/13080/aix-en-provence/ecole/0133332b/ecole-primaire-privee-cipec-luynes.html">CIPEC Luynes
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Petite enfance :</strong> la Ville d'Aix organise des permanences d'information sur les modes de garde pour les jeunes parents. Renseignez-vous auprès de la mairie de quartier au <a class="tel" href="tel:+33488717465">04 88 71 74 65</a>.
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     SANTÉ
+     ========================================================= -->
+<section id="sante" aria-labelledby="sante-title">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="sante-title">Santé</h2>
+      <p>Les bons réflexes pour trouver de l'aide, de jour comme de nuit.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>Urgence médicale</h3>
+        <p>Détresse vitale, malaise, accident : appelez immédiatement le SAMU.</p>
+        <a class="card__big" href="tel:15">15</a>
+      </div>
+      <div class="card">
+        <h3>Pharmacie de garde</h3>
+        <p>La nuit, le dimanche et les jours fériés : le service national vous indique la pharmacie ouverte la plus proche.</p>
+        <a class="card__big" href="tel:3237">3237</a>
+      </div>
+      <div class="card">
+        <h3>Intoxication</h3>
+        <p>Produit ingéré par erreur, médicament, plante, champignon : contactez le centre antipoison de Marseille.</p>
+        <a class="card__big" href="tel:+33491752525">04 91 75 25 25</a>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Médecins, infirmiers, kinés, pharmacies du village :</strong> retrouvez leurs coordonnées dans l'annuaire des professionnels de Luynes.
+      <br><a class="link-more link-more--block" href="https://village.13080.fr/annuaire">
+        Ouvrir l'annuaire
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     MARCHÉ ET COMMERCES
+     ========================================================= -->
+<section id="commerces" class="section--alt" aria-labelledby="commerces-title">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="commerces-title">Marché et commerces</h2>
+      <p>Le village compte des commerces de proximité, des artisans et un marché.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Commerces, associations et professionnels</h3>
+        <p>Boulangerie, boucherie, pharmacie, coiffeur, clubs sportifs, associations culturelles : l'annuaire réunit les adresses du village.</p>
+        <a class="link-more link-more--block" href="https://village.13080.fr/annuaire">
+          Consulter l'annuaire
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <div class="card card--plain">
+        <h3>Le marché de Luynes</h3>
+        <p>Les jours et l'emplacement du marché peuvent évoluer : ils sont indiqués sur la page de la Ville consacrée à Luynes.</p>
+        <a class="link-more link-more--block" href="https://www.aixenprovence.fr/Luynes-1642">
+          Voir la page de la Ville
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     SIGNALER UN PROBLÈME
+     ========================================================= -->
+<section id="signaler" aria-labelledby="signaler-title">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="signaler-title">Signaler un problème</h2>
+      <p>Chaque signalement a un bon interlocuteur : voici à qui vous adresser.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>Anomalie sur la voie publique</h3>
+        <p>Nid-de-poule, éclairage défectueux, panneau abîmé, dépôt sauvage, véhicule abandonné, stationnement gênant : signalez-le à la Ville. Par téléphone du lundi au vendredi, de 8h à 16h30.</p>
+        <a class="card__big" href="tel:+33442919090">04 42 91 90 90</a>
+        <br>
+        <a class="link-more link-more--block" href="https://mesdemarches.mairie-aixenprovence.fr/airform/formulaires/SIGNALEMENT_PROXIMITE">
+          Signaler en ligne (7 j/7)
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <div class="card">
+        <h3>Conteneur plein ou abîmé</h3>
+        <p>Appelez le service déchets de la Métropole (numéro gratuit).</p>
+        <a class="card__big" href="tel:0800949408">0800 94 94 08</a>
+      </div>
+      <div class="card">
+        <h3>Une question sur le village</h3>
+        <p>Une idée, un souci qui concerne tout le quartier : écrivez au CIQ Léa.</p>
+        <a class="link-more link-more--block" href="https://ciq.13080.fr/contact">
+          Nous contacter
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Danger immédiat :</strong> ne passez pas par le formulaire. Appelez la Police nationale (<a class="tel" href="tel:17">17</a>), les pompiers (<a class="tel" href="tel:18">18</a>), le SAMU (<a class="tel" href="tel:15">15</a>) ou la Police municipale (<a class="tel" href="tel:+33442919111">04 42 91 91 11</a>).
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     HISTOIRE
+     ========================================================= -->
+<section style="padding-top:0;" aria-label="L'histoire de Luynes">
+  <div class="wrap">
+    <div class="history-band">
+      <div>
+        <h2>L'histoire et les photos de Luynes, par Christian</h2>
+        <p>Un regard personnel sur le village, ses lieux et sa mémoire.</p>
+      </div>
+      <a href="https://village.13080.fr/histoire" class="btn btn--primary">Découvrir</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+<footer class="site-footer">
+  <img src="https://actus.13080.fr/wp-content/uploads/2026/08/CIQ-LEA-Logo-rectangulaire-blanc.png" alt="CIQ Léa" class="site-footer__logo">
+  <nav class="site-footer__links" aria-label="Liens du pied de page">
+    <a href="https://13080.fr" class="site-footer__link">Retour sur 13080.fr</a>
+    <span class="site-footer__separator">•</span>
+    <a href="https://13080.fr/mentions-legales" class="site-footer__link">Mentions légales</a>
+    <span class="site-footer__separator">•</span>
+    <a href="https://ciq.13080.fr/contact" class="site-footer__link">Nous contacter</a>
+  </nav>
+</footer>
+
+</body>
+</html>
