@@ -1,1 +1,666 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le village de Luynes (13) | village.13080.fr</title>
+<link rel="icon" href="https://actus.13080.fr/wp-content/uploads/2026/08/CIQ-LEA-Logo-carre-bleu.png">
 
+<!-- Matomo -->
+<script>
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://vigie.siweb.13080.fr/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '19']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+  :root{
+    --navy: #242E63;
+    --navy-deep: #171B41;
+    --gold: #FFC500;
+    --gold-dark: #AD8901;
+    --white: #FFFFFF;
+    --navy-muted-on-white: rgba(36,46,99,.62);
+    --white-muted-on-navy: rgba(255,255,255,.72);
+    --line-on-white: rgba(36,46,99,.12);
+    --line-on-navy: rgba(255,255,255,.16);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--white);
+    color:var(--navy);
+    font-family:'Outfit', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+  button{ font-family:inherit; }
+  h1,h2,h3{
+    font-family:'Outfit', sans-serif;
+    font-weight:700;
+    margin:0;
+    letter-spacing:-0.015em;
+  }
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+  :focus-visible{
+    outline:2px solid var(--gold-dark);
+    outline-offset:3px;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+
+  /* =========================================================
+     HEADER 1 : bandeau logo
+     ========================================================= */
+  .site-header {
+    background-color: #242E63;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 0;
+  }
+  .site-header__logo-link { display: block; line-height: 0; }
+  .site-header__logo {
+    display: block !important;
+    width: 300px !important;
+    height: auto !important;
+    max-width: 90vw !important;
+  }
+
+  /* =========================================================
+     HEADER 2 : navigation
+     ========================================================= */
+  .sub-header {
+    background-color: #242E63;
+    padding: 16px 24px;
+    position: relative;
+    z-index: 1000;
+  }
+  .sub-header__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
+  .sub-header__brand { display: flex; align-items: center; gap: 16px; }
+  .sub-header__site-link {
+    color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 16px; white-space: nowrap;
+  }
+  .sub-header__site-link:hover, .sub-header__site-link:focus { color: #FFC500; }
+  .sub-header__back-link {
+    color: rgba(255, 255, 255, 0.55); text-decoration: none; font-size: 13px; font-weight: 400;
+    white-space: nowrap; transition: color 0.2s ease;
+  }
+  .sub-header__back-link:hover, .sub-header__back-link:focus { color: #FFC500; }
+  .sub-header__toggle { display: none; }
+  .sub-header__burger {
+    display: none; flex-direction: column; justify-content: space-between;
+    width: 26px; height: 18px; cursor: pointer; z-index: 1002;
+  }
+  .sub-header__burger span {
+    display: block; height: 2px; width: 100%; background-color: #FFFFFF; border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  .sub-header__nav { display: flex; align-items: center; gap: 24px; }
+  .sub-header__link { color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 400; white-space: nowrap; }
+  .sub-header__link:hover, .sub-header__link:focus { color: #FFC500; }
+  .sub-header__btn {
+    text-decoration: none; font-size: 15px; font-weight: 600; padding: 8px 18px; border-radius: 6px;
+    white-space: nowrap; transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  .sub-header__btn--primary { background-color: #FFC500; color: #242E63; }
+  .sub-header__btn--primary:hover, .sub-header__btn--primary:focus { background-color: #e6b100; }
+  .sub-header__btn--secondary { background-color: transparent; color: #FFFFFF; border: 1px solid #FFFFFF; }
+  .sub-header__btn--secondary:hover, .sub-header__btn--secondary:focus { background-color: #FFFFFF; color: #242E63; }
+
+  @media (max-width: 860px) {
+    .sub-header__burger { display: flex; }
+    .sub-header__nav {
+      position: absolute; z-index: 1001; top: 100%; left: 0; right: 0; margin-top: 16px;
+      background-color: #242E63; flex-direction: column; align-items: flex-start; gap: 16px;
+      padding: 20px 24px; border-radius: 8px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+      max-height: 0; overflow: hidden; padding-top: 0; padding-bottom: 0;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+    .sub-header__toggle:checked ~ .sub-header__nav { max-height: 400px; padding-top: 20px; padding-bottom: 20px; }
+    .sub-header__btn { width: 100%; text-align: center; box-sizing: border-box; }
+    .sub-header__toggle:checked ~ .sub-header__burger span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .sub-header__toggle:checked ~ .sub-header__burger span:nth-child(2) { opacity: 0; }
+    .sub-header__toggle:checked ~ .sub-header__burger span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+  }
+
+  /* =========================================================
+     BOUTONS
+     ========================================================= */
+  .hero__ctas{ display:flex; gap:14px; flex-wrap:wrap; }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:14px 26px;
+    border-radius:8px;
+    font-weight:600;
+    font-size:15px;
+    text-decoration:none;
+    border:1.5px solid transparent;
+    cursor:pointer;
+    transition:transform .15s ease, background-color .15s ease;
+  }
+  .btn:hover{ transform:translateY(-1px); }
+  .btn--primary{ background:var(--gold); color:var(--navy); }
+  .btn--primary:hover{ background:#e6b200; }
+  .btn--ghost{ background:transparent; color:var(--white); border-color:rgba(255,255,255,.6); }
+  .btn--ghost:hover{ background:rgba(255,255,255,.14); }
+  /* Sur fond clair : jamais de --gold (FFC500), on utilise --gold-dark avec texte blanc */
+  .btn--accent{ background:var(--gold-dark); color:var(--white); border:none; }
+  .btn--accent:hover{ background:#8f6f02; }
+  .btn--outline-navy{ background:transparent; color:var(--navy); border-color:rgba(36,46,99,.35); }
+  .btn--outline-navy:hover{ background:rgba(36,46,99,.06); }
+
+  /* =========================================================
+     SECTIONS PARTAGÉES
+     ========================================================= */
+  section{ padding:76px 0; }
+  .section-head{ max-width:640px; margin-bottom:36px; }
+  .section-head h2{
+    font-size:clamp(1.6rem,2.8vw,2.1rem);
+    font-weight:700;
+    color:var(--navy);
+    line-height:1.2;
+  }
+  .section-head p{
+    color:var(--navy-muted-on-white);
+    font-weight:400;
+    font-size:1rem;
+    line-height:1.6;
+    margin-top:12px;
+  }
+  .link-more{
+    font-weight:600;
+    font-size:14.5px;
+    color:var(--gold-dark);
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    margin-top:22px;
+  }
+  .link-more:hover{ text-decoration:underline; }
+  .link-more svg{ transition:transform .15s ease; }
+  .link-more:hover svg{ transform:translateX(3px); }
+
+  .section--alt{ background:#FAFAF8; }
+
+  /* =========================================================
+     HERO
+     ========================================================= */
+  .hero{
+    position:relative;
+    padding:0;
+    color:var(--white);
+    background:
+      linear-gradient(90deg, rgba(23,27,65,.92) 0%, rgba(23,27,65,.78) 42%, rgba(23,27,65,.25) 100%),
+      url('https://actus.13080.fr/wp-content/uploads/2024/04/Banniere-scaled.png') center / cover no-repeat,
+      var(--navy-deep);
+  }
+  .hero__inner{
+    min-height:min(72vh, 620px);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding-top:72px;
+    padding-bottom:72px;
+  }
+  .hero h1{
+    font-size:clamp(2.4rem,5.4vw,4.2rem);
+    font-weight:800;
+    line-height:1.04;
+    letter-spacing:-0.025em;
+    max-width:14ch;
+  }
+  .hero__lead{
+    margin:22px 0 34px;
+    max-width:46ch;
+    font-size:1.1rem;
+    line-height:1.6;
+    color:var(--white-muted-on-navy);
+  }
+
+  /* =========================================================
+     ACTUALITÉS (API WordPress)
+     ========================================================= */
+  .news__list{
+    list-style:none;
+    margin:0;
+    padding:0;
+    border-top:1px solid var(--line-on-white);
+  }
+  .news__item{ border-bottom:1px solid var(--line-on-white); }
+  .news__link{
+    display:grid;
+    grid-template-columns:190px 1fr auto;
+    align-items:baseline;
+    gap:24px;
+    padding:22px 4px;
+    text-decoration:none;
+    color:var(--navy);
+    transition:background-color .15s ease;
+  }
+  .news__link:hover{ background:rgba(36,46,99,.04); }
+  .news__link:hover .news__title{ color:var(--gold-dark); }
+  .news__date{
+    font-size:.92rem;
+    font-weight:500;
+    color:var(--navy-muted-on-white);
+  }
+  .news__title{
+    font-size:1.2rem;
+    font-weight:600;
+    line-height:1.35;
+    transition:color .15s ease;
+  }
+  .news__arrow{ color:var(--gold-dark); display:flex; }
+  .news__status{
+    padding:26px 4px;
+    color:var(--navy-muted-on-white);
+    font-size:.98rem;
+    border-bottom:1px solid var(--line-on-white);
+  }
+  .news__skeleton{
+    height:22px;
+    margin:26px 4px;
+    border-radius:6px;
+    background:linear-gradient(90deg, rgba(36,46,99,.06), rgba(36,46,99,.12), rgba(36,46,99,.06));
+    background-size:200% 100%;
+    animation:shimmer 1.4s linear infinite;
+  }
+  @keyframes shimmer{ from{background-position:200% 0;} to{background-position:-200% 0;} }
+
+  /* =========================================================
+     ACCÈS : Mon village / Annuaire
+     ========================================================= */
+  .access__grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+  }
+  .access-card{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    padding:38px 34px;
+    border-radius:16px;
+    text-decoration:none;
+    min-height:280px;
+    transition:transform .15s ease;
+  }
+  .access-card:hover{ transform:translateY(-2px); }
+  .access-card__icon{
+    width:48px;
+    height:48px;
+    display:grid;
+    place-items:center;
+    border-radius:12px;
+    margin-bottom:auto;
+  }
+  .access-card h3{ font-size:1.6rem; font-weight:700; margin-top:36px; }
+  .access-card p{
+    margin:10px 0 24px;
+    font-size:1rem;
+    line-height:1.55;
+    max-width:40ch;
+  }
+  .access-card__cta{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-weight:600;
+    font-size:15px;
+  }
+  .access-card--navy{ background:var(--navy); color:var(--white); }
+  .access-card--navy .access-card__icon{ background:rgba(255,255,255,.12); color:var(--gold); }
+  .access-card--navy p{ color:var(--white-muted-on-navy); }
+  .access-card--navy .access-card__cta{ color:var(--gold); }
+  .access-card--light{ background:var(--white); border:1px solid var(--line-on-white); border-top:3px solid var(--gold-dark); color:var(--navy); }
+  .access-card--light .access-card__icon{ background:rgba(173,137,1,.12); color:var(--gold-dark); }
+  .access-card--light p{ color:var(--navy-muted-on-white); }
+  .access-card--light .access-card__cta{ color:var(--gold-dark); }
+
+  /* =========================================================
+     HISTOIRE & PHOTOS
+     ========================================================= */
+  .history{
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:48px;
+    align-items:center;
+  }
+  .history h2{
+    font-size:clamp(1.6rem,2.8vw,2.1rem);
+    line-height:1.2;
+    color:var(--navy);
+  }
+  .history p{
+    margin:14px 0 0;
+    max-width:52ch;
+    line-height:1.65;
+    color:var(--navy-muted-on-white);
+  }
+  .history__panel{
+    border-radius:16px;
+    background:var(--navy);
+    color:var(--white);
+    padding:40px 36px;
+  }
+  .history__panel-title{
+    font-size:1.25rem;
+    font-weight:700;
+    line-height:1.35;
+  }
+  .history__panel p{ color:var(--white-muted-on-navy); font-size:.95rem; }
+  .history__panel .btn{ margin-top:26px; }
+
+  /* =========================================================
+     FOOTER
+     ========================================================= */
+  .site-footer {
+    background-color: #242E63;
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 16px;
+    text-align: center;
+  }
+  .site-footer__logo { display: block; width: 300px; height: auto; max-width: 90vw; margin: 0 0 20px 0; }
+  .site-footer__links { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px; }
+  .site-footer__link { color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 500; }
+  .site-footer__link:hover, .site-footer__link:focus { color: #FFC500; text-decoration: underline; }
+  .site-footer__separator { color: #FFC500; font-size: 14px; }
+
+  /* =========================================================
+     RESPONSIVE
+     ========================================================= */
+
+  /* Tablette */
+  @media (max-width:900px){
+    .access__grid{ grid-template-columns:1fr; }
+    .access-card{ min-height:0; }
+    .history{ grid-template-columns:1fr; gap:32px; }
+    .news__link{ grid-template-columns:150px 1fr auto; gap:16px; }
+  }
+
+  /* Mobile */
+  @media (max-width:600px){
+    .wrap{ padding:0 18px; }
+    section{ padding:56px 0; }
+
+    .hero{
+      background:
+        linear-gradient(180deg, rgba(23,27,65,.88) 0%, rgba(23,27,65,.8) 100%),
+        url('https://actus.13080.fr/wp-content/uploads/2024/04/Banniere-scaled.png') center / cover no-repeat,
+        var(--navy-deep);
+    }
+    .hero__inner{ min-height:0; padding-top:56px; padding-bottom:56px; }
+    .hero__ctas{ flex-direction:column; align-items:stretch; }
+    .hero__ctas .btn{ justify-content:center; }
+
+    .news__link{ grid-template-columns:1fr auto; gap:6px 12px; padding:20px 2px; }
+    .news__date{ grid-column:1 / -1; }
+
+    .access-card{ padding:30px 24px; }
+    .history__panel{ padding:32px 24px; }
+    .history__panel .btn{ width:100%; justify-content:center; }
+
+    .site-footer__logo{ width:220px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- =========================================================
+     HEADER 1 : logo
+     ========================================================= -->
+<header class="site-header">
+  <a href="https://village.13080.fr" class="site-header__logo-link" aria-label="Retour à l'accueil">
+    <img src="https://actus.13080.fr/wp-content/uploads/2026/08/CIQ-LEA-VILLAGE-Logo-rectangulaire-blanc.png" alt="Village de Luynes" class="site-header__logo">
+  </a>
+</header>
+
+<!-- =========================================================
+     HEADER 2 : navigation
+     ========================================================= -->
+<header class="sub-header">
+  <div class="sub-header__inner">
+    <div class="sub-header__brand">
+      <a href="https://village.13080.fr/" class="sub-header__site-link">village.13080.fr</a>
+      <a href="https://13080.fr" class="sub-header__back-link" aria-label="Retour vers 13080.fr">← 13080.fr</a>
+    </div>
+
+    <input type="checkbox" id="sub-header-toggle" class="sub-header__toggle" />
+    <label for="sub-header-toggle" class="sub-header__burger" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </label>
+
+    <nav class="sub-header__nav" aria-label="Menu principal">
+      <a href="https://village.13080.fr/" class="sub-header__link">Accueil</a>
+      <a href="https://village.13080.fr/pratique" class="sub-header__link">Mon village</a>
+      <a href="https://actus.13080.fr/village" class="sub-header__link">Actualités</a>
+      <a href="https://village.13080.fr/annuaire" class="sub-header__btn sub-header__btn--primary">Annuaire</a>
+      <a href="https://ciq.13080.fr/contact" class="sub-header__btn sub-header__btn--secondary">Nous contacter</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- =========================================================
+     HERO
+     ========================================================= -->
+<section class="hero">
+  <div class="wrap hero__inner">
+    <h1>Le village de Luynes, au quotidien.</h1>
+    <p class="hero__lead">Les actualités, les infos pratiques et l'annuaire des associations, commerces et professionnels du village, réunis au même endroit.</p>
+    <div class="hero__ctas">
+      <a href="https://village.13080.fr/pratique" class="btn btn--primary">Infos pratiques</a>
+      <a href="https://village.13080.fr/annuaire" class="btn btn--ghost">Voir l'annuaire</a>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     ACTUALITÉS
+     ========================================================= -->
+<section aria-labelledby="news-title">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="news-title">Les dernières actualités du village</h2>
+    </div>
+
+    <ul class="news__list" id="news-list" aria-live="polite">
+      <li class="news__skeleton" aria-hidden="true"></li>
+      <li class="news__skeleton" aria-hidden="true"></li>
+      <li class="news__skeleton" aria-hidden="true"></li>
+    </ul>
+
+    <a href="https://actus.13080.fr/village" class="link-more">
+      Toutes les actualités du village
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- =========================================================
+     MON VILLAGE / ANNUAIRE
+     ========================================================= -->
+<section class="section--alt" aria-labelledby="access-title">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="access-title">Trouver ce dont vous avez besoin</h2>
+      <p>Les démarches et adresses utiles d'un côté, ceux qui font vivre Luynes de l'autre.</p>
+    </div>
+
+    <div class="access__grid">
+      <a href="https://village.13080.fr/pratique" class="access-card access-card--navy">
+        <span class="access-card__icon" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        </span>
+        <h3>Infos pratiques</h3>
+        <p>Mairie, transports, services, démarches : l'essentiel pour vivre à Luynes.</p>
+        <span class="access-card__cta">
+          Consulter les infos pratiques
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </a>
+
+      <a href="https://village.13080.fr/annuaire" class="access-card access-card--light">
+        <span class="access-card__icon" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3V4z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 9h6M9 13h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </span>
+        <h3>Annuaire</h3>
+        <p>Associations, commerces et professionnels : retrouvez leurs coordonnées et leurs activités.</p>
+        <span class="access-card__cta">
+          Ouvrir l'annuaire
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     HISTOIRE & PHOTOS PAR CHRISTIAN
+     ========================================================= -->
+<section aria-labelledby="history-title">
+  <div class="wrap">
+    <div class="history">
+      <div>
+        <h2 id="history-title">Luynes d'hier à aujourd'hui, par Christian</h2>
+        <p>Christian raconte l'histoire du village et partage ses photos de Luynes : des rues, des lieux et des moments à redécouvrir.</p>
+      </div>
+      <div class="history__panel">
+        <p class="history__panel-title">L'histoire et les photos de Luynes</p>
+        <p>Un regard personnel sur le village, ses lieux et sa mémoire.</p>
+        <a href="https://village.13080.fr/histoire" class="btn btn--primary">Découvrir</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+<footer class="site-footer">
+  <img src="https://actus.13080.fr/wp-content/uploads/2026/08/CIQ-LEA-Logo-rectangulaire-blanc.png" alt="CIQ Léa" class="site-footer__logo">
+  <nav class="site-footer__links" aria-label="Liens du pied de page">
+    <a href="https://13080.fr" class="site-footer__link">Retour sur 13080.fr</a>
+    <span class="site-footer__separator">•</span>
+    <a href="https://13080.fr/mentions-legales" class="site-footer__link">Mentions légales</a>
+    <span class="site-footer__separator">•</span>
+    <a href="https://ciq.13080.fr/contact" class="site-footer__link">Nous contacter</a>
+  </nav>
+</footer>
+
+<!-- =========================================================
+     SCRIPT : 3 derniers articles (API REST WordPress)
+     ========================================================= -->
+<script>
+(function () {
+  var API = 'https://actus.13080.fr/wp-json/wp/v2';
+  var CATEGORY_SLUG = 'village';   // catégorie correspondant à actus.13080.fr/village
+  var COUNT = 3;
+  var list = document.getElementById('news-list');
+
+  var arrow = '<svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  function decode(html) {
+    var t = document.createElement('textarea');
+    t.innerHTML = html;
+    return t.value;
+  }
+
+  function showStatus(msg) {
+    list.innerHTML = '';
+    var li = document.createElement('li');
+    li.className = 'news__status';
+    li.textContent = msg;
+    list.appendChild(li);
+  }
+
+  function render(posts) {
+    list.innerHTML = '';
+    posts.forEach(function (p) {
+      var li = document.createElement('li');
+      li.className = 'news__item';
+
+      var a = document.createElement('a');
+      a.className = 'news__link';
+      a.href = p.link;
+
+      var d = document.createElement('time');
+      d.className = 'news__date';
+      d.dateTime = p.date;
+      d.textContent = new Date(p.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+
+      var t = document.createElement('span');
+      t.className = 'news__title';
+      t.textContent = decode(p.title.rendered);
+
+      var ar = document.createElement('span');
+      ar.className = 'news__arrow';
+      ar.innerHTML = arrow;
+
+      a.appendChild(d); a.appendChild(t); a.appendChild(ar);
+      li.appendChild(a);
+      list.appendChild(li);
+    });
+  }
+
+  function getJSON(url) {
+    return fetch(url).then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    });
+  }
+
+  getJSON(API + '/categories?slug=' + CATEGORY_SLUG + '&_fields=id')
+    .then(function (cats) {
+      if (!cats.length) throw new Error('Catégorie introuvable');
+      return getJSON(API + '/posts?categories=' + cats[0].id + '&per_page=' + COUNT + '&orderby=date&order=desc&_fields=id,date,link,title');
+    })
+    .then(function (posts) {
+      if (!posts.length) { showStatus('Aucune actualité publiée pour le moment.'); return; }
+      render(posts);
+    })
+    .catch(function () {
+      showStatus('Les actualités ne peuvent pas être chargées pour le moment. Retrouvez-les directement sur actus.13080.fr/village.');
+    });
+})();
+</script>
+
+</body>
+</html>
