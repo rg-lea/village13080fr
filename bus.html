@@ -9,7 +9,7 @@
 :root{--navy:#242E63;--gold:#FFC500;--gd:#AD8901;--bg:#F5F6FA;--ln:rgba(36,46,99,.14);--mut:rgba(36,46,99,.72);--bad:#B3261E;--r:18px}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;background:#fff;color:var(--navy);font-family:'Outfit',system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.45;font-size:17px}
-h1,h2,h3{font-weight:700;margin:0;letter-spacing:-.015em}a{color:inherit}button,input{font-family:inherit;color:var(--navy);font-size:inherit}
+h1,h2,h3,h4{font-weight:700;margin:0;letter-spacing:-.015em}a{color:inherit}button,input{font-family:inherit;color:var(--navy);font-size:inherit}
 button{-webkit-tap-highlight-color:transparent}
 .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
@@ -50,17 +50,12 @@ button{-webkit-tap-highlight-color:transparent}
 
 /* ===== STRUCTURE : 2 colonnes (ordinateur) / 1 colonne (mobile) ===== */
 .app{background:var(--bg);padding:20px 0 56px}
-.layout{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-items:start}
+.layout{display:grid;gap:16px;max-width:760px;margin:0 auto}
 .col{display:grid;gap:16px;min-width:0}
-@media(min-width:960px){
- .layout{grid-template-columns:minmax(320px,380px) minmax(0,1fr);gap:28px}
- .planner{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto}
- .pl-sum,.pl-close{display:none!important}
- .pl-body{display:block!important}}
-@media(max-width:959px){
- .planner.is-collapsed{position:sticky;top:8px;z-index:20;padding:12px 14px}
- .planner.is-collapsed .pl-body{display:none}
- .planner:not(.is-collapsed) .pl-sum{display:none}}
+.pl-sum{display:none}
+.planner.is-collapsed{padding:14px 16px}
+.planner.is-collapsed .pl-sum{display:flex}
+.planner.is-collapsed .pl-body{display:none}
 
 /* ===== COMPOSANTS ===== */
 .card{background:#fff;border:1px solid var(--ln);border-radius:var(--r);padding:22px;box-shadow:0 1px 2px rgba(36,46,99,.05),0 8px 28px rgba(36,46,99,.06)}
@@ -79,15 +74,18 @@ button{-webkit-tap-highlight-color:transparent}
 .pl-sum__t{flex:1;min-width:0}
 .pl-sum__t small{display:block;color:var(--mut);font-size:.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pl-sum__t b{display:block;font-size:1.1rem;line-height:1.2}
-@media(max-width:959px){.pl-sum{display:flex}.planner:not(.is-collapsed) .pl-sum{display:none}}
 .step{margin-top:22px}.pl-head+.step{margin-top:14px}
 .step__t{display:flex;align-items:center;gap:10px;font-size:1.02rem;margin:0 0 10px}
 .num{flex:none;width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;text-align:center;line-height:26px;font-size:.85rem}
 .step.is-todo .num{background:rgba(36,46,99,.28)}
 .step.is-todo .step__t{color:var(--mut)}
 .hint{margin:0;padding:12px 14px;border:1px dashed rgba(36,46,99,.25);border-radius:12px;color:var(--mut);font-size:.93rem}
-.lines,.dirs{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr))}
-@media(min-width:960px){.lines,.dirs{grid-template-columns:1fr}}
+.dirs{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+.lines{display:flex;flex-wrap:wrap;gap:8px}
+.ln{min-width:76px;height:56px;padding:0 14px;border:2px solid transparent;border-radius:14px;color:#fff;font-weight:800;font-size:1.4rem;cursor:pointer;font-variant-numeric:tabular-nums;transition:transform .1s}
+.ln:hover:not(:disabled){transform:translateY(-1px)}
+.ln[aria-pressed=true]{background:var(--gold)!important;color:var(--navy)!important;border-color:var(--navy)}
+.ln:disabled{opacity:.3;cursor:not-allowed}
 .opt{display:flex;align-items:center;gap:14px;width:100%;min-height:58px;text-align:left;padding:8px 14px;border:2px solid rgba(36,46,99,.18);border-radius:14px;background:#fff;cursor:pointer;font-weight:600;transition:background-color .15s,border-color .15s}
 .opt.line{padding-left:8px}
 .opt:hover:not(:disabled){border-color:var(--navy);background:rgba(36,46,99,.04)}
@@ -96,7 +94,7 @@ button{-webkit-tap-highlight-color:transparent}
 .opt__t small{display:block;font-weight:400;color:var(--mut);font-size:.85rem}
 .opt[aria-pressed=true]{border-color:var(--navy);background:rgba(255,197,0,.22);box-shadow:inset 0 0 0 1px var(--navy)}
 .opt[aria-pressed=true]::after{content:"✓";flex:none;font-weight:800}
-.opt[aria-pressed=true] .badge{background:var(--gold);color:var(--navy)}
+.opt[aria-pressed=true] .badge{background:var(--gold)!important;color:var(--navy)!important}
 .stops{list-style:none;margin:0;padding:6px 0;border:1px solid var(--ln);border-radius:14px;background:#fff}
 .stops li{position:relative}
 .stops li::before{content:"";position:absolute;left:24px;top:0;bottom:0;width:2px;background:rgba(36,46,99,.18)}
@@ -106,6 +104,12 @@ button{-webkit-tap-highlight-color:transparent}
 .stops li button:hover{background:rgba(36,46,99,.05)}
 .stops li button[aria-pressed=true]{background:rgba(255,197,0,.22);font-weight:700}
 .stops li button[aria-pressed=true]::before{background:var(--gold)}
+/* --- distinction des réseaux --- */
+.net{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;margin:16px 0 8px;font-size:.95rem}
+.net:first-of-type{margin-top:0}
+.net i{width:14px;height:14px;border-radius:4px;flex:none}
+.net span{color:var(--mut);font-size:.85rem;font-weight:400}
+.netpill{display:inline-block;padding:1px 9px;border-radius:99px;color:#fff;font-weight:600;font-size:.85rem;margin-left:6px}
 
 /* --- résultats --- */
 .res__head{display:flex;gap:16px;align-items:center}
@@ -248,29 +252,40 @@ kbd{display:inline-block;padding:1px 7px;border-radius:5px;background:rgba(255,2
      fichier officiel (accents, majuscules et articles « le/la/les » ignorés).
      Un arrêt absent du fichier est signalé dans la console du navigateur,
      et la page ?diag=1 liste ce qui a été trouvé ou non.
+   - stops:'auto' : la ligne affiche tous ses arrêts situés à moins de
+     guardKm du centre de Luynes (pratique quand on ne connaît pas les noms).
    - Un élément de « stops » peut aussi être une LISTE de noms possibles
      (ex. l'Arena) : le premier trouvé dans le fichier est retenu et le
      garde-fou kilométrique ne s'applique pas à cet arrêt.
    - guardKm : un arrêt n'est retenu que s'il se trouve à moins de cette
      distance des arrêts dont le nom contient « Luynes » (évite les
      homonymes situés dans d'autres communes).
+   - color / desc : couleur et description du réseau, affichées pour
+     distinguer les réseaux dans le sélecteur et les résultats.
    ===================================================================== */
 var CFG={
  feeds:{
-  aix:{label:'Aix-en-Bus',sources:[
+  aix:{label:'Aix-en-Bus',desc:'réseau urbain d’Aix',color:'#242E63',sources:[
     'https://app.mecatran.com/utw/ws/gtfsfeed/static/mamp-aix?apiKey=020c7c326b6c5e750b168064336e344c61213521',
     'https://transport.data.gouv.fr/resources/39603/download']},
-  c13:{label:'Cartreize',sources:[
+  c13:{label:'Cartreize',desc:'lignes express du département',color:'#0E7C66',sources:[
     'https://app.mecatran.com/utw/ws/gtfsfeed/static/mamp-c13?apiKey=3675433c4f196f4d3c6b62316e130536196f0336',
-    'https://transport.data.gouv.fr/resources/39602/download']}
+    'https://transport.data.gouv.fr/resources/39602/download']},
+  pam:{label:'Pays d’Aix Mobilité',desc:'lignes du Pays d’Aix',color:'#B4531A',sources:[
+    'https://app.mecatran.com/utw/ws/gtfsfeed/static/mamp-pam?apiKey=596e694f3330142c525b7d6b123a5b055f744058',
+    'https://transport.data.gouv.fr/resources/39601/download']}
  },
  lines:[
   {feed:'aix',name:'11',stops:['Luynes Mail','Vidal','De Green','Chapuis','Luynes Centre','Luynes Sud','Luynes Lycée','Lycée International de Luynes']},
   {feed:'aix',name:'14',stops:[['P+R Arena','P+R de l\'Arena','Arena','Pôle d\'échange Arena','PEM Arena','Arena du Pays d\'Aix'],'Trois Pigeons','Rampelin','Luynes Lycée','Lycée International de Luynes','Luynes Sud','Luynes Centre','Chapuis','La Blaque','Bon Rencontre','Frères Gris']},
-  {feed:'c13',name:'51',stops:['Frères Gris','Bon Rencontre','La Blaque','Chapuis','Luynes Sud','Lycée International de Luynes','Luynes Lycée','Rampelin','Trois Pigeons']}
+  {feed:'c13',name:'51',stops:['Frères Gris','Bon Rencontre','La Blaque','Chapuis','Luynes Sud','Lycée International de Luynes','Luynes Lycée','Rampelin','Trois Pigeons']},
+  {feed:'pam',name:'161',stops:'auto'},
+  {feed:'pam',name:'190',stops:'auto'},
+  {feed:'pam',name:'290',stops:'auto'}
  ],
  anchor:/luynes/i,
  guardKm:4,
+ center:[43.505,5.415], /* centre approximatif de Luynes, utilisé si aucun arrêt « Luynes » n'est trouvé (à vérifier) */
  cacheHours:12
 };
 var $=function(i){return document.getElementById(i)};
@@ -388,9 +403,9 @@ async function parseFeed(key,blob,prog){
   var nm=(c[H.stop_name]||'').trim(),la=parseFloat(c[H.stop_lat]),lo=parseFloat(c[H.stop_lon]);
   stops[id]={n:nm,c:H.stop_code!==undefined?(c[H.stop_code]||''):'',la:la,lo:lo,g:true};
   if(CFG.anchor.test(nm)&&!isNaN(la)&&!isNaN(lo))anch.push([la,lo])});
- /* garde-fou géographique : le centre de Luynes = médiane des arrêts « Luynes … » */
- if(anch.length){var cla=median(anch.map(function(x){return x[0]})),clo=median(anch.map(function(x){return x[1]}));
-  Object.keys(stops).forEach(function(id){var s=stops[id];s.g=isNaN(s.la)||isNaN(s.lo)?false:km(cla,clo,s.la,s.lo)<=CFG.guardKm})}
+ /* garde-fou géographique : le centre de Luynes = médiane des arrêts « Luynes … » (ou CFG.center à défaut) */
+ var cla=anch.length?median(anch.map(function(x){return x[0]})):CFG.center[0],clo=anch.length?median(anch.map(function(x){return x[1]})):CFG.center[1];
+ Object.keys(stops).forEach(function(id){var s=stops[id];s.g=isNaN(s.la)||isNaN(s.lo)?false:km(cla,clo,s.la,s.lo)<=CFG.guardKm});
  Object.keys(lines).forEach(function(nm){Object.keys(lines[nm].dirs).forEach(function(k){var D=lines[nm].dirs[k];
   if(!D.head){var lastId=D.stops[D.stops.length-1];D.head=(stops[lastId]&&stops[lastId].n)||lastId}})});
  prog('Lecture des calendriers');
@@ -409,8 +424,8 @@ async function idbGet(k){try{var db=await idb();return await new Promise(functio
 async function idbSet(k,v){try{var db=await idb();await new Promise(function(res,rej){var t=db.transaction('feeds','readwrite');t.objectStore('feeds').put(v,k);t.oncomplete=res;t.onerror=function(){rej(t.error)}})}catch(e){log('cache local indisponible : '+e)}}
 var FEEDS={};
 Object.keys(CFG.feeds).forEach(function(k){FEEDS[k]={key:k,state:'loading',phase:'Démarrage',prog:0,data:null,stale:false,savedAt:0,err:''}});
-/* v7 : la signature change pour forcer le rechargement (ajout de l'Arena) */
-function sig(k){return CFG.lines.filter(function(l){return l.feed===k}).map(function(l){return l.name}).join(',')+'|'+CFG.guardKm+'|v7'}
+/* v8 : la signature change pour forcer le rechargement (ajout des lignes 161/190/290) */
+function sig(k){return CFG.lines.filter(function(l){return l.feed===k}).map(function(l){return l.name}).join(',')+'|'+CFG.guardKm+'|v8'}
 var tick=null;function progress(){if(tick)return;tick=setTimeout(function(){tick=null;renderPlanner();render()},250)}
 async function download(url,f){
  var r=await fetch(url,{cache:'no-cache'});if(!r.ok)throw new Error('HTTP '+r.status);
@@ -433,7 +448,7 @@ async function loadFeed(key){
   catch(e){var m=(e&&e.name==='TypeError'?'bloqué par le navigateur (CORS ou réseau)':String(e&&e.message||e));errs.push(mask(u)+' → '+m);log('['+key+'] échec '+mask(u)+' : '+m)}}
  if(cached&&cached.sig===sig(key)){f.data=cached.data;f.savedAt=cached.savedAt;f.stale=true;f.state='ready';log('['+key+'] copie locale ancienne utilisée');return}
  f.state='error';f.err=errs.join(' | ')}
-function logMissing(k){CFG.lines.forEach(function(lc){if(lc.feed!==k)return;var d=lineData(lc.name);if(!d)return;
+function logMissing(k){CFG.lines.forEach(function(lc){if(lc.feed!==k||lc.stops==='auto')return;var d=lineData(lc.name);if(!d)return;
  var found={};dirKeys(d,lc.name).forEach(function(x){luyStops(d,lc.name,x).forEach(function(y){found[key(y.n)]=1})});
  var ko=lc.stops.filter(function(e){return !aliases(e).some(function(n){return found[key(n)]})}).map(function(e){return aliases(e)[0]});
  if(ko.length)log('ligne '+lc.name+' : arrêts introuvables dans le fichier : '+ko.join(', '))})}
@@ -454,15 +469,16 @@ function theory(d,name,dir,stopId,iso){var out=[],tr=(d.trips[name]||{})[dir]||[
  out.sort(function(x,y){return x.m-y.m});var res=[];out.forEach(function(p){var l=res[res.length-1];if(l&&Math.abs(l.m-p.m)<0.5)return;res.push(p)});return res}
 /* Arrêts de Luynes d'une ligne dans un sens : uniquement ceux de la liste de CFG (le terminus n'a pas de départ).
    Un élément de « stops » peut être un texte, ou une liste de noms possibles (alias) :
-   dans ce cas, l'arrêt est accepté même au-delà de guardKm (ex. P+R de l'Arena). */
+   dans ce cas, l'arrêt est accepté même au-delà de guardKm (ex. P+R de l'Arena).
+   Si stops vaut 'auto' : tous les arrêts situés dans le rayon guardKm sont retenus. */
 function aliases(e){return Array.isArray(e)?e:[e]}
-function wantKeys(name){var c=lineCfg(name),out=[];if(!c)return out;
+function wantKeys(name){var c=lineCfg(name),out=[];if(!c)return out;if(c.stops==='auto')return null;
  c.stops.forEach(function(e){aliases(e).forEach(function(n){out.push(key(n))})});return out}
-function farKeys(name){var c=lineCfg(name),out=[];if(!c)return out;
+function farKeys(name){var c=lineCfg(name),out=[];if(!c||!Array.isArray(c.stops))return out;
  c.stops.forEach(function(e){if(Array.isArray(e))e.forEach(function(n){out.push(key(n))})});return out}
 function luyStops(d,name,dir){var dd=d.lines[name]&&d.lines[name].dirs[dir];if(!dd)return[];
  var want=wantKeys(name),far=farKeys(name),ids=dd.stops.length>1?dd.stops.slice(0,-1):dd.stops,out=[],cnt={};
- ids.forEach(function(id){var s=d.stops[id],k=s&&key(s.n);if(!s||(!s.g&&far.indexOf(k)<0)||want.indexOf(k)<0)return;out.push({id:id,n:s.n,c:s.c});cnt[s.n]=(cnt[s.n]||0)+1});
+ ids.forEach(function(id){var s=d.stops[id],k=s&&key(s.n);if(!s||(!s.g&&far.indexOf(k)<0)||(want&&want.indexOf(k)<0))return;out.push({id:id,n:s.n,c:s.c});cnt[s.n]=(cnt[s.n]||0)+1});
  out.forEach(function(o){o.label=cnt[o.n]>1&&o.c?o.n+' ('+o.c+')':o.n});return out}
 function curStop(){var d=lineData(S.line);if(!d||S.dir===null||!S.stop||!d.lines[S.line].dirs[S.dir])return null;
  var l=luyStops(d,S.line,S.dir);for(var i=0;i<l.length;i++)if(l[i].id===S.stop)return l[i];return null}
@@ -478,7 +494,8 @@ function queryString(){var q=new URLSearchParams();
 function writeURL(){var s=queryString();try{history.replaceState(null,'',location.pathname+(s?'?'+s:''))}catch(e){}
  var c=curStop(),m=document.querySelector('meta[name="apple-mobile-web-app-title"]');
  if(c){var d=lineData(S.line);document.title='Bus '+S.line+' → '+d.lines[S.line].dirs[S.dir].head+' · '+c.label+' | village.13080.fr';if(m)m.content='Bus '+S.line+' '+c.label}
- else{document.title=BASE_TITLE;if(m)m.content='Bus Luynes'}}
+ else{document.title=BASE_TITLE;if(m)m.content='Bus Luynes'}
+ setManifest()}
 function save(){var c=curStop();if(!c)return;try{localStorage.setItem(LKEY,JSON.stringify({line:S.line,dir:S.dir,stop:c.id}))}catch(e){}}
 function lastTrip(){var l=null;try{l=JSON.parse(localStorage.getItem(LKEY)||'null')}catch(e){}
  if(!l||!lineCfg(l.line))return null;var d=lineData(l.line);if(!d||!d.lines[l.line].dirs[l.dir])return null;
@@ -499,32 +516,40 @@ function ui(){sanitize();autoPick();renderPlanner();writeURL();renderFav();rende
 var DIAG=/(^|[?&])diag(=|&|$)/.test(location.search);
 function renderDiag(){var D=$('diag');if(!DIAG){D.hidden=true;return}D.hidden=false;
  var h='<h2 style="font-size:1.2rem">Contrôle des arrêts de Luynes</h2><p class="res__dir" style="margin:6px 0 0">Pour chaque ligne : arrêts de la liste retrouvés dans le fichier officiel, et ceux qui manquent.</p>';
- CFG.lines.forEach(function(lc){var f=FEEDS[lc.feed];h+='<h3 class="sub">Ligne '+esc(lc.name)+'</h3>';
+ CFG.lines.forEach(function(lc){var f=FEEDS[lc.feed];h+='<h3 class="sub">Ligne '+esc(lc.name)+' ('+esc(CFG.feeds[lc.feed].label)+')</h3>';
   if(f.state!=='ready'){h+='<p class="res__dir">'+(f.state==='loading'?'Chargement…':'Fichier indisponible')+'</p>';return}
   var d=lineData(lc.name);if(!d){h+='<p class="res__dir">Ligne absente du fichier officiel.</p>';return}
   var found={},all={};dirKeys(d,lc.name).forEach(function(k){d.lines[lc.name].dirs[k].stops.forEach(function(id){var s=d.stops[id];if(s&&s.g)all[s.n]=1});luyStops(d,lc.name,k).forEach(function(x){found[key(x.n)]=x.n})});
-  var ok=[],ko=[];lc.stops.forEach(function(e){var a=aliases(e);(a.some(function(n){return found[key(n)]})?ok:ko).push(a[0])});
+  var ok=[],ko=[];if(lc.stops!=='auto')lc.stops.forEach(function(e){var a=aliases(e);(a.some(function(n){return found[key(n)]})?ok:ko).push(a[0])});
   h+='<p style="margin:6px 0">Trouvés ('+Object.keys(found).length+') : '+esc(Object.keys(found).map(function(k){return found[k]}).join(', ')||'aucun')+'</p>';
-  h+='<p style="margin:6px 0;color:'+(ko.length?'var(--bad)':'var(--mut)')+'">Non trouvés ('+ko.length+') : '+esc(ko.join(', ')||'aucun')+'</p>';
-  if(ko.length)h+='<p class="res__dir" style="margin:6px 0">Arrêts de la ligne à moins de '+CFG.guardKm+' km du centre de Luynes : '+esc(Object.keys(all).join(', '))+'</p>'});
+  if(lc.stops==='auto')h+='<p class="res__dir" style="margin:6px 0">Mode automatique : tous les arrêts à moins de '+CFG.guardKm+' km du centre de Luynes.</p>';
+  else{h+='<p style="margin:6px 0;color:'+(ko.length?'var(--bad)':'var(--mut)')+'">Non trouvés ('+ko.length+') : '+esc(ko.join(', ')||'aucun')+'</p>';
+  if(ko.length)h+='<p class="res__dir" style="margin:6px 0">Arrêts de la ligne à moins de '+CFG.guardKm+' km du centre de Luynes : '+esc(Object.keys(all).join(', '))+'</p>'}});
  setHTML(D,h)}
 function anyLoading(){return Object.keys(FEEDS).some(function(k){return FEEDS[k].state==='loading'})}
 function renderPlanner(){
  var P=$('planner'),d=lineData(S.line),L=d&&d.lines[S.line],c=curStop(),h='';
  P.className='card planner'+(c&&!S.editing?' is-collapsed':'');
- if(c){h+='<div class="pl-sum"><span class="badge">'+esc(S.line)+'</span><div class="pl-sum__t"><small>Direction '+esc(L.dirs[S.dir].head)+'</small><b>'+esc(c.label)+'</b></div><button type="button" class="btn btn--sm" data-act="edit">Modifier</button></div>'}
+ if(c){var pc=CFG.feeds[lineCfg(S.line).feed].color;
+  h+='<div class="pl-sum"><span class="badge" style="background:'+pc+';color:#fff">'+esc(S.line)+'</span><div class="pl-sum__t"><small>Direction '+esc(L.dirs[S.dir].head)+'</small><b>'+esc(c.label)+'</b></div><button type="button" class="btn btn--sm" data-act="edit">Modifier</button></div>'}
  h+='<div class="pl-body"><div class="pl-head"><h2>Mon trajet</h2>'+(c?'<button type="button" class="btn btn--sm pl-close" data-act="done">Fermer</button>':'')+'</div>';
- /* 1. ligne */
- h+='<section class="step"><h3 class="step__t"><span class="num">1</span>Ligne</h3><div class="lines">';
- CFG.lines.forEach(function(lc){var k=lc.name,f=FEEDS[lc.feed],sub='',dis=false;
-  if(f.state==='loading')sub='Chargement… '+Math.round(f.prog*100)+' %';
-  else if(f.state==='error'){sub='Horaires indisponibles';dis=true}
-  else{var dx=lineData(k);
-   if(!dx){sub='Ligne absente du fichier officiel';dis=true}
-   else if(!dirKeys(dx,k).some(function(x){return luyStops(dx,k,x).length})){sub='Aucun arrêt à Luynes';dis=true}
-   else sub=dirKeys(dx,k).map(function(x){return dx.lines[k].dirs[x].head}).join(' ↔ ')}
-  h+='<button type="button" class="opt line" data-act="line" data-v="'+esc(k)+'" aria-pressed="'+(S.line===k)+'"'+(dis?' disabled':'')+'><span class="badge">'+esc(k)+'</span><span class="opt__t">'+esc(sub)+'<small>'+esc(CFG.feeds[lc.feed].label)+'</small></span></button>'});
- h+='</div></section>';
+ /* 1. ligne, groupées par réseau */
+ h+='<section class="step"><h3 class="step__t"><span class="num">1</span>Ligne</h3>';
+ Object.keys(CFG.feeds).forEach(function(fk){var fc=CFG.feeds[fk];
+  h+='<h4 class="net"><i style="background:'+fc.color+'"></i><b>'+esc(fc.label)+'</b><span>'+esc(fc.desc)+'</span></h4><div class="lines">';
+  CFG.lines.forEach(function(lc){if(lc.feed!==fk)return;var k=lc.name,f=FEEDS[fk],sub='',dis=false;
+   if(f.state==='loading')sub='Chargement… '+Math.round(f.prog*100)+' %';
+   else if(f.state==='error'){sub='Horaires indisponibles';dis=true}
+   else{var dx=lineData(k);
+    if(!dx){sub='Ligne absente du fichier officiel';dis=true}
+    else if(!dirKeys(dx,k).some(function(x){return luyStops(dx,k,x).length})){sub='Aucun arrêt à Luynes';dis=true}
+    else sub=dirKeys(dx,k).map(function(x){return dx.lines[k].dirs[x].head}).join(' ↔ ')}
+   var bs=S.line===k?'':' style="background:'+fc.color+';color:#fff"';
+   h+='<button type="button" class="ln" data-act="line" data-v="'+esc(k)+'" style="background:'+fc.color+'" title="'+esc(sub)+'" aria-label="Ligne '+esc(k)+(sub?', '+esc(sub):'')+'" aria-pressed="'+(S.line===k)+'"'+(dis?' disabled':'')+'>'+esc(k)+'</button>'});
+  h+='</div>';
+  if(FEEDS[fk].state==='loading')h+='<p class="hint" style="margin-top:8px">Chargement des horaires… '+Math.round(FEEDS[fk].prog*100)+' %</p>';
+  else if(FEEDS[fk].state==='error')h+='<p class="hint" style="margin-top:8px">Horaires indisponibles pour ce réseau.</p>'});
+ h+='</section>';
  /* 2. direction */
  h+='<section class="step'+(L?'':' is-todo')+'"><h3 class="step__t"><span class="num">2</span>Direction</h3>';
  if(!L)h+='<p class="hint">Choisissez d’abord une ligne.</p>';
@@ -566,7 +591,8 @@ function render(){var R=$('res'),s=curStop();
  if(!s){setHTML(R,empty());return}
  var d=lineData(S.line),dd=d.lines[S.line].dirs[S.dir],f=feedOfLine(S.line),td=today(),nowMs=Date.now(),endIso=iso8(d.end),
   iso=S.mode==='next'?td:(S.date&&S.date>=td?S.date:td),isToday=iso===td,cov=coverage(d,iso);
- var h='<div class="res__head"><span class="badge badge--lg">'+esc(S.line)+'</span><div><p class="res__dir">Direction '+esc(dd.head)+'</p><h2>'+esc(s.label)+'</h2></div></div>';
+ var fc=CFG.feeds[lineCfg(S.line).feed];
+ var h='<div class="res__head"><span class="badge badge--lg" style="background:'+fc.color+';color:#fff">'+esc(S.line)+'</span><div><p class="res__dir">Direction '+esc(dd.head)+'<span class="netpill" style="background:'+fc.color+'">'+esc(fc.label)+'</span></p><h2>'+esc(s.label)+'</h2></div></div>';
  h+='<div class="seg" role="group" aria-label="Affichage"><button type="button" data-act="mode" data-v="next" aria-pressed="'+(S.mode==='next')+'">Prochains départs</button><button type="button" data-act="mode" data-v="day" aria-pressed="'+(S.mode==='day')+'">Tous les horaires</button></div>';
  h+='<div class="alert"><i>i</i><div>Horaires théoriques : ils ne tiennent pas compte des retards ni des suppressions.</div></div>';
  if(f.stale)h+='<div class="alert alert--warn"><i>!</i><div><b>Horaires peut-être pas à jour.</b> Le fichier officiel n’a pas pu être actualisé : copie du '+new Date(f.savedAt).toLocaleString('fr-FR')+'.</div></div>';
@@ -611,26 +637,35 @@ $('res').addEventListener('click',function(e){var b=e.target.closest&&e.target.c
  else if(a==='retry'){Object.keys(FEEDS).filter(function(k){return FEEDS[k].state==='error'}).forEach(start);ui()}
  else if(a==='restore'){var l=lastTrip();if(!l)return;S.line=l.line;S.dir=l.dir;S.stop=l.stop;S.mode='next';S.date=null;S.editing=false;ui()}});
 $('res').addEventListener('change',function(e){if(e.target&&e.target.id==='date'){S.date=e.target.value||S.date;S.showPast=false;render()}});
-/* ---------- favoris / écran d'accueil ---------- */
+/* ---------- favoris / écran d'accueil : un clic, une action ---------- */
+var deferredInstall=null,favMsg='',mfUrl=null;
 function device(){var u=navigator.userAgent||'';if(/iPad|iPhone|iPod/.test(u)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1))return'ios';if(/Android/i.test(u))return'android';return'desktop'}
 function isMac(){return /Mac|iPhone|iPad/.test(navigator.platform||navigator.userAgent||'')}
-var hintOpen=null;
-function hintHTML(k){var dv=device();
- if(k==='bm'){
-  if(dv==='ios')return'<b>Ajouter aux favoris (iPhone / iPad)</b><ol><li>Touchez <b>Partager</b> (carré avec une flèche vers le haut).</li><li>Choisissez <b>« Ajouter un marque-page »</b>.</li><li>Validez : le nom reprend déjà votre trajet.</li></ol>';
-  if(dv==='android')return'<b>Ajouter aux favoris (Android)</b><ol><li>Ouvrez le menu <b>⋮</b> du navigateur.</li><li>Touchez l’étoile <b>☆</b> ou <b>« Ajouter aux favoris »</b>.</li></ol>';
-  return'<b>Ajouter aux favoris</b><p style="margin:6px 0 0">Appuyez sur '+(isMac()?'<kbd>⌘</kbd> + <kbd>D</kbd>':'<kbd>Ctrl</kbd> + <kbd>D</kbd>')+'. Le nom proposé reprend déjà votre trajet. (Les navigateurs ne permettent pas de le faire automatiquement.)</p>'}
- if(dv==='ios')return'<b>Ajouter à l’écran d’accueil (iPhone / iPad)</b><ol><li>Touchez <b>Partager</b> (carré avec une flèche vers le haut).</li><li>Faites défiler et choisissez <b>« Sur l’écran d’accueil »</b>.</li><li>Touchez <b>Ajouter</b> : une icône ouvrira directement ce trajet.</li></ol>';
- if(dv==='android')return'<b>Ajouter à l’écran d’accueil (Android)</b><ol><li>Ouvrez le menu <b>⋮</b> du navigateur.</li><li>Touchez <b>« Ajouter à l’écran d’accueil »</b> (ou « Installer l’application »).</li><li>Confirmez : une icône ouvrira directement ce trajet.</li></ol>';
- return'<b>Raccourci sur ordinateur</b><p style="margin:6px 0 0">Dans le menu du navigateur, cherchez <b>« Installer »</b> ou <b>« Créer un raccourci »</b>. L’écran d’accueil est surtout utile sur téléphone : sur ordinateur, les favoris suffisent.</p>'}
-function showHint(k){hintOpen=hintOpen===k?null:k;var H=$('fav-hint');if(!H)return;
- H.hidden=!hintOpen;H.innerHTML=hintOpen?hintHTML(hintOpen):'';
- Array.prototype.forEach.call($('fav').querySelectorAll('[data-hint]'),function(b){b.setAttribute('aria-expanded',b.dataset.hint===hintOpen)})}
-function renderFav(){var F=$('fav'),ok=complete();F.hidden=!ok;if(!ok)return;
- if($('fav-hint')){return}
+function tripTitle(){var c=curStop();return c?'Bus '+S.line+' '+c.label:'Bus Luynes'}
+/* manifeste dynamique : permet à Chrome/Android d'installer le trajet directement */
+function setManifest(){try{if(!curStop())return;
+ var m={name:tripTitle(),short_name:tripTitle().slice(0,12),start_url:location.href,scope:location.origin+'/',display:'standalone',background_color:'#242E63',theme_color:'#242E63',icons:[{src:'https://actus.13080.fr/wp-content/uploads/2026/08/CIQ-LEA-Logo-carre-bleu.png',sizes:'512x512',type:'image/png'}]};
+ var l=document.querySelector('link[rel=manifest]');if(!l){l=document.createElement('link');l.rel='manifest';document.head.appendChild(l)}
+ if(mfUrl)URL.revokeObjectURL(mfUrl);mfUrl=URL.createObjectURL(new Blob([JSON.stringify(m)],{type:'application/manifest+json'}));l.href=mfUrl}catch(e){}}
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredInstall=e;renderFav(true)});
+window.addEventListener('appinstalled',function(){deferredInstall=null;say('Ajouté à votre écran d’accueil.');renderFav(true)});
+function say(t){favMsg=t;var H=$('fav-hint');if(H){H.hidden=!t;H.textContent=t}}
+async function shareTrip(){try{await navigator.share({title:tripTitle(),url:location.href})}catch(e){}}
+async function favAction(k){var dv=device(),canShare=typeof navigator.share==='function';
+ if(k==='home'){
+  if(deferredInstall){var d=deferredInstall;deferredInstall=null;d.prompt();try{await d.userChoice}catch(e){}renderFav(true);return}
+  if(dv==='ios'&&canShare){say('Dans le menu qui s’ouvre, touchez « Sur l’écran d’accueil ».');await shareTrip();return}
+  say('Ouvrez le menu ⋮ de votre navigateur, puis touchez « Ajouter à l’écran d’accueil » (ou « Installer »).');return}
+ if(dv==='ios'&&canShare){say('Dans le menu qui s’ouvre, touchez « Ajouter un marque-page ».');await shareTrip();return}
+ if(dv==='android'){say('Ouvrez le menu ⋮ du navigateur, puis touchez l’étoile ☆.');return}
+ var ok=false;try{await navigator.clipboard.writeText(location.href);ok=true}catch(e){}
+ say((ok?'Lien copié. ':'')+'Appuyez sur '+(isMac()?'⌘ + D':'Ctrl + D')+' pour l’ajouter à vos favoris : le navigateur ne permet pas de le faire à votre place.')}
+function renderFav(force){var F=$('fav'),ok=complete();F.hidden=!ok;if(!ok)return;
+ if($('fav-hint')&&!force)return;
+ var showHome=device()!=='desktop'||!!deferredInstall;
  F.innerHTML='<h2>Retrouvez ce trajet en un clic</h2><p>Votre ligne, votre direction et votre arrêt sont mémorisés dans l’adresse de cette page.</p>'+
- '<div class="fav__actions"><button type="button" class="btn btn--gold" data-hint="bm" aria-expanded="false">Ajouter aux favoris</button><button type="button" class="btn btn--gold" data-hint="home" aria-expanded="false">Ajouter à l’écran d’accueil</button></div><div class="fav__hint" id="fav-hint" aria-live="polite" hidden></div>'}
-$('fav').addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('[data-hint]');if(t)showHint(t.dataset.hint)});
+ '<div class="fav__actions"><button type="button" class="btn btn--gold" data-fav="bm">Ajouter aux favoris</button>'+(showHome?'<button type="button" class="btn btn--gold" data-fav="home">Ajouter à l’écran d’accueil</button>':'')+'</div><div class="fav__hint" id="fav-hint" aria-live="polite"'+(favMsg?'':' hidden')+'>'+esc(favMsg)+'</div>'}
+$('fav').addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('[data-fav]');if(t)favAction(t.dataset.fav)});
 /* ---------- boucle ---------- */
 setInterval(function(){document.querySelectorAll('[data-t]').forEach(function(e){e.textContent=cd((+e.dataset.t-Date.now())/1000)})},1000);
 setInterval(function(){var a=document.activeElement;if(a&&a.id==='date')return;render()},30000);
