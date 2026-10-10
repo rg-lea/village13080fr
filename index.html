@@ -348,6 +348,45 @@
   .access-card--light p{ color:var(--navy-muted-on-white); }
   .access-card--light .access-card__cta{ color:var(--gold-dark); }
 
+  /* Bandeau horaires des bus */
+  .bus-banner{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    margin-top:24px;
+    padding:24px 30px;
+    border-radius:16px;
+    background:var(--white);
+    border:1px solid var(--line-on-white);
+    border-left:3px solid var(--gold-dark);
+    color:var(--navy);
+    text-decoration:none;
+    transition:transform .15s ease;
+  }
+  .bus-banner:hover{ transform:translateY(-2px); }
+  .bus-banner__icon{
+    flex:none;
+    width:48px;
+    height:48px;
+    display:grid;
+    place-items:center;
+    border-radius:12px;
+    background:rgba(173,137,1,.12);
+    color:var(--gold-dark);
+  }
+  .bus-banner__text{ display:flex; flex-direction:column; gap:4px; flex:1; }
+  .bus-banner__text strong{ font-size:1.15rem; font-weight:700; }
+  .bus-banner__text span{ color:var(--navy-muted-on-white); line-height:1.5; }
+  .bus-banner__cta{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-weight:600;
+    font-size:15px;
+    color:var(--gold-dark);
+    white-space:nowrap;
+  }
+
   /* =========================================================
      HISTOIRE & PHOTOS
      ========================================================= */
@@ -431,6 +470,7 @@
     .news__date{ grid-column:1 / -1; }
 
     .access-card{ padding:30px 24px; }
+    .bus-banner{ flex-direction:column; align-items:flex-start; padding:24px; gap:14px; }
     .history__panel{ padding:32px 24px; }
     .history__panel .btn{ width:100%; justify-content:center; }
 
@@ -467,6 +507,7 @@
     <nav class="sub-header__nav" aria-label="Menu principal">
       <a href="https://village.13080.fr/" class="sub-header__link">Accueil</a>
       <a href="https://village.13080.fr/pratique" class="sub-header__link">Mon village</a>
+      <a href="https://village.13080.fr/bus" class="sub-header__link">Horaires des bus</a>
       <a href="https://actus.13080.fr/village" class="sub-header__link">Actualités</a>
       <a href="https://village.13080.fr/annuaire" class="sub-header__btn sub-header__btn--primary">Annuaire</a>
       <a href="https://ciq.13080.fr/contact" class="sub-header__btn sub-header__btn--secondary">Nous contacter</a>
@@ -513,7 +554,7 @@
 </section>
 
 <!-- =========================================================
-     MON VILLAGE / ANNUAIRE
+     MON VILLAGE / ANNUAIRE / BUS
      ========================================================= -->
 <section class="section--alt" aria-labelledby="access-title">
   <div class="wrap">
@@ -547,6 +588,20 @@
         </span>
       </a>
     </div>
+
+    <a href="https://village.13080.fr/bus" class="bus-banner">
+      <span class="bus-banner__icon" aria-hidden="true">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="16" height="14" rx="3" stroke="currentColor" stroke-width="1.8"/><path d="M4 11h16M8 21v-4M16 21v-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="8" cy="14" r=".6" fill="currentColor" stroke="currentColor"/><circle cx="16" cy="14" r=".6" fill="currentColor" stroke="currentColor"/></svg>
+      </span>
+      <span class="bus-banner__text">
+        <strong>Horaires des bus</strong>
+        <span>Retrouvez les horaires des bus qui passent par Luynes.</span>
+      </span>
+      <span class="bus-banner__cta">
+        Voir les horaires
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    </a>
   </div>
 </section>
 
