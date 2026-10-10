@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Infos pratiques - Le village de Luynes (13) | village.13080.fr</title>
-<meta name="description" content="Mairie de quartier, déchets, transports, écoles, santé, numéros d'urgence : toutes les infos pratiques pour vivre à Luynes (Aix-en-Provence).">
+<meta name="description" content="Mairie de quartier, déchets, transports, écoles, santé, salles, squares, équipements sportifs, patrimoine, numéros d'urgence : toutes les infos pratiques pour vivre à Luynes (Aix-en-Provence).">
 <link rel="icon" href="https://actus.13080.fr/wp-content/uploads/2026/08/CIQ-LEA-Logo-carre-bleu.png">
 
 <!-- Matomo -->
@@ -287,6 +287,7 @@
      ========================================================= */
   .grid-2{ display:grid; grid-template-columns:1.1fr .9fr; gap:24px; align-items:start; }
   .grid-3{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; align-items:stretch; }
+  .grid-stack{ margin-top:20px; }
 
   .card{
     background:var(--white);
@@ -390,7 +391,7 @@
   .section--alt .callout{ background:var(--white); }
 
   /* =========================================================
-     ÉCOLES
+     ÉCOLES + LISTES DE LIENS (réutilisées pour les lieux)
      ========================================================= */
   .school-group h3{ font-size:1.05rem; margin-bottom:4px; }
   .school-group__note{ font-size:.85rem; color:var(--navy-muted-on-white); margin:0 0 6px; }
@@ -409,6 +410,24 @@
   }
   .links-list a:hover{ color:var(--gold-dark); }
   .links-list svg{ flex:none; color:var(--gold-dark); }
+  /* Précisions sous un lien (téléphone, adresse) */
+  .links-list__meta{
+    margin:-6px 2px 12px;
+    font-size:.88rem;
+    line-height:1.45;
+    color:var(--navy-muted-on-white);
+  }
+  .links-list li a.tel{ display:inline; padding:0; font-weight:700; font-size:inherit; }
+  /* Intertitre à l'intérieur d'une liste (ex. Espace Ughetti) */
+  .links-list__group{
+    padding:14px 2px 2px;
+    font-size:.78rem;
+    font-weight:700;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--gold-dark);
+    border-bottom:none !important;
+  }
 
   /* =========================================================
      HISTOIRE (bandeau)
@@ -516,7 +535,7 @@
 <div class="page-intro">
   <div class="wrap">
     <h1>Infos pratiques</h1>
-    <p class="page-intro__lead">Mairie, déchets, transports, écoles, santé : tout ce qu'il faut savoir pour vivre au quotidien à Luynes.</p>
+    <p class="page-intro__lead">Mairie, déchets, transports, écoles, santé, lieux du village : tout ce qu'il faut savoir pour vivre au quotidien à Luynes.</p>
     <ul class="jump" aria-label="Aller à une rubrique">
       <li><a href="#urgences">Urgences</a></li>
       <li><a href="#mairie">Ma mairie</a></li>
@@ -525,6 +544,7 @@
       <li><a href="#ecoles">Écoles</a></li>
       <li><a href="#sante">Santé</a></li>
       <li><a href="#commerces">Marché et commerces</a></li>
+      <li><a href="#lieux">Lieux et équipements</a></li>
       <li><a href="#signaler">Signaler un problème</a></li>
     </ul>
   </div>
@@ -542,10 +562,6 @@
       <li><a class="emergency__item" href="tel:17"><span class="emergency__num">17</span><span class="emergency__label">Police / Gendarmerie</span><span class="emergency__sub">Danger, agression, cambriolage</span></a></li>
       <li><a class="emergency__item" href="tel:18"><span class="emergency__num">18</span><span class="emergency__label">Pompiers</span><span class="emergency__sub">Incendie, accident, secours</span></a></li>
       <li><a class="emergency__item" href="tel:112"><span class="emergency__num">112</span><span class="emergency__label">Numéro européen</span><span class="emergency__sub">Toutes urgences</span></a></li>
-      <li><a class="emergency__item" href="tel:3114"><span class="emergency__num">3114</span><span class="emergency__label">Prévention du suicide</span><span class="emergency__sub">24 h/24, 7 j/7</span></a></li>
-      <li><a class="emergency__item" href="tel:119"><span class="emergency__num">119</span><span class="emergency__label">Enfance en danger</span><span class="emergency__sub">Écoute et signalement</span></a></li>
-      <li><a class="emergency__item" href="tel:3919"><span class="emergency__num">3919</span><span class="emergency__label">Violences faites aux femmes</span><span class="emergency__sub">Écoute et orientation</span></a></li>
-      <li><a class="emergency__item" href="sms:114"><span class="emergency__num">114</span><span class="emergency__label">Par SMS</span><span class="emergency__sub">Personnes sourdes ou malentendantes</span></a></li>
     </ul>
   </div>
 </div>
@@ -787,7 +803,7 @@
       </div>
       <div class="card card--plain">
         <h3>Le marché de Luynes</h3>
-        <p>Les jours et l'emplacement du marché peuvent évoluer : ils sont indiqués sur la page de la Ville consacrée à Luynes.</p>
+        <p>Marché de producteurs et de produits frais, place de la Libération, en matinée : lundi, mercredi et dimanche. Les jours, les horaires et le nombre d'exposants varient selon la saison : vérifiez sur la page de la Ville consacrée à Luynes.</p>
         <a class="link-more link-more--block" href="https://www.aixenprovence.fr/Luynes-1642">
           Voir la page de la Ville
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -798,9 +814,107 @@
 </section>
 
 <!-- =========================================================
+     LIEUX ET ÉQUIPEMENTS
+     ========================================================= -->
+<section id="lieux" aria-labelledby="lieux-title">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="lieux-title">Lieux et équipements du village</h2>
+      <p>Salles, squares, terrains de sport, patrimoine : chaque lien ouvre l'emplacement sur la carte.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card school-group">
+        <h3>Salles et réceptions</h3>
+        <ul class="links-list">
+          <li>
+            <a href="https://maps.app.goo.gl/YaVEMbYatHSwmue8A">Mairie annexe de Luynes
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <p class="links-list__meta">Salle des mariages et salle en sous-sol<br><a class="tel" href="tel:+33488717465">04 88 71 74 65</a></p>
+          </li>
+          <li>
+            <a href="https://maps.app.goo.gl/83eB6HUfVacFrpHb8">Salle Ughetti
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <p class="links-list__meta"><a class="tel" href="tel:+33442918908">04 42 91 89 08</a></p>
+          </li>
+          <li>
+            <a href="https://maps.app.goo.gl/QFCsf5RDg75iXhi37">Maison des associations Albertin
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="card school-group">
+        <h3>Squares</h3>
+        <ul class="links-list">
+          <li><a href="https://maps.app.goo.gl/hTCkS3mvuFYxP8ecA">Square Abbé Blaise
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+          <li><a href="https://maps.app.goo.gl/vdJWPLQnpVyHAocZ9">Square Albertin
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+          <li><a href="https://maps.app.goo.gl/6YWkWX8xJdVfgdjV9">Square Stéphane Jullien
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+          <li><a href="https://maps.app.goo.gl/dqY2LCdfScGC4mny6">Square Ughetti
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+        </ul>
+      </div>
+
+      <div class="card school-group">
+        <h3>Équipements sportifs</h3>
+        <ul class="links-list">
+          <li class="links-list__group">Espace Ughetti</li>
+          <li><a href="https://maps.app.goo.gl/oDaXMLjLAAyU23YaA">Terrain de bi-cross
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+          <li><a href="https://maps.app.goo.gl/51NsSKSUKutVbtPB7">Skate-park
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+          <li><a href="https://maps.app.goo.gl/Ldd7FPbZW4dJwZ646">City stade
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+          <li class="links-list__group">Complexe sportif</li>
+          <li><a href="https://maps.app.goo.gl/TRJGV6xkCUgKTMe29">Complexe sportif Laurent Ruzzettu
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid-2 grid-stack">
+      <div class="card school-group">
+        <h3>Patrimoine luynois</h3>
+        <ul class="links-list">
+          <li><a href="https://maps.app.goo.gl/ZAEMVWX5WdSkwo9z9">Église Saint-Georges
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+          <li class="links-list__group">Fontaines</li>
+          <li><a href="https://maps.app.goo.gl/koBFyJNNJWt6NXdr8">Place de la Libération
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+          <li><a href="https://maps.app.goo.gl/f6h2Rfr3ntXtJpKt5">Avenue Jean Pelisse
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+          <li class="links-list__group">Mémoire</li>
+          <li>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=N%C3%A9cropole+nationale+de+Luynes">Nécropole nationale de Luynes
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <p class="links-list__meta">Cimetière militaire où reposent plus de 11 000 soldats des deux guerres mondiales. 2260 rue Claude Nicolas Ledoux, en face de l'Arena.</p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="card school-group">
+        <h3>Pratique</h3>
+        <ul class="links-list">
+          <li><a href="https://maps.app.goo.gl/zNZap6JqjbxTNsJH9">Distributeur automatique de billets
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+          <li class="links-list__group">Points d'eau</li>
+          <li><a href="https://maps.app.goo.gl/Y7psREg9SkpBc93p6">Square Abbé Blaise
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+          <li><a href="https://maps.app.goo.gl/5iDTkBUm1hBmtoww7">Espace Ughetti
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
      SIGNALER UN PROBLÈME
      ========================================================= -->
-<section id="signaler" aria-labelledby="signaler-title">
+<section id="signaler" class="section--alt" aria-labelledby="signaler-title">
   <div class="wrap">
     <div class="section-head">
       <h2 id="signaler-title">Signaler un problème</h2>
