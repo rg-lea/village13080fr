@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Les bus de Luynes – horaires et temps réel | village.13080.fr</title>
+<title>Les bus de Luynes – horaires | village.13080.fr</title>
 <link rel="icon" href="https://actus.13080.fr/wp-content/uploads/2026/08/CIQ-LEA-Logo-carre-bleu.png">
 <link rel="apple-touch-icon" href="https://actus.13080.fr/wp-content/uploads/2026/08/CIQ-LEA-Logo-carre-bleu.png">
 <meta name="apple-mobile-web-app-title" content="Bus Luynes">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
-:root{--navy:#242E63;--gold:#FFC500;--gd:#AD8901;--bg:#F5F6FA;--ln:rgba(36,46,99,.14);--mut:rgba(36,46,99,.7)}
+:root{--navy:#242E63;--gold:#FFC500;--gd:#AD8901;--bg:#F5F6FA;--ln:rgba(36,46,99,.14);--mut:rgba(36,46,99,.72);--bad:#B3261E;--r:18px}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;background:#fff;color:var(--navy);font-family:'Outfit',system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.45;font-size:17px}
 h1,h2,h3{font-weight:700;margin:0;letter-spacing:-.015em}a{color:inherit}button,input{font-family:inherit;color:var(--navy);font-size:inherit}
 button{-webkit-tap-highlight-color:transparent}
 .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 :focus-visible{outline:3px solid var(--gd);outline-offset:2px}
 /* ===== HEADER / FOOTER (inchangés) ===== */
 .site-header{background:#242E63;display:flex;justify-content:center;align-items:center;padding:16px 0}
@@ -41,103 +42,130 @@ button{-webkit-tap-highlight-color:transparent}
 .site-footer__links{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px}
 .site-footer__link{color:#fff;text-decoration:none;font-size:14px;font-weight:500}.site-footer__link:hover{color:#FFC500;text-decoration:underline}
 .site-footer__separator{color:#FFC500;font-size:14px}
+
 /* ===== TITRE ===== */
-.hero{background:linear-gradient(180deg,#F1F2F8 0%,#fff 100%);padding:32px 0 8px}
-.narrow{max-width:720px;margin:0 auto;padding:0 18px}
-.hero h1{font-size:clamp(2rem,6vw,3rem);font-weight:800;line-height:1.05;letter-spacing:-.025em}
-.hero p{margin:10px 0 0;color:var(--mut);font-size:1.05rem;line-height:1.55}
-/* ===== APPLICATION ===== */
-.app{padding:16px 0 40px}
-.panel{background:#fff;border:1px solid var(--ln);border-radius:18px;padding:20px;box-shadow:0 4px 18px rgba(36,46,99,.06);margin-top:16px}
+.hero{background:var(--bg);padding:36px 0 4px}
+.hero h1{font-size:clamp(2rem,5vw,2.9rem);font-weight:800;line-height:1.05;letter-spacing:-.025em}
+.hero p{margin:12px 0 0;max-width:62ch;color:var(--mut);font-size:1.05rem;line-height:1.55}
+
+/* ===== STRUCTURE : 2 colonnes (ordinateur) / 1 colonne (mobile) ===== */
+.app{background:var(--bg);padding:20px 0 56px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-items:start}
+.col{display:grid;gap:16px;min-width:0}
+@media(min-width:960px){
+ .layout{grid-template-columns:minmax(320px,380px) minmax(0,1fr);gap:28px}
+ .planner{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto}
+ .pl-sum,.pl-close{display:none!important}
+ .pl-body{display:block!important}}
+@media(max-width:959px){
+ .planner.is-collapsed{position:sticky;top:8px;z-index:20;padding:12px 14px}
+ .planner.is-collapsed .pl-body{display:none}
+ .planner:not(.is-collapsed) .pl-sum{display:none}}
+
+/* ===== COMPOSANTS ===== */
+.card{background:#fff;border:1px solid var(--ln);border-radius:var(--r);padding:22px;box-shadow:0 1px 2px rgba(36,46,99,.05),0 8px 28px rgba(36,46,99,.06)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:10px 18px;border:2px solid var(--navy);border-radius:12px;background:#fff;font-weight:600;cursor:pointer;text-decoration:none;transition:background-color .15s}
 .btn:hover{background:rgba(36,46,99,.08)}
 .btn--sm{min-height:40px;padding:6px 14px;font-size:.95rem}
 .btn--gold{background:var(--gold);border-color:var(--gold)}.btn--gold:hover{background:#e6b100}
-/* choix du trajet */
+.btn:disabled,.iconbtn:disabled{opacity:.35;cursor:not-allowed}
+.badge{flex:none;min-width:48px;height:48px;padding:0 8px;border-radius:12px;background:var(--navy);color:var(--gold);font-weight:800;font-size:1.4rem;display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums}
+.badge--lg{min-width:58px;height:58px;font-size:1.7rem;border-radius:14px}
+
+/* --- sélecteur de trajet --- */
 .pl-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .pl-head h2{font-size:1.35rem}
-.step{margin-top:20px}
-.step__t{display:flex;align-items:center;gap:10px;font-size:1.05rem;margin:0 0 10px}
-.step__t span{flex:none;width:28px;height:28px;border-radius:50%;background:var(--navy);color:#fff;text-align:center;line-height:28px;font-size:.9rem}
-.step__t small{font-weight:400;color:var(--mut);font-size:.88rem}
-.lines,.dirs{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr))}
-.line,.opt{display:flex;align-items:center;gap:14px;width:100%;min-height:60px;text-align:left;padding:8px 14px 8px 8px;border:2px solid rgba(36,46,99,.2);border-radius:14px;background:#fff;cursor:pointer;transition:background-color .15s,border-color .15s}
-.opt{padding:12px 16px;font-weight:600}
-.line:hover,.opt:hover{border-color:var(--navy);background:rgba(36,46,99,.04)}
-.line:disabled{opacity:.5;cursor:not-allowed}
-.line__n{flex:none;min-width:48px;height:48px;padding:0 8px;border-radius:11px;background:var(--navy);color:var(--gold);font-weight:800;font-size:1.4rem;display:flex;align-items:center;justify-content:center}
-.line__t{font-weight:600;font-size:.98rem;line-height:1.3}
-.line__t small{display:block;font-weight:400;color:var(--mut);font-size:.85rem}
-.line[aria-pressed=true],.opt[aria-pressed=true]{border-color:var(--navy);background:rgba(255,197,0,.22);box-shadow:inset 0 0 0 1px var(--navy)}
-.line[aria-pressed=true] .line__n{background:var(--gold);color:var(--navy)}
-.stops{list-style:none;margin:0;padding:6px 0;max-height:360px;overflow:auto;border:1px solid var(--ln);border-radius:14px;background:#fff}
+.pl-sum{align-items:center;gap:14px}
+.pl-sum__t{flex:1;min-width:0}
+.pl-sum__t small{display:block;color:var(--mut);font-size:.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pl-sum__t b{display:block;font-size:1.1rem;line-height:1.2}
+@media(max-width:959px){.pl-sum{display:flex}.planner:not(.is-collapsed) .pl-sum{display:none}}
+.step{margin-top:22px}.pl-head+.step{margin-top:14px}
+.step__t{display:flex;align-items:center;gap:10px;font-size:1.02rem;margin:0 0 10px}
+.num{flex:none;width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;text-align:center;line-height:26px;font-size:.85rem}
+.step.is-todo .num{background:rgba(36,46,99,.28)}
+.step.is-todo .step__t{color:var(--mut)}
+.hint{margin:0;padding:12px 14px;border:1px dashed rgba(36,46,99,.25);border-radius:12px;color:var(--mut);font-size:.93rem}
+.lines,.dirs{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr))}
+@media(min-width:960px){.lines,.dirs{grid-template-columns:1fr}}
+.opt{display:flex;align-items:center;gap:14px;width:100%;min-height:58px;text-align:left;padding:8px 14px;border:2px solid rgba(36,46,99,.18);border-radius:14px;background:#fff;cursor:pointer;font-weight:600;transition:background-color .15s,border-color .15s}
+.opt.line{padding-left:8px}
+.opt:hover:not(:disabled){border-color:var(--navy);background:rgba(36,46,99,.04)}
+.opt:disabled{opacity:.5;cursor:not-allowed}
+.opt__t{flex:1;min-width:0;line-height:1.3;font-size:.98rem}
+.opt__t small{display:block;font-weight:400;color:var(--mut);font-size:.85rem}
+.opt[aria-pressed=true]{border-color:var(--navy);background:rgba(255,197,0,.22);box-shadow:inset 0 0 0 1px var(--navy)}
+.opt[aria-pressed=true]::after{content:"✓";flex:none;font-weight:800}
+.opt[aria-pressed=true] .badge{background:var(--gold);color:var(--navy)}
+.stops{list-style:none;margin:0;padding:6px 0;border:1px solid var(--ln);border-radius:14px;background:#fff}
 .stops li{position:relative}
 .stops li::before{content:"";position:absolute;left:24px;top:0;bottom:0;width:2px;background:rgba(36,46,99,.18)}
 .stops li:first-child::before{top:50%}.stops li:last-child::before{bottom:50%}.stops li:only-child::before{display:none}
 .stops li button{position:relative;width:100%;min-height:52px;text-align:left;border:0;background:transparent;padding:12px 14px 12px 56px;cursor:pointer;font-weight:500}
 .stops li button::before{content:"";position:absolute;left:17px;top:50%;margin-top:-8px;width:16px;height:16px;border-radius:50%;background:#fff;border:2px solid var(--navy)}
 .stops li button:hover{background:rgba(36,46,99,.05)}
-.stops li.far button{color:var(--mut)}
-.more{margin-top:10px;border-style:dashed;font-weight:500;min-height:44px}
-.sum{display:flex;align-items:center;gap:14px}
-.sum .line__n{min-width:52px;height:52px}
-.sum__t{flex:1;min-width:0}
-.sum__t small{display:block;color:var(--mut);font-size:.88rem}
-.sum__t b{display:block;font-size:1.15rem;line-height:1.2}
-/* résultats */
-#res{margin-top:16px}
-.res__head{display:flex;gap:14px;align-items:center}
-.res__head .line__n{min-width:56px;height:56px;font-size:1.6rem;border-radius:13px}
-.res__dir{margin:0;font-size:.9rem;color:var(--mut);font-weight:500}
-.res__head h2{font-size:1.5rem;line-height:1.15;margin:1px 0}
-.pill{display:flex;gap:10px;align-items:flex-start;margin:16px 0 0;padding:12px 14px;border-radius:12px;font-size:.95rem;line-height:1.45}
-.pill b{font-weight:700}
-.pill i{flex:none;width:12px;height:12px;border-radius:50%;margin-top:6px}
-.pill.rt{background:#E3F4E8}.pill.rt i{background:#14663A}
-.pill.th{background:#FFF6DC}.pill.th i{background:var(--gd)}
-.pill.ko{background:#FDF3F2}.pill.ko i{background:#B3261E}
-.seg{display:flex;margin:16px 0 0;border:2px solid var(--navy);border-radius:14px;overflow:hidden}
+.stops li button[aria-pressed=true]{background:rgba(255,197,0,.22);font-weight:700}
+.stops li button[aria-pressed=true]::before{background:var(--gold)}
+
+/* --- résultats --- */
+.res__head{display:flex;gap:16px;align-items:center}
+.res__dir{margin:0;font-size:.92rem;color:var(--mut);font-weight:500}
+.res__head h2{font-size:clamp(1.4rem,3.6vw,1.8rem);line-height:1.12;margin:2px 0 0}
+.seg{display:flex;margin:20px 0 0;border:2px solid var(--navy);border-radius:14px;overflow:hidden}
 .seg button{flex:1;min-height:48px;border:0;background:#fff;font-weight:600;cursor:pointer;padding:8px}
 .seg button+button{border-left:2px solid var(--navy)}
 .seg button[aria-pressed=true]{background:var(--navy);color:#fff}
-.row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-.chip{min-height:44px;padding:8px 16px;border:2px solid rgba(36,46,99,.25);border-radius:999px;background:#fff;font-weight:600;cursor:pointer}
-.chip:hover{border-color:var(--navy)}
-.chip[aria-pressed=true]{background:var(--navy);color:#fff;border-color:var(--navy)}
-input[type=date]{min-height:44px;padding:8px 12px;border:2px solid rgba(36,46,99,.25);border-radius:10px}
-.nextcard{margin-top:16px;padding:20px;border-radius:16px;background:var(--navy);color:#fff}
-.nextcard .lab{font-size:.95rem;color:rgba(255,255,255,.78)}
-.nextcard .cd{font-size:clamp(2.6rem,12vw,3.6rem);font-weight:800;line-height:1.1;font-variant-numeric:tabular-nums}
-.nextcard .hr{margin-top:4px;font-weight:600;font-size:1.1rem;font-variant-numeric:tabular-nums}
-.nextcard small{color:rgba(255,255,255,.78)}
-.sub{font-size:1.05rem;margin:22px 0 4px}
+.alert{display:flex;gap:10px;align-items:flex-start;margin:14px 0 0;padding:12px 14px;border-radius:12px;font-size:.93rem;line-height:1.5;background:#F1F2F8}
+.alert i{flex:none;width:20px;height:20px;border-radius:50%;margin-top:1px;background:var(--navy);color:#fff;font-style:normal;font-weight:700;font-size:.78rem;line-height:20px;text-align:center}
+.alert--warn{background:#FFF6DC}.alert--warn i{background:var(--gd)}
+.alert--bad{background:#FDF3F2}.alert--bad i{background:var(--bad)}
+.alert .btn{margin-top:8px}
+.next{margin-top:16px;padding:22px;border-radius:16px;background:var(--navy);color:#fff;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:10px 24px}
+.next__lab{font-size:.95rem;color:rgba(255,255,255,.78)}
+.next__cd{font-size:clamp(2.8rem,10vw,4rem);font-weight:800;line-height:1.05;font-variant-numeric:tabular-nums;color:var(--gold)}
+.next__at{text-align:right}
+.next__hr{font-size:clamp(1.6rem,5vw,2.2rem);font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums}
+.sub{font-size:1.05rem;margin:24px 0 2px}
 .plist{list-style:none;margin:0;padding:0}
-.plist li{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:4px 12px;padding:13px 2px;border-bottom:1px solid var(--ln);font-variant-numeric:tabular-nums}
+.plist li{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 4px;border-bottom:1px solid var(--ln);font-variant-numeric:tabular-nums}
 .plist li:last-child{border-bottom:0}
-.plist .t{font-weight:700;font-size:1.15rem}
-.plist .w{color:var(--mut);font-weight:600;text-align:right;white-space:nowrap}
-.plist li.past{opacity:.4}
-.plist li.nx{background:rgba(255,197,0,.2);border-radius:10px;padding-left:10px;padding-right:10px;border-bottom-color:transparent}
-.tag{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.78rem;font-weight:700;margin-left:6px;vertical-align:middle}
-.tag.rt{background:#E3F4E8;color:#14663A}.tag.th{background:#FFF0C2;color:#6b5300}.tag.x{background:#FBE4E2;color:#8C1D18}
-.plist small{color:var(--mut);font-weight:400;font-size:.85rem;margin-left:4px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px;margin-top:12px}
-.cell{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:58px;padding:6px 4px;border:1.5px solid var(--ln);border-radius:12px;font-variant-numeric:tabular-nums;font-size:1.1rem;text-align:center}
-.cell b{font-weight:700}.cell small{font-size:.76rem;font-weight:600;color:var(--mut);line-height:1.2}
-.cell .ok{color:#14663A}.cell .late{color:#9A5B00}.cell .bad{color:#B3261E}.cell s{opacity:.55}
-.cell.past{opacity:.4}
-.cell.nx{background:rgba(255,197,0,.28);border-color:var(--gd)}
-.empty{text-align:center;padding:26px 8px}
-.empty__ic{font-size:2.6rem;line-height:1}
+.plist .t{font-weight:700;font-size:1.2rem}
+.plist .w{color:var(--mut);font-weight:600;white-space:nowrap}
+/* sélecteur de jour */
+.daynav{display:flex;gap:8px;align-items:center;margin-top:16px;flex-wrap:wrap}
+.iconbtn{flex:none;width:48px;height:48px;border:2px solid var(--navy);border-radius:12px;background:#fff;font-size:1.4rem;font-weight:600;line-height:1;cursor:pointer}
+.iconbtn:hover:not(:disabled){background:rgba(36,46,99,.08)}
+input[type=date]{flex:1;min-width:150px;min-height:48px;padding:8px 12px;border:2px solid rgba(36,46,99,.25);border-radius:12px;background:#fff}
+.chip{min-height:48px;padding:8px 16px;border:2px solid rgba(36,46,99,.25);border-radius:999px;background:#fff;font-weight:600;cursor:pointer}
+.chip:hover{border-color:var(--navy)}
+.daylabel{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;margin:16px 0 0;font-size:1.05rem}
+.daylabel span{color:var(--mut);font-size:.92rem}
+/* grille horaire par heure */
+.tt{margin-top:10px;border:1px solid var(--ln);border-radius:14px;overflow:hidden}
+.tt__row{display:grid;grid-template-columns:64px minmax(0,1fr);border-top:1px solid var(--ln)}
+.tt__row:first-child{border-top:0}
+.tt__h{background:var(--bg);font-weight:800;font-size:1.2rem;display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums}
+.tt__h small{font-weight:500;font-size:.8rem;margin-left:2px;color:var(--mut)}
+.tt__m{display:flex;flex-wrap:wrap;gap:6px;padding:10px 12px}
+.mn{min-width:48px;text-align:center;padding:8px 6px;border-radius:10px;font-weight:700;font-size:1.05rem;font-variant-numeric:tabular-nums;background:#fff;border:1.5px solid var(--ln)}
+.mn.past{opacity:.4}
+.mn.nx{background:var(--gold);border-color:var(--gd)}
+.more{margin-top:12px;border-style:dashed;font-weight:500;min-height:44px}
+.legend{display:flex;align-items:center;gap:8px;margin:12px 0 0;font-size:.88rem;color:var(--mut)}
+.legend i{width:16px;height:16px;border-radius:5px;background:var(--gold);border:1.5px solid var(--gd)}
+.none{margin:16px 0 0;padding:18px;border-radius:12px;background:var(--bg);text-align:center}
+.none .btn{margin-top:10px}
+.foot{margin:20px 0 0;padding-top:14px;border-top:1px solid var(--ln);font-size:.85rem;color:var(--mut);line-height:1.6}
+.foot a{color:var(--gd);font-weight:600}
+/* état vide / chargement */
+.empty{text-align:center;padding:30px 8px}
+.empty svg{color:var(--navy);opacity:.85}
 .empty h2{font-size:1.3rem;margin:12px 0 6px}.empty p{margin:0 auto;max-width:44ch;color:var(--mut)}
 .empty .btn{margin-top:16px}
-.load{margin:16px auto 0;max-width:380px;text-align:left;font-size:.9rem}
+.empty .alert{text-align:left;max-width:520px;margin-left:auto;margin-right:auto}
+.load{margin:18px auto 0;max-width:380px;text-align:left;font-size:.9rem}
 .load div{margin-top:10px}.load b{display:block;margin-bottom:4px}
 .bar{height:8px;border-radius:99px;background:rgba(36,46,99,.1);overflow:hidden}.bar i{display:block;height:100%;width:0;background:var(--gold);transition:width .25s}
-.foot{margin:18px 0 0;font-size:.85rem;color:var(--mut);line-height:1.6}
-.foot a{color:var(--gd);font-weight:600}
-.none{margin:16px 0 0;padding:16px;border-radius:12px;background:var(--bg);text-align:center}
-.none .btn{margin-top:10px}
 /* favoris */
 .fav{background:var(--navy);color:#fff;border:0}
 .fav h2{font-size:1.2rem;color:#fff}
@@ -148,11 +176,12 @@ input[type=date]{min-height:44px;padding:8px 12px;border:2px solid rgba(36,46,99
 .fav__hint ol{margin:6px 0 0;padding-left:20px}
 kbd{display:inline-block;padding:1px 7px;border-radius:5px;background:rgba(255,255,255,.22);font-family:inherit;font-weight:600;font-size:.88em}
 /* à propos */
-.about{background:var(--bg);border-top:1px solid var(--ln);padding:36px 0 44px}
+.about{background:#fff;border-top:1px solid var(--ln);padding:40px 0 48px}
+.about__in{max-width:760px}
 .about h2{font-size:1.25rem;margin-bottom:10px}
 .about p{margin:0 0 12px;line-height:1.65;font-size:.97rem}
 .about__links{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
-@media(max-width:600px){body{font-size:16.5px}.panel{padding:16px;border-radius:16px}.site-footer__logo{width:220px}}
+@media(max-width:600px){body{font-size:16.5px}.wrap{padding:0 16px}.card{padding:18px;border-radius:16px}.site-footer__logo{width:220px}.next{padding:18px}.tt__row{grid-template-columns:54px minmax(0,1fr)}}
 @media(prefers-reduced-motion:reduce){*{transition-duration:.01ms!important}html{scroll-behavior:auto}}
 </style></head><body>
 <header class="site-header"><a href="https://village.13080.fr" class="site-header__logo-link" aria-label="Retour à l'accueil"><img src="https://actus.13080.fr/wp-content/uploads/2026/08/CIQ-LEA-VILLAGE-Logo-rectangulaire-blanc.png" alt="Village de Luynes" class="site-header__logo"></a></header>
@@ -160,68 +189,79 @@ kbd{display:inline-block;padding:1px 7px;border-radius:5px;background:rgba(255,2
 <input type="checkbox" id="sub-header-toggle" class="sub-header__toggle"><label for="sub-header-toggle" class="sub-header__burger" aria-label="Ouvrir le menu"><span></span><span></span><span></span></label>
 <nav class="sub-header__nav" aria-label="Menu principal"><a href="https://village.13080.fr/" class="sub-header__link">Accueil</a><a href="https://village.13080.fr/pratique" class="sub-header__link">Mon village</a><a href="https://actus.13080.fr/village" class="sub-header__link">Actualités</a><a href="https://village.13080.fr/annuaire" class="sub-header__btn sub-header__btn--primary">Annuaire</a><a href="https://ciq.13080.fr/contact" class="sub-header__btn sub-header__btn--secondary">Nous contacter</a></nav></div></header>
 <main>
-<div class="hero"><div class="narrow">
+<div class="hero"><div class="wrap">
 <h1>Les bus de Luynes</h1>
-<p>Choisissez votre ligne, votre direction et votre arrêt : vos prochains passages s’affichent, en temps réel quand il est disponible.</p>
+<p>Choisissez votre ligne, votre direction et votre arrêt à Luynes : vos prochains départs s’affichent aussitôt.</p>
 </div></div>
-<section class="app"><div class="narrow">
+<section class="app"><div class="wrap">
 <noscript><p>Cette page nécessite JavaScript.</p></noscript>
-<div class="panel" id="planner" aria-label="Choix du trajet"></div>
-<div class="panel" id="res" aria-live="polite"></div>
-<div class="panel fav" id="fav" hidden></div>
+<div class="layout">
+ <aside class="card planner" id="planner" aria-label="Choix du trajet"></aside>
+ <div class="col">
+  <section class="card" id="res" aria-live="polite" aria-label="Horaires"></section>
+  <section class="card fav" id="fav" hidden></section>
+ </div>
+</div>
 </div></section>
-<section class="about" id="a-propos"><div class="narrow">
+<section class="about" id="a-propos"><div class="wrap"><div class="about__in">
 <h2>À propos de ce service</h2>
-<p>Ce service est construit par <strong>village.13080.fr</strong> avec l’aide de l’intelligence artificielle, à partir des données publiques de la <strong>Métropole Mobilité</strong> : horaires au format GTFS, temps réel au format SIRI.</p>
+<p>Ce service est construit par <strong>village.13080.fr</strong> avec l’aide de l’intelligence artificielle, à partir des données publiques de la <strong>Métropole Mobilité</strong> (horaires au format GTFS). Les heures affichées sont les horaires théoriques : elles ne tiennent pas compte des retards ni des suppressions.</p>
 <p><strong>Il n’est pas garanti sans erreur.</strong> Il ne remplace pas la grille d’horaires ni les sites officiels d’Aix-en-Bus et de la Métropole : en cas de doute, ce sont eux qui font foi.</p>
 <p>Aix-en-Bus : <a href="tel:+33970809013">09 70 80 90 13</a> · Métropole : <a href="tel:0800713137">0800 713 137</a></p>
 <div class="about__links"><a class="btn" href="https://www.aixenbus.fr/" target="_blank" rel="noopener">Site Aix-en-Bus</a><a class="btn" href="https://www.lametropolemobilite.fr/" target="_blank" rel="noopener">Métropole Mobilité</a><a class="btn" href="https://ciq.13080.fr/contact">Signaler une erreur</a></div>
-</div></section>
+</div></div></section>
 </main>
 <footer class="site-footer"><img src="https://actus.13080.fr/wp-content/uploads/2026/08/CIQ-LEA-Logo-rectangulaire-blanc.png" alt="CIQ Léa" class="site-footer__logo"><nav class="site-footer__links" aria-label="Liens du pied de page"><a href="https://13080.fr" class="site-footer__link">Retour sur 13080.fr</a><span class="site-footer__separator">•</span><a href="https://13080.fr/mentions-legales" class="site-footer__link">Mentions légales</a><span class="site-footer__separator">•</span><a href="https://ciq.13080.fr/contact" class="site-footer__link">Nous contacter</a></nav></footer>
 <script>
 (function(){'use strict';
 /* =====================================================================
-   RÉGLAGE POUR LE TEMPS RÉEL
-   Nom de votre dépôt GitHub, au format « compte/depot ».
-   Exemple : 'ciq-lea/bus-luynes'
-   Laissé vide, la page affiche les horaires théoriques seulement.
+   CONFIGURATION
+   - Pour ajouter une ligne : une entrée dans « lines » (flux + numéro).
+   - luynes : règles qui identifient un arrêt de Luynes d'après son NOM
+     dans le fichier officiel. Si un arrêt de Luynes n'apparaît pas, ajoutez
+     ici une règle correspondant à son nom (ex. /^Mon arrêt/i).
    ===================================================================== */
-var RT_REPO='rg-lea/village13080fr';
-
 var CFG={
  feeds:{
-  aix:{label:'Aix-en-Bus',siri:'KPA',sources:[
+  aix:{label:'Aix-en-Bus',sources:[
     'https://app.mecatran.com/utw/ws/gtfsfeed/static/mamp-aix?apiKey=020c7c326b6c5e750b168064336e344c61213521',
     'https://transport.data.gouv.fr/resources/39603/download']},
-  c13:{label:'Cartreize',siri:'CTZ_RDT13',sources:[
+  c13:{label:'Cartreize',sources:[
     'https://app.mecatran.com/utw/ws/gtfsfeed/static/mamp-c13?apiKey=3675433c4f196f4d3c6b62316e130536196f0336',
     'https://transport.data.gouv.fr/resources/39602/download']}
  },
  lines:[{feed:'aix',name:'11'},{feed:'aix',name:'14'},{feed:'c13',name:'51'}],
- anchorRegex:/luynes/i,radiusKm:2,cacheHours:12,refreshMs:75000,fresh:240,maxAge:720
+ luynes:[/luynes/i],
+ cacheHours:12
 };
-var RT_ON=/^[\w.-]+\/[\w.-]+$/.test(RT_REPO);
 var $=function(i){return document.getElementById(i)};
-var BASE_TITLE=document.title,LKEY='bus13080.v3';
-var S={line:null,dir:null,stop:null,all:false,mode:'next',day:'today',date:null,editing:false,showPast:false};
+var BASE_TITLE=document.title,LKEY='bus13080.v4';
+var S={line:null,dir:null,stop:null,mode:'next',date:null,editing:false,showPast:false};
 function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
-function escXml(s){return String(s).replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
 function mask(u){return String(u).replace(/(apiKey=)[^&\s]+/i,'$1•••')}
 function log(m){try{console.log('[bus] '+m)}catch(e){}}
+/* remplace le contenu d'un bloc en conservant le focus clavier */
+function setHTML(box,html){var a=document.activeElement,k=null;
+ if(a&&box.contains(a)){if(a.dataset&&a.dataset.act)k={act:a.dataset.act,v:a.dataset.v||''};else if(a.id)k={id:a.id}}
+ box.innerHTML=html;
+ if(k){var e=null;
+  if(k.id)e=document.getElementById(k.id);
+  else{var n=box.querySelectorAll('[data-act]');for(var i=0;i<n.length;i++){if(n[i].dataset.act===k.act&&(n[i].dataset.v||'')===k.v){e=n[i];break}}}
+  if(e&&!e.disabled)e.focus({preventScroll:true})}}
 /* ---------- temps (Paris) ---------- */
 var FM=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Paris',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'});
 function parts(ms){var p={};FM.formatToParts(new Date(ms)).forEach(function(x){p[x.type]=x.value});return p}
-function now(){var p=parts(Date.now());return{iso:p.year+'-'+p.month+'-'+p.day}}
+function today(){var p=parts(Date.now());return p.year+'-'+p.month+'-'+p.day}
 function addD(iso,n){var a=iso.split('-').map(Number);return new Date(Date.UTC(a[0],a[1]-1,a[2]+n)).toISOString().slice(0,10)}
 function offs(t){var p=parts(t);return Date.UTC(+p.year,+p.month-1,+p.day,+p.hour,+p.minute,+p.second)-Math.floor(t/1000)*1000}
 function epoch(iso,min){var a=iso.split('-').map(Number),t=Date.UTC(a[0],a[1]-1,a[2])+min*6e4,g=t-offs(t);return t-offs(g)}
-function hm(m){m=Math.floor(m)%1440;return('0'+Math.floor(m/60)).slice(-2)+':'+('0'+m%60).slice(-2)}
-function hmE(ms){var p=parts(ms);return p.hour+':'+p.minute}
-function cd(sec){if(sec<-30)return'passé';var m=Math.floor(Math.max(sec,0)/60);if(m<1)return'< 1 min';if(m<60)return m+' min';return Math.floor(m/60)+' h '+('0'+m%60).slice(-2)}
+function pad(n){return('0'+n).slice(-2)}
+function hm(m){m=Math.floor(m)%1440;return pad(Math.floor(m/60))+':'+pad(m%60)}
+function cd(sec){if(sec<-30)return'passé';var m=Math.floor(Math.max(sec,0)/60);if(m<1)return'< 1 min';if(m<60)return m+' min';return Math.floor(m/60)+' h '+pad(m%60)}
 var FL=new Intl.DateTimeFormat('fr-FR',{weekday:'long',day:'numeric',month:'long',timeZone:'UTC'});
 function dl(iso){var s=FL.format(new Date(iso+'T12:00:00Z'));return s.charAt(0).toUpperCase()+s.slice(1)}
 function fmtD(d){return d?d.replace(/(\d{4})(\d\d)(\d\d)/,'$3/$2/$1'):'?'}
+function iso8(s){return s&&s.length===8?s.slice(0,4)+'-'+s.slice(4,6)+'-'+s.slice(6,8):''}
 /* =====================================================================
    LECTURE DU GTFS (ZIP) DANS LE NAVIGATEUR
    ===================================================================== */
@@ -263,6 +303,7 @@ function tsec(s){if(!s)return null;var a=s.trim().split(':');if(a.length<2)retur
 function mergeStops(patterns){var order=patterns[0].ids.slice();
  for(var j=1;j<patterns.length;j++){var prev=-1;patterns[j].ids.forEach(function(id){var i=order.indexOf(id);if(i>=0){prev=i;return}order.splice(prev+1,0,id);prev=prev+1})}
  return order}
+function isLuynes(name){return CFG.luynes.some(function(r){return r.test(name)})}
 async function parseFeed(key,blob,prog){
  var zip=await openZip(blob),want=CFG.lines.filter(function(l){return l.feed===key}).map(function(l){return l.name});
  prog('Lecture des lignes');
@@ -281,8 +322,8 @@ async function parseFeed(key,blob,prog){
  var st=new Map();
  await readCsv(zip,'stop_times.txt',function(line,H){var tid;
   if(H.trip_id===0&&line.charCodeAt(0)!==34)tid=line.slice(0,line.indexOf(','));else tid=csvSplit(line)[H.trip_id];
-  if(!tripInfo.has(tid))return;var c=csvSplit(line),t=tsec(c[H.departure_time])
-  ;if(t===null)t=tsec(c[H.arrival_time]);
+  if(!tripInfo.has(tid))return;var c=csvSplit(line),t=tsec(c[H.departure_time]);
+  if(t===null)t=tsec(c[H.arrival_time]);
   var a=st.get(tid);if(!a){a=[];st.set(tid,a)}a.push([+c[H.stop_sequence],c[H.stop_id],t])});
  prog('Assemblage des horaires');
  var trips={},pat={},heads={},used={},sids={};
@@ -299,10 +340,10 @@ async function parseFeed(key,blob,prog){
  Object.keys(pat).forEach(function(pk){var nm=pk.split('|')[0],dir=pk.split('|')[1],arr=Object.keys(pat[pk]).map(function(k){return pat[pk][k]}).sort(function(a,b){return b.n-a.n}),hh=heads[pk],hk=Object.keys(hh).sort(function(a,b){return hh[b]-hh[a]})[0]||'';
   ((lines[nm]=lines[nm]||{dirs:{}}).dirs)[dir]={head:hk,stops:mergeStops(arr)}});
  prog('Lecture des arrêts');
- var stops={},luy=[];
- await readCsv(zip,'stops.txt',function(line,H){var c=csvSplit(line),id=c[H.stop_id],nm=c[H.stop_name]||'',la=parseFloat(c[H.stop_lat]),lo=parseFloat(c[H.stop_lon]);
-  if(used[id])stops[id]={n:nm,la:la,lo:lo,c:H.stop_code!==undefined?c[H.stop_code]:''};
-  if(CFG.anchorRegex.test(nm)&&!isNaN(la)&&!isNaN(lo))luy.push([la,lo])});
+ var stops={};
+ await readCsv(zip,'stops.txt',function(line,H){var c=csvSplit(line),id=c[H.stop_id];if(!used[id])return;
+  var nm=(c[H.stop_name]||'').trim();
+  stops[id]={n:nm,c:H.stop_code!==undefined?(c[H.stop_code]||''):'',l:isLuynes(nm)}});
  Object.keys(lines).forEach(function(nm){Object.keys(lines[nm].dirs).forEach(function(k){var D=lines[nm].dirs[k];
   if(!D.head){var lastId=D.stops[D.stops.length-1];D.head=(stops[lastId]&&stops[lastId].n)||lastId}})});
  prog('Lecture des calendriers');
@@ -314,14 +355,14 @@ async function parseFeed(key,blob,prog){
   (dates[s]=dates[s]||{})[c[H.date]]=+c[H.exception_type];if(c[H.date]<mn)mn=c[H.date];if(c[H.date]>mx)mx=c[H.date]},true);
  var fs=null,fe=null;
  await readCsv(zip,'feed_info.txt',function(line,H){var c=csvSplit(line);if(H.feed_start_date!==undefined)fs=c[H.feed_start_date]||null;if(H.feed_end_date!==undefined)fe=c[H.feed_end_date]||null},true);
- return{start:fs||mn,end:fe||mx,lines:lines,trips:trips,stops:stops,luynes:luy,cal:cal,dates:dates,nTrips:st.size}}
+ return{start:fs||mn,end:fe||mx,lines:lines,trips:trips,stops:stops,cal:cal,dates:dates,nTrips:st.size}}
 /* ---------- téléchargement + cache local ---------- */
 function idb(){return new Promise(function(res,rej){var r=indexedDB.open('bus13080',1);r.onupgradeneeded=function(){r.result.createObjectStore('feeds')};r.onsuccess=function(){res(r.result)};r.onerror=function(){rej(r.error)}})}
 async function idbGet(k){try{var db=await idb();return await new Promise(function(res,rej){var q=db.transaction('feeds').objectStore('feeds').get(k);q.onsuccess=function(){res(q.result)};q.onerror=function(){rej(q.error)}})}catch(e){return null}}
 async function idbSet(k,v){try{var db=await idb();await new Promise(function(res,rej){var t=db.transaction('feeds','readwrite');t.objectStore('feeds').put(v,k);t.oncomplete=res;t.onerror=function(){rej(t.error)}})}catch(e){log('cache local indisponible : '+e)}}
 var FEEDS={};
 Object.keys(CFG.feeds).forEach(function(k){FEEDS[k]={key:k,state:'loading',phase:'Démarrage',prog:0,data:null,stale:false,savedAt:0,err:''}});
-function sig(k){return CFG.lines.filter(function(l){return l.feed===k}).map(function(l){return l.name}).join(',')+'|v4'}
+function sig(k){return CFG.lines.filter(function(l){return l.feed===k}).map(function(l){return l.name}).join(',')+'|'+CFG.luynes.join(',')+'|v5'}
 var tick=null;function progress(){if(tick)return;tick=setTimeout(function(){tick=null;renderPlanner();render()},250)}
 async function download(url,f){
  var r=await fetch(url,{cache:'no-cache'});if(!r.ok)throw new Error('HTTP '+r.status);
@@ -344,6 +385,8 @@ async function loadFeed(key){
   catch(e){var m=(e&&e.name==='TypeError'?'bloqué par le navigateur (CORS ou réseau)':String(e&&e.message||e));errs.push(mask(u)+' → '+m);log('['+key+'] échec '+mask(u)+' : '+m)}}
  if(cached&&cached.sig===sig(key)){f.data=cached.data;f.savedAt=cached.savedAt;f.stale=true;f.state='ready';log('['+key+'] copie locale ancienne utilisée');return}
  f.state='error';f.err=errs.join(' | ')}
+function start(k){var f=FEEDS[k];f.state='loading';f.phase='Démarrage';f.prog=0;f.err='';
+ loadFeed(k).then(function(){ui();if(complete())save()},function(e){f.state='error';f.err=String(e&&e.message||e);ui()})}
 /* ---------- accès aux données de ligne ---------- */
 function lineCfg(n){for(var i=0;i<CFG.lines.length;i++)if(CFG.lines[i].name===n)return CFG.lines[i];return null}
 function feedOfLine(n){var c=lineCfg(n);return c?FEEDS[c.feed]:null}
@@ -355,57 +398,17 @@ function svcActive(d,sid,iso){var x=iso.replace(/-/g,''),ex=d.dates[sid]&&d.date
 function theory(d,name,dir,stopId,iso){var out=[],tr=(d.trips[name]||{})[dir]||[];
  [-1,0].forEach(function(off){var day=addD(iso,off);if(!coverage(d,day))return;
   tr.forEach(function(t){var i=t.st.indexOf(stopId);if(i<0||t.t[i]===null||(i===t.st.length-1&&t.st.length>1)||!svcActive(d,t.sid,day))return;var m=t.t[i]/60,a=m+off*1440;if(a<0||a>=1440)return;
-   out.push({tid:t.id,m:a,sched:epoch(day,m)})})});
+   out.push({m:a,sched:epoch(day,m)})})});
  out.sort(function(x,y){return x.m-y.m});var res=[];out.forEach(function(p){var l=res[res.length-1];if(l&&Math.abs(l.m-p.m)<0.5)return;res.push(p)});return res}
-function anchor(){var la=0,lo=0,n=0;Object.keys(FEEDS).forEach(function(k){var d=FEEDS[k].data;if(d)d.luynes.forEach(function(p){la+=p[0];lo+=p[1];n++})});return n?{la:la/n,lo:lo/n}:null}
-function km(a,b,c,d){var R=6371,r=Math.PI/180,x=(c-a)*r,y=(d-b)*r,h=Math.sin(x/2)*Math.sin(x/2)+Math.cos(a*r)*Math.cos(c*r)*Math.sin(y/2)*Math.sin(y/2);return 2*R*Math.asin(Math.sqrt(h))}
-function dirStops(d,name,dir){var ids=d.lines[name].dirs[dir].stops,A=anchor();if(ids.length>1)ids=ids.slice(0,-1); /* le terminus n'a pas de départ */
- return ids.map(function(id){var s=d.stops[id]||{n:id,la:NaN,lo:NaN};var near=CFG.anchorRegex.test(s.n)||(A&&!isNaN(s.la)&&km(A.la,A.lo,s.la,s.lo)<=CFG.radiusKm);return{id:id,n:s.n,near:!!near}})}
-function curStop(){var d=lineData(S.line);if(!d||S.dir===null||!d.lines[S.line].dirs[S.dir])return null;
- var ids=d.lines[S.line].dirs[S.dir].stops;if(!S.stop||ids.indexOf(S.stop)<0)return null;var s=d.stops[S.stop]||{n:S.stop};return{id:S.stop,n:s.n,la:s.la,lo:s.lo,c:s.c}}
+/* Arrêts STRICTEMENT de Luynes pour une ligne et un sens (le terminus n'a pas de départ) */
+function luyStops(d,name,dir){var dd=d.lines[name]&&d.lines[name].dirs[dir];if(!dd)return[];
+ var ids=dd.stops.length>1?dd.stops.slice(0,-1):dd.stops,out=[],cnt={};
+ ids.forEach(function(id){var s=d.stops[id];if(!s||!s.l)return;out.push({id:id,n:s.n,c:s.c});cnt[s.n]=(cnt[s.n]||0)+1});
+ out.forEach(function(o){o.label=cnt[o.n]>1&&o.c?o.n+' ('+o.c+')':o.n});return out}
+function curStop(){var d=lineData(S.line);if(!d||S.dir===null||!S.stop||!d.lines[S.line].dirs[S.dir])return null;
+ var l=luyStops(d,S.line,S.dir);for(var i=0;i<l.length;i++)if(l[i].id===S.stop)return l[i];return null}
 function complete(){return !!curStop()}
-/* =====================================================================
-   TEMPS RÉEL — fichier rt.json publié par l'action GitHub (voir .github)
-   ===================================================================== */
-function numTail(s){var m=/(\d+)\D*$/.exec(String(s));return m?m[1]:''}
-function normName(s){return String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim()}
-var SNAP={data:null,got:0};
-async function fetchSnap(){var errs=[];
- try{var r=await fetch('https://api.github.com/repos/'+RT_REPO+'/contents/rt.json?ref=rt-data',{headers:{'Accept':'application/vnd.github.raw+json'}});
-  if(!r.ok)throw new Error('API GitHub HTTP '+r.status);return await r.json()}catch(e){errs.push(String(e&&e.message||e))}
- try{var r2=await fetch('https://raw.githubusercontent.com/'+RT_REPO+'/rt-data/rt.json?t='+Math.floor(Date.now()/60000));
-  if(!r2.ok)throw new Error('raw HTTP '+r2.status);return await r2.json()}catch(e){errs.push(String(e&&e.message||e))}
- throw new Error(errs.join(' | '))}
-var RT={key:null,state:RT_ON?'init':'off',ts:0,visits:[],busy:false};
-function visitsFor(stop){var fd=SNAP.data&&SNAP.data.feeds&&SNAP.data.feeds[CFG.feeds[lineCfg(S.line).feed].siri];
- if(!fd||!fd.ok)return null;var names=SNAP.data.names||{},tn=numTail(stop.id),nn=normName(stop.n),ok={},any=false,rx=new RegExp('(^|[^0-9])(80|90)?'+S.line+'([^0-9]|$)');
- fd.journeys.forEach(function(j){if(!rx.test(j.l))return;j.c.forEach(function(c){var ref=c[0];if(ref===stop.id||(stop.c&&ref===stop.c)||(tn.length>=3&&numTail(ref)===tn)){ok[ref]=1;any=true}})});
- if(!any)fd.journeys.forEach(function(j){if(!rx.test(j.l))return;j.c.forEach(function(c){if(nn&&normName(names[c[0]]||'')===nn)ok[c[0]]=1})});
- var out=[];fd.journeys.forEach(function(j){if(!rx.test(j.l))return;j.c.forEach(function(c){if(ok[c[0]])out.push({aimed:c[1],exp:c[2],cancel:!!c[3],line:j.l,pub:'',refs:j.r})})});
- return out}
-async function pull(){if(!RT_ON)return;var s=curStop();if(!s||RT.busy)return;var key=S.line+'|'+S.dir+'|'+s.id;
- if(RT.key!==key)RT={key:key,state:RT.state==='ok'?'ok':'init',ts:RT.ts,visits:[],busy:false};
- RT.busy=true;
- try{if(!SNAP.data||Date.now()-SNAP.got>CFG.refreshMs){SNAP.data=await fetchSnap();SNAP.got=Date.now()}
-  var v=visitsFor(s);if(RT.key!==key)return;
-  if(v===null){RT.state='ko';RT.visits=[];log('temps réel : flux non disponible dans le fichier')}
-  else{RT.visits=v;RT.ts=SNAP.data.ts;RT.state='ok';log('temps réel : '+v.length+' passage(s) pour cet arrêt')}}
- catch(e){RT.state='ko';log('temps réel : '+String(e&&e.message||e))}
- finally{RT.busy=false}}
-function age(){return RT.ts?Math.max(0,(Date.now()-RT.ts)/1000):Infinity}
-function ago(){var a=Math.round(age());return a<90?a+' s':Math.round(a/60)+' min'}
-function quality(){if(RT.state!=='ok')return'none';var a=age();return a<=CFG.fresh?'rt':a<=CFG.maxAge?'old':'none'}
-function lineOk(v){return new RegExp('(^|[^0-9])(80|90)?'+S.line+'([^0-9]|$)').test(v.line+' '+v.pub)}
-function rtFor(p){var best=null,byT=false;
- RT.visits.forEach(function(v){if(!lineOk(v))return;
-  var t=v.refs.some(function(r){return r&&(r===p.tid||p.tid.slice(-(r.length+1))===':'+r||r.slice(-(p.tid.length+1))===':'+p.tid)});
-  if(t){best=v;byT=true;return}
-  if(!byT&&v.aimed&&Math.abs(v.aimed-p.sched)<=60000)best=v});
- if(!best)return null;if(best.cancel)return{cancel:true};if(!best.exp)return null;
- var dm=Math.round((best.exp-p.sched)/6e4);if(Math.abs(dm)>180)return null;return{t:best.exp,delay:dm}}
-/* =====================================================================
-   ÉTAT <-> URL (le lien mémorise ligne, direction, arrêt)
-   ===================================================================== */
+/* ---------- état <-> URL (le lien mémorise ligne, direction, arrêt) ---------- */
 function fromURL(){var q;try{q=new URLSearchParams(location.search)}catch(e){return}
  var l=q.get('ligne');if(!l||!lineCfg(l))return;S.line=l;
  var d=q.get('sens');if(d===null||d==='')return;S.dir=d;
@@ -415,110 +418,127 @@ function queryString(){var q=new URLSearchParams();
  return q.toString()}
 function writeURL(){var s=queryString();try{history.replaceState(null,'',location.pathname+(s?'?'+s:''))}catch(e){}
  var c=curStop(),m=document.querySelector('meta[name="apple-mobile-web-app-title"]');
- if(c){var d=lineData(S.line);document.title='Bus '+S.line+' → '+d.lines[S.line].dirs[S.dir].head+' · '+c.n+' | village.13080.fr';if(m)m.content='Bus '+S.line+' '+c.n}
+ if(c){var d=lineData(S.line);document.title='Bus '+S.line+' → '+d.lines[S.line].dirs[S.dir].head+' · '+c.label+' | village.13080.fr';if(m)m.content='Bus '+S.line+' '+c.label}
  else{document.title=BASE_TITLE;if(m)m.content='Bus Luynes'}}
 function save(){var c=curStop();if(!c)return;try{localStorage.setItem(LKEY,JSON.stringify({line:S.line,dir:S.dir,stop:c.id}))}catch(e){}}
 function lastTrip(){var l=null;try{l=JSON.parse(localStorage.getItem(LKEY)||'null')}catch(e){}
- if(!l||!lineCfg(l.line))return null;var d=lineData(l.line);if(!d||!d.lines[l.line].dirs[l.dir]||d.lines[l.line].dirs[l.dir].stops.indexOf(l.stop)<0)return null;
- return{line:l.line,dir:l.dir,stop:l.stop,label:'Ligne '+l.line+' · '+(d.stops[l.stop]||{n:l.stop}).n}}
+ if(!l||!lineCfg(l.line))return null;var d=lineData(l.line);if(!d||!d.lines[l.line].dirs[l.dir])return null;
+ var s=luyStops(d,l.line,l.dir).filter(function(x){return x.id===l.stop})[0];if(!s)return null;
+ return{line:l.line,dir:l.dir,stop:l.stop,label:'Ligne '+l.line+' : '+s.label}}
 function sanitize(){var d=lineData(S.line);if(!d)return;var L=d.lines[S.line];
  if(S.dir!==null&&!L.dirs[S.dir]){S.dir=null;S.stop=null}
- if(S.dir!==null&&S.stop&&L.dirs[S.dir].stops.indexOf(S.stop)<0)S.stop=null}
+ if(S.dir!==null&&S.stop&&!luyStops(d,S.line,S.dir).some(function(x){return x.id===S.stop}))S.stop=null}
+/* choisit automatiquement quand il n'y a qu'une seule possibilité */
+function autoPick(){var d=lineData(S.line);if(!d)return;
+ if(S.dir===null){var ok=dirKeys(d,S.line).filter(function(k){return luyStops(d,S.line,k).length});if(ok.length===1)S.dir=ok[0]}
+ if(S.dir!==null&&!S.stop){var ls=luyStops(d,S.line,S.dir);if(ls.length===1){S.stop=ls[0].id;S.editing=false}}}
 /* =====================================================================
-   INTERFACE
+   INTERFACE : sélecteur de trajet
    ===================================================================== */
-function ui(){sanitize();renderPlanner();writeURL();renderFav();render()}
+function ui(){sanitize();autoPick();renderPlanner();writeURL();renderFav();render()}
 function anyLoading(){return Object.keys(FEEDS).some(function(k){return FEEDS[k].state==='loading'})}
 function renderPlanner(){
- var P=$('planner'),d=lineData(S.line),L=d&&d.lines[S.line],dd=L&&S.dir!==null?L.dirs[S.dir]:null,c=curStop(),h='';
- if(S.line&&S.stop&&!c&&anyLoading()){P.innerHTML='<div class="sum"><span class="line__n">'+esc(S.line)+'</span><div class="sum__t"><b>Chargement de votre trajet…</b></div></div>';return}
- if(c&&!S.editing){
-  P.innerHTML='<div class="sum"><span class="line__n">'+esc(S.line)+'</span><div class="sum__t"><small>Direction '+esc(dd.head)+'</small><b>'+esc(c.n)+'</b></div><button type="button" class="btn btn--sm" data-act="edit">Modifier</button></div>';return}
- h+='<div class="pl-head"><h2>Mon trajet</h2>'+(c?'<button type="button" class="btn btn--sm" data-act="done">Fermer</button>':'')+'</div>';
- h+='<div class="step"><h3 class="step__t"><span>1</span>Quelle ligne ?</h3><div class="lines">';
- CFG.lines.forEach(function(lc){var k=lc.name,f=FEEDS[lc.feed],sub,dis=false;
+ var P=$('planner'),d=lineData(S.line),L=d&&d.lines[S.line],c=curStop(),h='';
+ P.className='card planner'+(c&&!S.editing?' is-collapsed':'');
+ if(c){h+='<div class="pl-sum"><span class="badge">'+esc(S.line)+'</span><div class="pl-sum__t"><small>Direction '+esc(L.dirs[S.dir].head)+'</small><b>'+esc(c.label)+'</b></div><button type="button" class="btn btn--sm" data-act="edit">Modifier</button></div>'}
+ h+='<div class="pl-body"><div class="pl-head"><h2>Mon trajet</h2>'+(c?'<button type="button" class="btn btn--sm pl-close" data-act="done">Fermer</button>':'')+'</div>';
+ /* 1. ligne */
+ h+='<section class="step"><h3 class="step__t"><span class="num">1</span>Ligne</h3><div class="lines">';
+ CFG.lines.forEach(function(lc){var k=lc.name,f=FEEDS[lc.feed],sub='',dis=false;
   if(f.state==='loading')sub='Chargement… '+Math.round(f.prog*100)+' %';
   else if(f.state==='error'){sub='Horaires indisponibles';dis=true}
-  else{var dx=lineData(k);if(dx)sub=dirKeys(dx,k).map(function(x){return dx.lines[k].dirs[x].head}).join(' ↔ ');else{sub='Ligne absente du fichier officiel';dis=true}}
-  h+='<button type="button" class="line" data-act="line" data-v="'+esc(k)+'" aria-pressed="'+(S.line===k)+'"'+(dis?' disabled':'')+'><span class="line__n">'+esc(k)+'</span><span class="line__t">'+esc(sub)+'<small>'+esc(CFG.feeds[lc.feed].label)+'</small></span></button>'});
- h+='</div></div>';
- if(L){h+='<div class="step"><h3 class="step__t"><span>2</span>Dans quelle direction ?</h3><div class="dirs">';
-  dirKeys(d,S.line).forEach(function(k){h+='<button type="button" class="opt" data-act="dir" data-v="'+esc(k)+'" aria-pressed="'+(S.dir===k)+'">Vers '+esc(L.dirs[k].head)+'</button>'});
-  h+='</div></div>'}
- if(dd){var list=dirStops(d,S.line,S.dir).filter(function(x){return x.near});
-  h+='<div class="step"><h3 class="step__t"><span>3</span>À quel arrêt de Luynes ? <small>(dans l’ordre du trajet)</small></h3>';
-  if(!list.length)h+='<p class="res__dir">Cette ligne ne dessert aucun arrêt de Luynes dans ce sens.</p>';
-  else{h+='<ol class="stops">';list.forEach(function(s){h+='<li><button type="button" data-act="stop" data-v="'+esc(s.id)+'">'+esc(s.n)+'</button></li>'});h+='</ol>'}
+  else{var dx=lineData(k);
+   if(!dx){sub='Ligne absente du fichier officiel';dis=true}
+   else if(!dirKeys(dx,k).some(function(x){return luyStops(dx,k,x).length})){sub='Aucun arrêt à Luynes';dis=true}
+   else sub=dirKeys(dx,k).map(function(x){return dx.lines[k].dirs[x].head}).join(' ↔ ')}
+  h+='<button type="button" class="opt line" data-act="line" data-v="'+esc(k)+'" aria-pressed="'+(S.line===k)+'"'+(dis?' disabled':'')+'><span class="badge">'+esc(k)+'</span><span class="opt__t">'+esc(sub)+'<small>'+esc(CFG.feeds[lc.feed].label)+'</small></span></button>'});
+ h+='</div></section>';
+ /* 2. direction */
+ h+='<section class="step'+(L?'':' is-todo')+'"><h3 class="step__t"><span class="num">2</span>Direction</h3>';
+ if(!L)h+='<p class="hint">Choisissez d’abord une ligne.</p>';
+ else{h+='<div class="dirs">';
+  dirKeys(d,S.line).forEach(function(k){var n=luyStops(d,S.line,k).length;
+   h+='<button type="button" class="opt" data-act="dir" data-v="'+esc(k)+'" aria-pressed="'+(S.dir===k)+'"'+(n?'':' disabled')+'><span class="opt__t">Vers '+esc(L.dirs[k].head)+(n?'':'<small>Aucun arrêt à Luynes dans ce sens</small>')+'</span></button>'});
   h+='</div>'}
- P.innerHTML=h}
+ h+='</section>';
+ /* 3. arrêt */
+ var ready=L&&S.dir!==null&&L.dirs[S.dir];
+ h+='<section class="step'+(ready?'':' is-todo')+'"><h3 class="step__t"><span class="num">3</span>Arrêt à Luynes</h3>';
+ if(!ready)h+='<p class="hint">Choisissez d’abord une direction.</p>';
+ else{h+='<ol class="stops">';
+  luyStops(d,S.line,S.dir).forEach(function(s){h+='<li><button type="button" data-act="stop" data-v="'+esc(s.id)+'" aria-pressed="'+(S.stop===s.id)+'">'+esc(s.label)+'</button></li>'});
+  h+='</ol>'}
+ h+='</section></div>';
+ setHTML(P,h)}
 $('planner').addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-act]');if(!b||b.disabled)return;var a=b.dataset.act,v=b.dataset.v;
- if(a==='line'){S.line=v;S.dir=null;S.stop=null;S.all=false;var d=lineData(v);if(d){var ks=dirKeys(d,v);if(ks.length===1)S.dir=ks[0]}ui()}
- else if(a==='dir'){S.dir=v;S.stop=null;S.all=false;ui()}
- else if(a==='stop'){S.stop=v;S.editing=false;S.mode='next';S.day='today';S.showPast=false;save();ui();cycle();window.scrollTo({top:0,behavior:'smooth'})}
+ if(a==='line'){S.line=v;S.dir=null;S.stop=null;S.editing=true;ui()}
+ else if(a==='dir'){S.dir=v;S.stop=null;S.editing=true;ui()}
+ else if(a==='stop'){S.stop=v;S.editing=false;S.mode='next';S.date=null;S.showPast=false;save();ui();
+  if(window.matchMedia&&window.matchMedia('(max-width:959px)').matches){var r=$('res');window.scrollTo({top:r.getBoundingClientRect().top+window.pageYOffset-80,behavior:'smooth'})}}
  else if(a==='edit'){S.editing=true;ui()}
  else if(a==='done'){S.editing=false;ui()}});
-function loadingHTML(){var h='<div class="load">';Object.keys(FEEDS).forEach(function(k){var f=FEEDS[k];if(f.state==='loading')h+='<div><b>'+esc(CFG.feeds[k].label)+' · '+esc(f.phase)+'…</b><div class="bar"><i style="width:'+Math.round(f.prog*100)+'%"></i></div></div>'});return h+'</div>'}
+/* =====================================================================
+   INTERFACE : résultats
+   ===================================================================== */
+var BUS_SVG='<svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="14" rx="3"/><path d="M4 11h16M7 17v3M17 17v3"/><circle cx="8" cy="14" r=".7" fill="currentColor"/><circle cx="16" cy="14" r=".7" fill="currentColor"/></svg>';
+function loadingHTML(){var h='<div class="load">';Object.keys(FEEDS).forEach(function(k){var f=FEEDS[k];if(f.state==='loading')h+='<div><b>'+esc(CFG.feeds[k].label)+' : '+esc(f.phase)+'…</b><div class="bar"><i style="width:'+Math.round(f.prog*100)+'%"></i></div></div>'});return h+'</div>'}
 function empty(){var l=lastTrip(),loading=anyLoading(),errs=Object.keys(FEEDS).filter(function(k){return FEEDS[k].state==='error'});
- var h='<div class="empty"><div class="empty__ic" aria-hidden="true">🚌</div>';
+ var h='<div class="empty">'+BUS_SVG;
  if(loading)h+='<h2>Chargement des horaires…</h2><p>Lecture des fichiers publiés par la Métropole. Cela peut prendre quelques secondes la première fois.</p>'+loadingHTML();
- else h+='<h2>Vos prochains passages apparaîtront ici</h2><p>Choisissez une ligne, une direction puis un arrêt ci-dessus.</p>';
- errs.forEach(function(k){h+='<div class="pill ko" style="text-align:left"><i></i><div><b>'+esc(CFG.feeds[k].label)+' : horaires indisponibles.</b> Le fichier officiel n’a pas pu être lu. Consultez <a href="https://www.aixenbus.fr/">aixenbus.fr</a>.</div></div>'});
- if(l&&!loading)h+='<button type="button" class="btn btn--gold" data-act="restore">↻ Reprendre : '+esc(l.label)+'</button>';
+ else h+='<h2>Vos prochains départs s’afficheront ici</h2><p>Choisissez une ligne, une direction puis un arrêt de Luynes.</p>';
+ errs.forEach(function(k){h+='<div class="alert alert--bad"><i>!</i><div><b>'+esc(CFG.feeds[k].label)+' : horaires indisponibles.</b> Le fichier officiel n’a pas pu être lu. Consultez <a href="https://www.aixenbus.fr/">aixenbus.fr</a>.</div></div>'});
+ if(errs.length&&!loading)h+='<button type="button" class="btn" data-act="retry">Réessayer</button>';
+ if(l&&!loading)h+='<div><button type="button" class="btn btn--gold" data-act="restore">Reprendre : '+esc(l.label)+'</button></div>';
  return h+'</div>'}
-function tagTime(x,showTag){
- if(x.r&&x.r.cancel)return'<span class="tag x">supprimé</span>';
- if(x.r)return hmE(x.r.t)+'<span class="tag rt">'+(x.r.delay?(x.r.delay>0?'+':'')+x.r.delay+' min':'à l’heure')+'</span>'+(x.r.delay?'<small>prévu '+hm(x.p.m)+'</small>':'');
- return hm(x.p.m)+(showTag?'<span class="tag th">théorique</span>':'')}
-function statusHTML(isToday,q){
- if(!isToday)return'<div class="pill th"><i></i><div><b>Horaires théoriques</b><br>Le temps réel n’existe que pour le jour même.</div></div>';
- if(q==='rt')return'<div class="pill rt"><i></i><div><b>Temps réel actif</b><br>Relevé il y a '+ago()+' (actualisé environ chaque minute). Un passage sans suivi reste en horaire théorique.</div></div>';
- if(q==='old')return'<div class="pill th"><i></i><div><b>Temps réel à confirmer</b><br>Dernier relevé il y a '+ago()+', il peut être dépassé.</div></div>';
- if(RT.state==='init')return'<div class="pill th"><i></i><div><b>Horaires théoriques</b><br>Chargement du temps réel…</div></div>';
- return'<div class="pill th"><i></i><div><b>Horaires théoriques</b><br>'+(RT.state==='off'?'Le temps réel n’est pas encore activé sur cette page.':'Le temps réel est indisponible pour le moment : l’heure réelle peut différer (retard, suppression).')+'</div></div>'}
 function render(){var R=$('res'),s=curStop();
- if(!s){R.innerHTML=empty();return}
- var d=lineData(S.line),dd=d.lines[S.line].dirs[S.dir],f=feedOfLine(S.line),n=now(),
-  iso=S.mode==='next'||S.day==='today'?n.iso:S.day==='tomorrow'?addD(n.iso,1):(S.date||addD(n.iso,2)),
-  isToday=iso===n.iso,q=quality(),useRT=isToday&&q==='rt',cov=coverage(d,iso);
- var h='<div class="res__head"><span class="line__n">'+esc(S.line)+'</span><div><p class="res__dir">Direction '+esc(dd.head)+'</p><h2>'+esc(s.n)+'</h2></div></div>';
- h+='<div class="seg" role="group" aria-label="Affichage"><button type="button" data-act="mode" data-v="next" aria-pressed="'+(S.mode==='next')+'">Prochains départs</button><button type="button" data-act="mode" data-v="day" aria-pressed="'+(S.mode==='day')+'">Horaires du jour</button></div>';
- if(S.mode==='day'){h+='<div class="row">';[['today','Aujourd’hui'],['tomorrow','Demain'],['other','Autre jour']].forEach(function(x){h+='<button type="button" class="chip" data-act="day" data-v="'+x[0]+'" aria-pressed="'+(S.day===x[0])+'">'+x[1]+'</button>'});h+='</div>';
-  if(S.day==='other'){var mn=addD(n.iso,2);if(!S.date||S.date<mn)S.date=mn;h+='<div class="row"><input type="date" id="date" min="'+mn+'" value="'+S.date+'" aria-label="Choisir une date"></div>'}
-  h+='<p class="res__dir" style="margin-top:12px">'+esc(dl(iso))+'</p>'}
- h+=statusHTML(isToday,q);
- if(f.stale)h+='<div class="pill ko"><i></i><div><b>Horaires peut-être pas à jour.</b><br>Le fichier officiel n’a pas pu être actualisé : copie du '+new Date(f.savedAt).toLocaleString('fr-FR')+'.</div></div>';
- if(!cov){h+='<div class="pill ko"><i></i><div><b>Horaires indisponibles pour cette date.</b><br>Le fichier officiel couvre du '+fmtD(d.start)+' au '+fmtD(d.end)+'. Consultez <a href="https://www.aixenbus.fr/">aixenbus.fr</a>'+(S.line==='51'?' ou <a href="https://www.lecaraixmarseille.com/ligne-51">lecaraixmarseille.com</a>':'')+'.</div></div>'}
+ if(!s){setHTML(R,empty());return}
+ var d=lineData(S.line),dd=d.lines[S.line].dirs[S.dir],f=feedOfLine(S.line),td=today(),nowMs=Date.now(),endIso=iso8(d.end),
+  iso=S.mode==='next'?td:(S.date&&S.date>=td?S.date:td),isToday=iso===td,cov=coverage(d,iso);
+ var h='<div class="res__head"><span class="badge badge--lg">'+esc(S.line)+'</span><div><p class="res__dir">Direction '+esc(dd.head)+'</p><h2>'+esc(s.label)+'</h2></div></div>';
+ h+='<div class="seg" role="group" aria-label="Affichage"><button type="button" data-act="mode" data-v="next" aria-pressed="'+(S.mode==='next')+'">Prochains départs</button><button type="button" data-act="mode" data-v="day" aria-pressed="'+(S.mode==='day')+'">Tous les horaires</button></div>';
+ h+='<div class="alert"><i>i</i><div>Horaires théoriques : ils ne tiennent pas compte des retards ni des suppressions.</div></div>';
+ if(f.stale)h+='<div class="alert alert--warn"><i>!</i><div><b>Horaires peut-être pas à jour.</b> Le fichier officiel n’a pas pu être actualisé : copie du '+new Date(f.savedAt).toLocaleString('fr-FR')+'.</div></div>';
+ var rows=cov?theory(d,S.line,S.dir,s.id,iso).map(function(p){return{p:p,t:p.sched}}):[];
+ if(S.mode==='day'){
+  h+='<div class="daynav"><button type="button" class="iconbtn" data-act="prev" aria-label="Jour précédent"'+(iso<=td?' disabled':'')+'>‹</button>'+
+   '<label class="sr" for="date">Choisir une date</label><input type="date" id="date" min="'+td+'"'+(endIso?' max="'+endIso+'"':'')+' value="'+iso+'">'+
+   '<button type="button" class="iconbtn" data-act="next" aria-label="Jour suivant"'+(endIso&&iso>=endIso?' disabled':'')+'>›</button>'+
+   (isToday?'':'<button type="button" class="chip" data-act="today">Aujourd’hui</button>')+'</div>';
+  h+='<p class="daylabel"><b>'+esc(dl(iso))+'</b>'+(cov?'<span>'+rows.length+' départ'+(rows.length>1?'s':'')+'</span>':'')+'</p>'}
+ if(!cov){h+='<div class="alert alert--bad"><i>!</i><div><b>Horaires indisponibles pour cette date.</b> Le fichier officiel couvre du '+fmtD(d.start)+' au '+fmtD(d.end)+'. Consultez <a href="https://www.aixenbus.fr/">aixenbus.fr</a>'+(S.line==='51'?' ou <a href="https://www.lecaraixmarseille.com/ligne-51">lecaraixmarseille.com</a>':'')+'.</div></div>'}
+ else if(S.mode==='next'){
+  rows=rows.filter(function(x){return x.t>=nowMs-3e4}).slice(0,6);
+  if(!rows.length)h+='<div class="none"><b>Plus de départ aujourd’hui à cet arrêt.</b><br><button type="button" class="btn" data-act="tomorrow">Voir les horaires de demain</button></div>';
+  else{var x=rows[0];
+   h+='<div class="next"><div><div class="next__lab">Prochain départ dans</div><div class="next__cd" data-t="'+x.t+'">'+cd((x.t-nowMs)/1000)+'</div></div><div class="next__at"><div class="next__lab">à</div><div class="next__hr">'+hm(x.p.m)+'</div></div></div>';
+   if(rows.length>1){h+='<h3 class="sub">Ensuite</h3><ul class="plist">';
+    rows.slice(1).forEach(function(y){h+='<li><span class="t">'+hm(y.p.m)+'</span><span class="w" data-t="'+y.t+'">'+cd((y.t-nowMs)/1000)+'</span></li>'});h+='</ul>'}}}
  else{
-  var rows=theory(d,S.line,S.dir,s.id,iso).map(function(p){var r=useRT?rtFor(p):null;return{p:p,r:r,t:(r&&!r.cancel)?r.t:p.sched}});
-  if(S.mode==='next'){
-   rows=rows.filter(function(x){return !(x.r&&x.r.cancel)&&x.t>=Date.now()-3e4}).sort(function(a,b){return a.t-b.t}).slice(0,6);
-   if(!rows.length)h+='<div class="none"><b>Plus de passage aujourd’hui à cet arrêt.</b><br><button type="button" class="btn" data-act="tomorrow">Voir les horaires de demain</button></div>';
-   else{var x=rows[0];
-    h+='<div class="nextcard"><div class="lab">Prochain passage</div><div class="cd" data-t="'+x.t+'">'+cd((x.t-Date.now())/1000)+'</div><div class="hr">'+tagTime(x,true)+'</div></div>';
-    if(rows.length>1){h+='<h3 class="sub">Ensuite</h3><ul class="plist">';
-     rows.slice(1).forEach(function(y){h+='<li><span class="t">'+tagTime(y,useRT)+'</span><span class="w" data-t="'+y.t+'">'+cd((y.t-Date.now())/1000)+'</span></li>'});h+='</ul>'}}}
-  else{
-   if(!rows.length)h+='<div class="none">Aucun passage ce jour-là à cet arrêt.</div>';
-   else{var fn=-1,nPast=0;
-    rows.forEach(function(x,i){var gone=x.r&&x.r.cancel;if(isToday&&x.t<Date.now()-3e4&&!gone)nPast++;else if(fn<0&&isToday&&!gone)fn=i});
-    if(nPast>0)h+='<button type="button" class="btn btn--sm more" data-act="past">'+(S.showPast?'Masquer':'Afficher')+' les '+nPast+' passages déjà passés</button>';
-    h+='<div class="grid">';
-    rows.forEach(function(x,i){var gone=x.r&&x.r.cancel,past=isToday&&x.t<Date.now()-3e4&&!gone;if(past&&!S.showPast)return;
-     var inner;
-     if(gone)inner='<s>'+hm(x.p.m)+'</s><small class="bad">supprimé</small>';
-     else if(x.r)inner='<b>'+hmE(x.r.t)+'</b>'+(x.r.delay?'<small class="late">'+(x.r.delay>0?'+':'')+x.r.delay+' min</small>':'<small class="ok">à l’heure</small>');
-     else inner='<b>'+hm(x.p.m)+'</b>';
-     h+='<div class="cell'+(past?' past':'')+(i===fn?' nx':'')+'">'+inner+(i===fn?'<small data-t="'+x.t+'">'+cd((x.t-Date.now())/1000)+'</small>':'')+'</div>'});
-    h+='</div>'}}}
+  if(!rows.length)h+='<div class="none">Aucun départ ce jour-là à cet arrêt.</div>';
+  else{var isPast=function(x){return isToday&&x.t<nowMs-3e4},nPast=rows.filter(isPast).length,fn=-1;
+   rows.forEach(function(x,i){if(fn<0&&isToday&&!isPast(x))fn=i});
+   if(nPast>0)h+='<button type="button" class="btn btn--sm more" data-act="past">'+(S.showPast?'Masquer':'Afficher')+' les '+nPast+' départ'+(nPast>1?'s':'')+' déjà passé'+(nPast>1?'s':'')+'</button>';
+   var groups=[];
+   rows.forEach(function(x,i){var pst=isPast(x);if(pst&&!S.showPast)return;var hr=Math.floor(x.p.m/60),g=groups[groups.length-1];
+    if(!g||g.h!==hr){g={h:hr,it:[]};groups.push(g)}g.it.push({x:x,i:i,pst:pst})});
+   h+='<div class="tt">';
+   groups.forEach(function(g){h+='<div class="tt__row"><div class="tt__h">'+pad(g.h)+'<small>h</small></div><div class="tt__m">';
+    g.it.forEach(function(o){h+='<span class="mn'+(o.pst?' past':'')+(o.i===fn?' nx':'')+'">'+pad(Math.floor(o.x.p.m)%60)+'</span>'});
+    h+='</div></div>'});
+   h+='</div>';
+   if(fn>=0)h+='<p class="legend"><i></i>Prochain départ</p>'}}
  h+='<p class="foot">Horaires valables du '+fmtD(d.start)+' au '+fmtD(d.end)+'. Information indicative, pouvant comporter des erreurs : seules la grille d’horaires et les sites officiels d’<a href="https://www.aixenbus.fr/">Aix-en-Bus</a> et de la <a href="https://www.lametropolemobilite.fr/">Métropole</a> font foi. <a href="#a-propos">En savoir plus</a>.</p>';
- R.innerHTML=h}
-$('res').addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-act]');if(!b)return;var a=b.dataset.act,v=b.dataset.v;
- if(a==='mode'){S.mode=v;S.showPast=false;if(v==='next')S.day='today';render()}
- else if(a==='day'){S.day=v;S.showPast=false;render()}
+ setHTML(R,h)}
+$('res').addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-act]');if(!b||b.disabled)return;var a=b.dataset.act,v=b.dataset.v,td=today();
+ if(a==='mode'){S.mode=v;S.showPast=false;render()}
  else if(a==='past'){S.showPast=!S.showPast;render()}
- else if(a==='tomorrow'){S.mode='day';S.day='tomorrow';render()}
- else if(a==='restore'){var l=lastTrip();if(!l)return;S.line=l.line;S.dir=l.dir;S.stop=l.stop;S.all=false;S.mode='next';S.day='today';S.editing=false;ui();cycle()}});
-$('res').addEventListener('change',function(e){if(e.target&&e.target.id==='date'){S.date=e.target.value||S.date;render()}});
+ else if(a==='tomorrow'){S.mode='day';S.date=addD(td,1);S.showPast=false;render()}
+ else if(a==='prev'){var c=(S.date&&S.date>td?S.date:td);S.date=addD(c,-1)<td?td:addD(c,-1);S.showPast=false;render()}
+ else if(a==='next'){var c2=(S.date&&S.date>td?S.date:td);S.date=addD(c2,1);S.showPast=false;render()}
+ else if(a==='today'){S.date=td;S.showPast=false;render()}
+ else if(a==='retry'){Object.keys(FEEDS).filter(function(k){return FEEDS[k].state==='error'}).forEach(start);ui()}
+ else if(a==='restore'){var l=lastTrip();if(!l)return;S.line=l.line;S.dir=l.dir;S.stop=l.stop;S.mode='next';S.date=null;S.editing=false;ui()}});
+$('res').addEventListener('change',function(e){if(e.target&&e.target.id==='date'){S.date=e.target.value||S.date;S.showPast=false;render()}});
 /* ---------- favoris / écran d'accueil ---------- */
 function device(){var u=navigator.userAgent||'';if(/iPad|iPhone|iPod/.test(u)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1))return'ios';if(/Android/i.test(u))return'android';return'desktop'}
 function isMac(){return /Mac|iPhone|iPad/.test(navigator.platform||navigator.userAgent||'')}
@@ -535,18 +555,16 @@ function showHint(k){hintOpen=hintOpen===k?null:k;var H=$('fav-hint');if(!H)retu
  H.hidden=!hintOpen;H.innerHTML=hintOpen?hintHTML(hintOpen):'';
  Array.prototype.forEach.call($('fav').querySelectorAll('[data-hint]'),function(b){b.setAttribute('aria-expanded',b.dataset.hint===hintOpen)})}
 function renderFav(){var F=$('fav'),ok=complete();F.hidden=!ok;if(!ok)return;
- F.innerHTML='<h2>Retrouvez ce trajet en un clic</h2><p>Votre ligne, votre direction et votre arrêt sont déjà mémorisés dans cette page.</p>'+
- '<div class="fav__actions"><button type="button" class="btn btn--gold" data-hint="bm" aria-expanded="false">★ Ajouter aux favoris</button><button type="button" class="btn btn--gold" data-hint="home" aria-expanded="false">📲 Écran d’accueil</button></div><div class="fav__hint" id="fav-hint" aria-live="polite" hidden></div>';
- if(hintOpen){var k=hintOpen;hintOpen=null;showHint(k)}}
+ if($('fav-hint')){return}
+ F.innerHTML='<h2>Retrouvez ce trajet en un clic</h2><p>Votre ligne, votre direction et votre arrêt sont mémorisés dans l’adresse de cette page.</p>'+
+ '<div class="fav__actions"><button type="button" class="btn btn--gold" data-hint="bm" aria-expanded="false">Ajouter aux favoris</button><button type="button" class="btn btn--gold" data-hint="home" aria-expanded="false">Ajouter à l’écran d’accueil</button></div><div class="fav__hint" id="fav-hint" aria-live="polite" hidden></div>'}
 $('fav').addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('[data-hint]');if(t)showHint(t.dataset.hint)});
 /* ---------- boucle ---------- */
 setInterval(function(){document.querySelectorAll('[data-t]').forEach(function(e){e.textContent=cd((+e.dataset.t-Date.now())/1000)})},1000);
-setInterval(function(){var a=document.activeElement;if(a&&a.id==='date')return;render()},15000);
-function cycle(){if(!complete())return;pull().then(render)}
-setInterval(function(){if(!document.hidden)cycle()},60000);
-document.addEventListener('visibilitychange',function(){if(!document.hidden)cycle()});
+setInterval(function(){var a=document.activeElement;if(a&&a.id==='date')return;render()},30000);
+document.addEventListener('visibilitychange',function(){if(!document.hidden)render()});
 /* ---------- démarrage ---------- */
 fromURL();ui();
-Object.keys(FEEDS).forEach(function(k){loadFeed(k).then(function(){ui();if(complete()){save();cycle()}},function(e){FEEDS[k].state='error';FEEDS[k].err=String(e&&e.message||e);ui()})});
+Object.keys(FEEDS).forEach(start);
 })();
 </script></body></html>
