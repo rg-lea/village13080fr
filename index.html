@@ -222,18 +222,58 @@
   .section--alt{ background:#FAFAF8; }
 
   /* =========================================================
-     HERO
+     PHOTOS (cadre commun : fond neutre + fondu à l'apparition)
+     ========================================================= */
+  .shot{
+    position:relative;
+    overflow:hidden;
+    margin:0;
+    border-radius:14px;
+    background:#E9E9EE;
+  }
+  .shot::after{
+    content:"";
+    position:absolute; inset:0;
+    border-radius:inherit;
+    box-shadow:inset 0 0 0 1px rgba(36,46,99,.12);
+    pointer-events:none;
+  }
+  .shot img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    opacity:0;
+    transform:scale(1.04);
+    transition:opacity .7s ease, transform .9s ease;
+  }
+  .shot.is-loaded img{ opacity:1; transform:scale(1); }
+
+  /* =========================================================
+     HERO (photo aléatoire, la bannière reste en repli)
      ========================================================= */
   .hero{
     position:relative;
+    overflow:hidden;
     padding:0;
     color:var(--white);
     background:
-      linear-gradient(90deg, rgba(23,27,65,.92) 0%, rgba(23,27,65,.78) 42%, rgba(23,27,65,.25) 100%),
       url('https://actus.13080.fr/wp-content/uploads/2024/04/Banniere-scaled.png') center / cover no-repeat,
       var(--navy-deep);
   }
+  .hero__photo{
+    position:absolute; inset:0;
+    background:center / cover no-repeat;
+    opacity:0;
+    transition:opacity 1s ease;
+  }
+  .hero__photo.is-loaded{ opacity:1; }
+  .hero__veil{
+    position:absolute; inset:0;
+    background:linear-gradient(90deg, rgba(23,27,65,.92) 0%, rgba(23,27,65,.78) 42%, rgba(23,27,65,.25) 100%);
+  }
   .hero__inner{
+    position:relative;
+    z-index:2;
     min-height:min(72vh, 620px);
     display:flex;
     flex-direction:column;
@@ -305,6 +345,48 @@
     animation:shimmer 1.4s linear infinite;
   }
   @keyframes shimmer{ from{background-position:200% 0;} to{background-position:-200% 0;} }
+
+  .news-cta{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px 28px;
+    flex-wrap:wrap;
+    margin-top:36px;
+    padding:22px 28px;
+    border-radius:14px;
+    background:#FAFAF8;
+    border:1px solid var(--line-on-white);
+    border-left:3px solid var(--gold-dark);
+  }
+  .news-cta__text{ margin:0; display:flex; flex-direction:column; gap:4px; }
+  .news-cta__text strong{ font-size:1.05rem; font-weight:700; }
+  .news-cta__text span{ color:var(--navy-muted-on-white); line-height:1.5; }
+  @media (max-width:600px){
+    .news-cta{ padding:20px; }
+    .news-cta .btn{ width:100%; justify-content:center; }
+  }
+
+  /* =========================================================
+     BANDEAU PHOTOS (entre actualités et accès)
+     ========================================================= */
+  .strip{ padding:0 0 76px; }
+  .strip__grid{
+    display:grid;
+    grid-template-columns:1.5fr 1fr 1fr;
+    gap:12px;
+    height:260px;
+  }
+  .strip__bar{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px 20px;
+    align-items:center;
+    justify-content:space-between;
+    margin-top:16px;
+  }
+  .strip__hint{ margin:0; font-size:.95rem; color:var(--navy-muted-on-white); }
+  .strip__bar .link-more{ margin-top:0; }
 
   /* =========================================================
      ACCÈS : Mon village / Annuaire
@@ -396,12 +478,12 @@
   }
 
   /* =========================================================
-     HISTOIRE & PHOTOS
+     HISTOIRE & PHOTOS : texte + collage
      ========================================================= */
   .history{
     display:grid;
-    grid-template-columns:1.1fr .9fr;
-    gap:48px;
+    grid-template-columns:.9fr 1.1fr;
+    gap:56px;
     align-items:center;
   }
   .history h2{
@@ -411,23 +493,19 @@
   }
   .history p{
     margin:14px 0 0;
-    max-width:52ch;
+    max-width:48ch;
     line-height:1.65;
     color:var(--navy-muted-on-white);
   }
-  .history__panel{
-    border-radius:16px;
-    background:var(--navy);
-    color:var(--white);
-    padding:40px 36px;
+  .history .btn{ margin-top:28px; }
+  .collage{
+    display:grid;
+    grid-template-columns:1.15fr 1fr;
+    grid-template-rows:1fr 1fr;
+    gap:12px;
+    height:400px;
   }
-  .history__panel-title{
-    font-size:1.25rem;
-    font-weight:700;
-    line-height:1.35;
-  }
-  .history__panel p{ color:var(--white-muted-on-navy); font-size:.95rem; }
-  .history__panel .btn{ margin-top:26px; }
+  .collage .shot:first-child{ grid-row:1 / span 2; }
 
   /* =========================================================
      FOOTER
@@ -456,19 +534,20 @@
     .access__grid{ grid-template-columns:1fr; }
     .access-card{ min-height:0; }
     .history{ grid-template-columns:1fr; gap:32px; }
+    .collage{ height:340px; }
     .news__link{ grid-template-columns:150px 1fr auto; gap:16px; }
+    .strip__grid{ grid-template-columns:1fr 1fr; grid-template-rows:200px 150px; height:auto; }
+    .strip__grid .shot:first-child{ grid-column:1 / -1; }
   }
 
   /* Mobile */
   @media (max-width:600px){
     .wrap{ padding:0 18px; }
     section{ padding:56px 0; }
+    .strip{ padding:0 0 56px; }
 
-    .hero{
-      background:
-        linear-gradient(180deg, rgba(23,27,65,.88) 0%, rgba(23,27,65,.8) 100%),
-        url('https://actus.13080.fr/wp-content/uploads/2024/04/Banniere-scaled.png') center / cover no-repeat,
-        var(--navy-deep);
+    .hero__veil{
+      background:linear-gradient(180deg, rgba(23,27,65,.88) 0%, rgba(23,27,65,.8) 100%);
     }
     .hero__inner{ min-height:0; padding-top:56px; padding-bottom:56px; }
     .hero__ctas{ flex-direction:column; align-items:stretch; }
@@ -477,10 +556,12 @@
     .news__link{ grid-template-columns:1fr auto; gap:6px 12px; padding:20px 2px; }
     .news__date{ grid-column:1 / -1; }
 
+    .strip__grid{ grid-template-rows:170px 120px; gap:8px; }
+    .collage{ height:280px; gap:8px; }
+
     .access-card{ padding:30px 24px; }
     .bus-banner{ flex-direction:column; align-items:flex-start; padding:24px; gap:14px; }
-    .history__panel{ padding:32px 24px; }
-    .history__panel .btn{ width:100%; justify-content:center; }
+    .history .btn{ width:100%; justify-content:center; }
 
     .site-footer__logo{ width:220px; }
   }
@@ -526,9 +607,11 @@
 <main>
 
 <!-- =========================================================
-     HERO
+     HERO : photo du village tirée au hasard
      ========================================================= -->
 <section class="hero">
+  <div class="hero__photo" id="hero-photo" aria-hidden="true"></div>
+  <div class="hero__veil" aria-hidden="true"></div>
   <div class="wrap hero__inner">
     <h1>Le village de Luynes, au quotidien.</h1>
     <p class="hero__lead">Les actualités, les infos pratiques et l'annuaire des associations, commerces et professionnels du village, réunis au même endroit.</p>
@@ -558,6 +641,34 @@
       Toutes les actualités du village
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
+
+    <div class="news-cta">
+      <p class="news-cta__text">
+        <strong>Une information ou un évènement à faire connaître ?</strong>
+        <span>Contactez-nous pour proposer sa parution sur le site.</span>
+      </p>
+      <a href="https://ciq.13080.fr" class="btn btn--outline-navy" target="_blank" rel="noopener">Nous contacter</a>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     BANDEAU PHOTOS
+     ========================================================= -->
+<section class="strip" aria-label="Photos du village">
+  <div class="wrap">
+    <div class="strip__grid">
+      <figure class="shot"><img data-photo alt="Photo du village de Luynes" width="800" height="520"></figure>
+      <figure class="shot"><img data-photo alt="Photo du village de Luynes" width="800" height="520"></figure>
+      <figure class="shot"><img data-photo alt="Photo du village de Luynes" width="800" height="520"></figure>
+    </div>
+    <div class="strip__bar">
+      <p class="strip__hint">Luynes en images.</p>
+      <a href="https://lynx.13080.fr/index.php?/category/28" class="link-more" target="_blank" rel="noopener">
+        Voir toutes les photos
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -614,7 +725,7 @@
 </section>
 
 <!-- =========================================================
-     HISTOIRE & PHOTOS PAR CHRISTIAN
+     HISTOIRE & PHOTOS PAR CHRISTIAN : texte + collage
      ========================================================= -->
 <section aria-labelledby="history-title">
   <div class="wrap">
@@ -622,11 +733,12 @@
       <div>
         <h2 id="history-title">Luynes d'hier à aujourd'hui, par Christian</h2>
         <p>Christian raconte l'histoire du village et partage ses photos de Luynes : des rues, des lieux et des moments à redécouvrir.</p>
+        <a href="https://village.13080.fr/histoire" class="btn btn--accent">Découvrir l'histoire et les photos</a>
       </div>
-      <div class="history__panel">
-        <p class="history__panel-title">L'histoire et les photos de Luynes</p>
-        <p>Un regard personnel sur le village, ses lieux et sa mémoire.</p>
-        <a href="https://village.13080.fr/histoire" class="btn btn--primary">Découvrir</a>
+      <div class="collage" aria-label="Photos du village">
+        <figure class="shot"><img data-photo alt="Photo du village de Luynes" width="800" height="800"></figure>
+        <figure class="shot"><img data-photo alt="Photo du village de Luynes" width="800" height="400"></figure>
+        <figure class="shot"><img data-photo alt="Photo du village de Luynes" width="800" height="400"></figure>
       </div>
     </div>
   </div>
@@ -647,6 +759,72 @@
     <a href="https://ciq.13080.fr/contact" class="site-footer__link">Nous contacter</a>
   </nav>
 </footer>
+
+<!-- =========================================================
+     SCRIPT : photos aléatoires (hero, bandeau, collage)
+     Un seul tirage pour toute la page : aucune photo en double.
+     ========================================================= -->
+<script>
+(function () {
+  var POOL = [
+    "https://lynx.13080.fr/_data/i/upload/2026/03/01/20260301172346-72bdfc36-xl.webp",
+    "https://lynx.13080.fr/_data/i/upload/2026/03/01/20260301172346-6cff2a66-xl.webp",
+    "https://lynx.13080.fr/_data/i/upload/2026/03/01/20260301172347-e6e8373f-xl.webp",
+    "https://lynx.13080.fr/i.php?/upload/2026/03/01/20260301172348-94f8978d-xl.webp",
+    "https://lynx.13080.fr/i.php?/upload/2026/03/01/20260301172349-88d87318-xl.webp",
+    "https://lynx.13080.fr/_data/i/upload/2026/03/01/20260301172350-e00af0c2-xl.webp",
+    "https://lynx.13080.fr/_data/i/upload/2026/03/01/20260301172350-4c585413-xl.webp",
+    "https://lynx.13080.fr/_data/i/upload/2026/03/01/20260301172354-649e5340-xl.webp",
+    "https://lynx.13080.fr/_data/i/upload/2026/03/01/20260301172355-04666bba-xl.webp",
+    "https://lynx.13080.fr/_data/i/upload/2026/03/01/20260301172356-8c5fc4c9-xl.webp",
+    "https://lynx.13080.fr/_data/i/upload/2026/03/01/20260301172410-786f1927-xl.webp",
+    "https://lynx.13080.fr/_data/i/upload/2026/03/01/20260301172310-074a92f9-xl.webp",
+    "https://lynx.13080.fr/upload/2026/03/01/20260301172317-862bab4c.webp",
+    "https://lynx.13080.fr/upload/2026/03/01/20260301172319-e01bcd32.webp",
+    "https://lynx.13080.fr/upload/2026/03/01/20260301172319-48eee5b3.webp",
+    "https://lynx.13080.fr/upload/2026/03/01/20260301172320-4120f6c2.webp",
+    "https://lynx.13080.fr/upload/2026/03/01/20260301172320-c7f782e8.webp",
+    "https://lynx.13080.fr/upload/2026/03/01/20260301172334-27695203.webp",
+    "https://lynx.13080.fr/upload/2026/03/01/20260301172342-6196b1e6.webp",
+    "https://lynx.13080.fr/i.php?/upload/2026/03/01/20260301172343-78997c39-xl.webp",
+    "https://lynx.13080.fr/upload/2026/03/01/20260301172345-2c5ca00f.webp"
+  ];
+
+  var queue = POOL.slice();
+  for (var i = queue.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var t = queue[i]; queue[i] = queue[j]; queue[j] = t;
+  }
+
+  // 1) Hero : la bannière reste affichée tant que la photo n'est pas chargée
+  var hero = document.getElementById('hero-photo');
+  function pickHero() {
+    var u = queue.shift();
+    if (!u || !hero) return;
+    var im = new Image();
+    im.onload = function () {
+      hero.style.backgroundImage = 'url("' + u + '")';
+      hero.classList.add('is-loaded');
+    };
+    im.onerror = pickHero;
+    im.src = u;
+  }
+  pickHero();
+
+  // 2) Bandeau + collage : si une photo ne charge pas, on pioche la suivante
+  Array.prototype.forEach.call(document.querySelectorAll('img[data-photo]'), function (img) {
+    var frame = img.parentNode;
+    function nextPhoto() {
+      var u = queue.shift();
+      if (!u) { frame.style.display = 'none'; return; }
+      img.src = u;
+    }
+    img.onload = function () { frame.classList.add('is-loaded'); };
+    img.onerror = nextPhoto;
+    nextPhoto();
+  });
+})();
+</script>
 
 <!-- =========================================================
      SCRIPT : 3 derniers articles (API REST WordPress)
