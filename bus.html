@@ -247,6 +247,9 @@ kbd{display:inline-block;padding:1px 7px;border-radius:5px;background:rgba(255,2
      fichier officiel (accents, majuscules et articles « le/la/les » ignorés).
      Un arrêt absent du fichier est signalé dans la console du navigateur,
      et la page ?diag=1 liste ce qui a été trouvé ou non.
+   - Un élément de « stops » peut aussi être une LISTE de noms possibles
+     (ex. l'Arena) : le premier trouvé dans le fichier est retenu et le
+     garde-fou kilométrique ne s'applique pas à cet arrêt.
    - guardKm : un arrêt n'est retenu que s'il se trouve à moins de cette
      distance des arrêts dont le nom contient « Luynes » (évite les
      homonymes situés dans d'autres communes).
@@ -262,7 +265,7 @@ var CFG={
  },
  lines:[
   {feed:'aix',name:'11',stops:['Luynes Mail','Vidal','De Green','Chapuis','Luynes Centre','Luynes Sud','Luynes Lycée','Lycée International de Luynes']},
-  {feed:'aix',name:'14',stops:['Trois Pigeons','Rampelin','Luynes Lycée','Lycée International de Luynes','Luynes Sud','Luynes Centre','Chapuis','La Blaque','Bon Rencontre','Frères Gris']},
+  {feed:'aix',name:'14',stops:[['P+R Arena','P+R de l\'Arena','Arena','Pôle d\'échange Arena','PEM Arena','Arena du Pays d\'Aix'],'Trois Pigeons','Rampelin','Luynes Lycée','Lycée International de Luynes','Luynes Sud','Luynes Centre','Chapuis','La Blaque','Bon Rencontre','Frères Gris']},
   {feed:'c13',name:'51',stops:['Frères Gris','Bon Rencontre','La Blaque','Chapuis','Luynes Sud','Lycée International de Luynes','Luynes Lycée','Rampelin','Trois Pigeons']}
  ],
  anchor:/luynes/i,
@@ -405,7 +408,8 @@ async function idbGet(k){try{var db=await idb();return await new Promise(functio
 async function idbSet(k,v){try{var db=await idb();await new Promise(function(res,rej){var t=db.transaction('feeds','readwrite');t.objectStore('feeds').put(v,k);t.oncomplete=res;t.onerror=function(){rej(t.error)}})}catch(e){log('cache local indisponible : '+e)}}
 var FEEDS={};
 Object.keys(CFG.feeds).forEach(function(k){FEEDS[k]={key:k,state:'loading',phase:'Démarrage',prog:0,data:null,stale:false,savedAt:0,err:''}});
-function sig(k){return CFG.lines.filter(function(l){return l.feed===k}).map(function(l){return l.name}).join(',')+'|'+CFG.guardKm+'|v6'}
+/* v7 : la signature change pour forcer le rechargement (ajout de l'Arena) */
+function sig(k){return CFG.lines.filter(function(l){return l.feed===k}).map(function(l){return l.name}).join(',')+'|'+CFG.guardKm+'|v7'}
 var tick=null;function progress(){if(tick)return;tick=setTimeout(function(){tick=null;renderPlanner();render()},250)}
 async function download(url,f){
  var r=await fetch(url,{cache:'no-cache'});if(!r.ok)throw new Error('HTTP '+r.status);
@@ -430,7 +434,8 @@ async function loadFeed(key){
  f.state='error';f.err=errs.join(' | ')}
 function logMissing(k){CFG.lines.forEach(function(lc){if(lc.feed!==k)return;var d=lineData(lc.name);if(!d)return;
  var found={};dirKeys(d,lc.name).forEach(function(x){luyStops(d,lc.name,x).forEach(function(y){found[key(y.n)]=1})});
- var ko=lc.stops.filter(function(n){return !found[key(n)]});if(ko.length)log('ligne '+lc.name+' : arrêts introuvables dans le fichier : '+ko.join(', '))})}
+ var ko=lc.stops.filter(function(e){return !aliases(e).some(function(n){return found[key(n)]})}).map(function(e){return aliases(e)[0]});
+ if(ko.length)log('ligne '+lc.name+' : arrêts introuvables dans le fichier : '+ko.join(', '))})}
 function start(k){var f=FEEDS[k];f.state='loading';f.phase='Démarrage';f.prog=0;f.err='';
  loadFeed(k).then(function(){logMissing(k);ui();if(complete())save()},function(e){f.state='error';f.err=String(e&&e.message||e);ui()})}
 /* ---------- accès aux données de ligne ---------- */
@@ -446,11 +451,17 @@ function theory(d,name,dir,stopId,iso){var out=[],tr=(d.trips[name]||{})[dir]||[
   tr.forEach(function(t){var i=t.st.indexOf(stopId);if(i<0||t.t[i]===null||(i===t.st.length-1&&t.st.length>1)||!svcActive(d,t.sid,day))return;var m=t.t[i]/60,a=m+off*1440;if(a<0||a>=1440)return;
    out.push({m:a,sched:epoch(day,m)})})});
  out.sort(function(x,y){return x.m-y.m});var res=[];out.forEach(function(p){var l=res[res.length-1];if(l&&Math.abs(l.m-p.m)<0.5)return;res.push(p)});return res}
-/* Arrêts de Luynes d'une ligne dans un sens : uniquement ceux de la liste de CFG (le terminus n'a pas de départ) */
-function wantKeys(name){var c=lineCfg(name);return c?c.stops.map(key):[]}
+/* Arrêts de Luynes d'une ligne dans un sens : uniquement ceux de la liste de CFG (le terminus n'a pas de départ).
+   Un élément de « stops » peut être un texte, ou une liste de noms possibles (alias) :
+   dans ce cas, l'arrêt est accepté même au-delà de guardKm (ex. P+R de l'Arena). */
+function aliases(e){return Array.isArray(e)?e:[e]}
+function wantKeys(name){var c=lineCfg(name),out=[];if(!c)return out;
+ c.stops.forEach(function(e){aliases(e).forEach(function(n){out.push(key(n))})});return out}
+function farKeys(name){var c=lineCfg(name),out=[];if(!c)return out;
+ c.stops.forEach(function(e){if(Array.isArray(e))e.forEach(function(n){out.push(key(n))})});return out}
 function luyStops(d,name,dir){var dd=d.lines[name]&&d.lines[name].dirs[dir];if(!dd)return[];
- var want=wantKeys(name),ids=dd.stops.length>1?dd.stops.slice(0,-1):dd.stops,out=[],cnt={};
- ids.forEach(function(id){var s=d.stops[id];if(!s||!s.g||want.indexOf(key(s.n))<0)return;out.push({id:id,n:s.n,c:s.c});cnt[s.n]=(cnt[s.n]||0)+1});
+ var want=wantKeys(name),far=farKeys(name),ids=dd.stops.length>1?dd.stops.slice(0,-1):dd.stops,out=[],cnt={};
+ ids.forEach(function(id){var s=d.stops[id],k=s&&key(s.n);if(!s||(!s.g&&far.indexOf(k)<0)||want.indexOf(k)<0)return;out.push({id:id,n:s.n,c:s.c});cnt[s.n]=(cnt[s.n]||0)+1});
  out.forEach(function(o){o.label=cnt[o.n]>1&&o.c?o.n+' ('+o.c+')':o.n});return out}
 function curStop(){var d=lineData(S.line);if(!d||S.dir===null||!S.stop||!d.lines[S.line].dirs[S.dir])return null;
  var l=luyStops(d,S.line,S.dir);for(var i=0;i<l.length;i++)if(l[i].id===S.stop)return l[i];return null}
@@ -491,7 +502,7 @@ function renderDiag(){var D=$('diag');if(!DIAG){D.hidden=true;return}D.hidden=fa
   if(f.state!=='ready'){h+='<p class="res__dir">'+(f.state==='loading'?'Chargement…':'Fichier indisponible')+'</p>';return}
   var d=lineData(lc.name);if(!d){h+='<p class="res__dir">Ligne absente du fichier officiel.</p>';return}
   var found={},all={};dirKeys(d,lc.name).forEach(function(k){d.lines[lc.name].dirs[k].stops.forEach(function(id){var s=d.stops[id];if(s&&s.g)all[s.n]=1});luyStops(d,lc.name,k).forEach(function(x){found[key(x.n)]=x.n})});
-  var ok=[],ko=[];lc.stops.forEach(function(n){(found[key(n)]?ok:ko).push(n)});
+  var ok=[],ko=[];lc.stops.forEach(function(e){var a=aliases(e);(a.some(function(n){return found[key(n)]})?ok:ko).push(a[0])});
   h+='<p style="margin:6px 0">Trouvés ('+Object.keys(found).length+') : '+esc(Object.keys(found).map(function(k){return found[k]}).join(', ')||'aucun')+'</p>';
   h+='<p style="margin:6px 0;color:'+(ko.length?'var(--bad)':'var(--mut)')+'">Non trouvés ('+ko.length+') : '+esc(ko.join(', ')||'aucun')+'</p>';
   if(ko.length)h+='<p class="res__dir" style="margin:6px 0">Arrêts de la ligne à moins de '+CFG.guardKm+' km du centre de Luynes : '+esc(Object.keys(all).join(', '))+'</p>'});
