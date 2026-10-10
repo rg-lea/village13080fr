@@ -1,1 +1,422 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luynes d'hier à aujourd'hui, par Christian | village.13080.fr</title>
+<link rel="icon" href="https://actus.13080.fr/wp-content/uploads/2026/08/CIQ-LEA-Logo-carre-bleu.png">
+<!-- Matomo -->
+<script>
+  var _paq = window._paq = window._paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://vigie.siweb.13080.fr/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '19']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;1,400&display=swap');
+  :root{--navy:#242E63;--navy-deep:#171B41;--gold:#FFC500;--gold-dark:#AD8901;--white:#FFF;--muted:rgba(36,46,99,.66);--line:rgba(36,46,99,.12);}
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;scroll-padding-top:72px;}
+  body{margin:0;background:var(--white);color:var(--navy);font-family:'Outfit',sans-serif;-webkit-font-smoothing:antialiased;}
+  img{max-width:100%;display:block;} a{color:inherit;}
+  h1,h2,h3{font-weight:700;margin:0;letter-spacing:-0.015em;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+  :focus-visible{outline:2px solid var(--gold-dark);outline-offset:3px;}
+  @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important;}}
 
+  /* HEADER 1 */
+  .site-header{background:#242E63;display:flex;justify-content:center;align-items:center;padding:16px 0;}
+  .site-header__logo-link{display:block;line-height:0;}
+  .site-header__logo{display:block!important;width:300px!important;height:auto!important;max-width:90vw!important;}
+  /* HEADER 2 */
+  .sub-header{background:#242E63;padding:16px 24px;position:relative;z-index:1000;}
+  .sub-header__inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;position:relative;}
+  .sub-header__brand{display:flex;align-items:center;gap:16px;}
+  .sub-header__site-link{color:#FFF;text-decoration:none;font-weight:600;font-size:16px;white-space:nowrap;}
+  .sub-header__site-link:hover,.sub-header__site-link:focus{color:#FFC500;}
+  .sub-header__back-link{color:rgba(255,255,255,.55);text-decoration:none;font-size:13px;white-space:nowrap;transition:color .2s ease;}
+  .sub-header__back-link:hover,.sub-header__back-link:focus{color:#FFC500;}
+  .sub-header__toggle{display:none;}
+  .sub-header__burger{display:none;flex-direction:column;justify-content:space-between;width:26px;height:18px;cursor:pointer;z-index:1002;}
+  .sub-header__burger span{display:block;height:2px;width:100%;background:#FFF;border-radius:2px;transition:transform .3s ease,opacity .3s ease;}
+  .sub-header__nav{display:flex;align-items:center;gap:24px;}
+  .sub-header__link{color:#FFF;text-decoration:none;font-size:15px;white-space:nowrap;}
+  .sub-header__link:hover,.sub-header__link:focus{color:#FFC500;}
+  .sub-header__btn{text-decoration:none;font-size:15px;font-weight:600;padding:8px 18px;border-radius:6px;white-space:nowrap;transition:background-color .2s ease,color .2s ease;}
+  .sub-header__btn--primary{background:#FFC500;color:#242E63;}
+  .sub-header__btn--primary:hover,.sub-header__btn--primary:focus{background:#e6b100;}
+  .sub-header__btn--secondary{background:transparent;color:#FFF;border:1px solid #FFF;}
+  .sub-header__btn--secondary:hover,.sub-header__btn--secondary:focus{background:#FFF;color:#242E63;}
+  @media (max-width:860px){
+    .sub-header__burger{display:flex;}
+    .sub-header__nav{position:absolute;z-index:1001;top:100%;left:0;right:0;margin-top:16px;background:#242E63;flex-direction:column;align-items:flex-start;gap:16px;padding:0 24px;border-radius:8px;box-shadow:0 8px 20px rgba(0,0,0,.25);max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease;}
+    .sub-header__toggle:checked ~ .sub-header__nav{max-height:400px;padding-top:20px;padding-bottom:20px;}
+    .sub-header__btn{width:100%;text-align:center;}
+    .sub-header__toggle:checked ~ .sub-header__burger span:nth-child(1){transform:translateY(8px) rotate(45deg);}
+    .sub-header__toggle:checked ~ .sub-header__burger span:nth-child(2){opacity:0;}
+    .sub-header__toggle:checked ~ .sub-header__burger span:nth-child(3){transform:translateY(-8px) rotate(-45deg);}
+  }
+
+  /* HERO */
+  .hero{color:var(--white);background:linear-gradient(90deg,rgba(23,27,65,.93) 0%,rgba(23,27,65,.8) 50%,rgba(23,27,65,.4) 100%),url('https://actus.13080.fr/wp-content/uploads/2024/04/Banniere-scaled.png') center/cover no-repeat,var(--navy-deep);}
+  .hero__inner{padding-top:72px;padding-bottom:72px;}
+  .eyebrow{font-size:.8rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:0 0 14px;}
+  .hero h1{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:800;line-height:1.06;letter-spacing:-0.025em;max-width:18ch;}
+  .hero__lead{margin:20px 0 0;max-width:56ch;font-size:1.1rem;line-height:1.6;color:rgba(255,255,255,.76);}
+
+  /* SOMMAIRE */
+  .toc{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);}
+  .toc__inner{display:flex;gap:8px;overflow-x:auto;padding:12px 24px;scrollbar-width:thin;}
+  .toc a{flex:none;text-decoration:none;font-size:14px;font-weight:600;padding:8px 16px;border-radius:999px;border:1px solid var(--line);color:var(--navy);transition:background-color .15s,color .15s;}
+  .toc a:hover{background:var(--navy);color:var(--white);}
+
+  /* CHAPITRES */
+  .chapter{padding:72px 0 24px;}
+  .chapter:nth-of-type(even){background:#FAFAF8;}
+  .chapter__head{display:flex;align-items:baseline;gap:20px;margin-bottom:12px;border-bottom:3px solid var(--gold-dark);padding-bottom:16px;}
+  .chapter__num{font-size:3rem;font-weight:800;color:var(--gold-dark);line-height:1;}
+  .chapter__head h2{font-size:clamp(1.6rem,3vw,2.2rem);}
+  .chapter__intro{color:var(--muted);max-width:62ch;line-height:1.6;margin:14px 0 40px;}
+  .chapter:last-of-type{padding-bottom:72px;}
+
+  .article{display:grid;grid-template-columns:240px 1fr;gap:40px;padding:36px 0;border-top:1px solid var(--line);}
+  .article:first-of-type{border-top:0;}
+  .article__meta{position:sticky;top:84px;align-self:start;}
+  .kicker{font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-dark);margin:0 0 8px;}
+  .article h3{font-size:1.45rem;line-height:1.25;}
+  .article__sub{margin:8px 0 0;font-size:.92rem;color:var(--muted);line-height:1.45;}
+  .prose{font-family:'Lora',Georgia,serif;font-size:1.06rem;line-height:1.75;max-width:68ch;}
+  .prose p{margin:0 0 1.1em;}
+  .prose h4{font-family:'Outfit',sans-serif;font-size:1.05rem;margin:1.6em 0 .5em;}
+  .prose blockquote{margin:1.4em 0;padding:4px 0 4px 22px;border-left:3px solid var(--gold);font-style:italic;color:#2c3668;}
+  .prose blockquote p{margin:0 0 .8em;}
+  .portrait{background:#FFF;border:1px solid var(--line);border-top:3px solid var(--gold-dark);border-radius:12px;padding:20px 24px 8px;margin:1.4em 0;}
+  .portrait h4{margin-top:0;}
+  .portrait__dates{font-family:'Outfit',sans-serif;font-weight:500;color:var(--muted);font-size:.9rem;}
+  .facts{list-style:none;padding:0;margin:1.4em 0;border-top:1px solid var(--line);}
+  .facts li{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:10px 0;border-bottom:1px solid var(--line);font-family:'Outfit',sans-serif;font-size:1rem;}
+  .facts b{color:var(--gold-dark);font-weight:600;}
+  .note{font-family:'Outfit',sans-serif;font-size:.85rem;color:var(--muted);}
+
+  /* FOOTER */
+  .site-footer{background:#242E63;color:#FFF;display:flex;flex-direction:column;align-items:center;padding:32px 16px;text-align:center;}
+  .site-footer__logo{display:block;width:300px;height:auto;max-width:90vw;margin:0 0 20px;}
+  .site-footer__links{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px;}
+  .site-footer__link{color:#FFF;text-decoration:none;font-size:14px;font-weight:500;}
+  .site-footer__link:hover,.site-footer__link:focus{color:#FFC500;text-decoration:underline;}
+  .site-footer__separator{color:#FFC500;font-size:14px;}
+
+  @media (max-width:900px){
+    .article{grid-template-columns:1fr;gap:16px;}
+    .article__meta{position:static;}
+  }
+  @media (max-width:600px){
+    .wrap{padding:0 18px;} .toc__inner{padding:12px 18px;}
+    .chapter{padding-top:52px;} .chapter__num{font-size:2.2rem;}
+    .facts li{grid-template-columns:1fr;gap:2px;}
+    .site-footer__logo{width:220px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="https://village.13080.fr" class="site-header__logo-link" aria-label="Retour à l'accueil">
+    <img src="https://actus.13080.fr/wp-content/uploads/2026/08/CIQ-LEA-VILLAGE-Logo-rectangulaire-blanc.png" alt="Village de Luynes" class="site-header__logo">
+  </a>
+</header>
+
+<header class="sub-header">
+  <div class="sub-header__inner">
+    <div class="sub-header__brand">
+      <a href="https://village.13080.fr/" class="sub-header__site-link">village.13080.fr</a>
+      <a href="https://13080.fr" class="sub-header__back-link" aria-label="Retour vers 13080.fr">← 13080.fr</a>
+    </div>
+    <input type="checkbox" id="sub-header-toggle" class="sub-header__toggle" />
+    <label for="sub-header-toggle" class="sub-header__burger" aria-label="Ouvrir le menu"><span></span><span></span><span></span></label>
+    <nav class="sub-header__nav" aria-label="Menu principal">
+      <a href="https://village.13080.fr/" class="sub-header__link">Accueil</a>
+      <a href="https://village.13080.fr/pratique" class="sub-header__link">Mon village</a>
+      <a href="https://actus.13080.fr/village" class="sub-header__link">Actualités</a>
+      <a href="https://village.13080.fr/annuaire" class="sub-header__btn sub-header__btn--primary">Annuaire</a>
+      <a href="https://ciq.13080.fr/contact" class="sub-header__btn sub-header__btn--secondary">Nous contacter</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap hero__inner">
+    <p class="eyebrow">Mémoire du village</p>
+    <h1>Luynes d'hier à aujourd'hui, par Christian.</h1>
+    <p class="hero__lead">Origines, quartiers, Libération, figures locales et noms de rues : tous les récits de Christian réunis en un seul endroit, à lire dans l'ordre ou au gré de vos envies.</p>
+  </div>
+</section>
+
+<nav class="toc" aria-label="Sommaire">
+  <div class="wrap toc__inner">
+    <a href="#origines">Origines &amp; quartiers</a>
+    <a href="#liberation">Guerre &amp; Libération</a>
+    <a href="#vie-locale">Vie locale</a>
+    <a href="#figures">Figures &amp; noms de rues</a>
+  </div>
+</nav>
+
+<!-- ============ 1. ORIGINES & QUARTIERS ============ -->
+<section class="chapter" id="origines">
+  <div class="wrap">
+    <div class="chapter__head"><span class="chapter__num">01</span><h2>Origines &amp; quartiers</h2></div>
+    <p class="chapter__intro">De la seigneurie des d'Albert aux lotissements du XXe siècle : comment le village et ses quartiers ont pris forme.</p>
+
+    <article class="article" id="origines-village">
+      <div class="article__meta"><p class="kicker">Luynes</p><h3>Les origines du village</h3></div>
+      <div class="prose">
+        <p>Lorsque vos pas vous guideront dans cette tranquille bourgade provençale faisant partie intégrante de la commune aixoise, sachez que ce village a eu son heure de gloire. Luynes était la propriété privée de la famille de Ségur et lorsque Jeanne, héritière des terres de Luynes, épousa Léon d'Albert en 1535, c'est lui qui en hérita. Luynes devint ainsi le berceau des seigneurs d'Albert.</p>
+        <p>Leur fils, Charles d'Albert, page de Henri IV puis favori de Louis XIII, pair et connétable de France, devint duc de Luynes en 1619. Il amena en Touraine son titre aixois. Propriétaire du Comté de Maillé, il en obtint l'évolution en Duché-Pairie qu'il fit débaptiser pour lui donner le nom de duché de Luynes. C'est ainsi qu'aujourd'hui cette agglomération située à 12 kilomètres à l'ouest de Tours porte le nom de la rivière et celui de notre village.</p>
+        <p>Luynes de nos jours coule des jours heureux à l'ombre de ses platanes plantés vers 1830. C'est un village relativement récent, issu au début du 20e siècle du regroupement de grands domaines agricoles reliés par le croisement des routes Aix-Marseille et Gardanne. Malgré sa rapide évolution, Luynes a su trouver un bel équilibre entre ses vieilles familles qui perpétuent nos traditions provençales et les nombreux citadins qui ont choisi la tranquillité du lieu pour y vivre. Avec environ 8000 habitants, la qualité de vie y est bonne.</p>
+        <p>Sous les Romains, le village s'appelait Lodéna. Il devint en provençal <i>las loynas</i>, <i>las loinas</i>, <i>las lognas</i> et en français Luynes. Comme la rivière qui y coule. Mais cela est une autre histoire.</p>
+      </div>
+    </article>
+
+    <article class="article" id="turin">
+      <div class="article__meta"><p class="kicker">Quartier</p><h3>Il était une fois le quartier Turin</h3></div>
+      <div class="prose">
+        <p>Rassurez-vous ! Nous ne sommes pas en Italie dans la célèbre capitale du Piémont mais bien à Luynes. En direction de Gardanne se trouve l'ancienne gare. Les trains ne s'arrêtent plus depuis fort longtemps. Ils ne font que passer entre Aix et Marseille et vice-versa. En contrebas, la voie rapide venant des Milles et allant à la cité minière avec son flot de 12 000 voitures par jour. Plusieurs habitations sont implantées des deux côtés de la chaussée, sécurisée par un terre-plein central qui tente tant bien que mal de briser la vitesse des automobilistes. Vous êtes au quartier Turin.</p>
+        <p>Nous allons vous raconter l'histoire de sa fondation au début du 18e siècle, grâce à la regrettée Gaby Marin. Elle a toujours habité ce lieu et entretenait le souvenir de la famille Decome. Elle nous avait confié de précieux documents sur ces gens qui furent les premiers habitants sous le règne de Louis XIV. Louis Paul Decome, décédé en 1990, a fait l'historique de sept générations de sa famille qui y ont vécu. Nous nous contenterons d'évoquer comment tout cela a commencé.</p>
+        <p>Proscrits politiques en Italie, les Decome sont chassés de leur pays et viennent trouver refuge en France. Nous sommes en 1700. Peu d'habitations à Luynes, surtout des champs. Jean-Baptiste trouve à son arrivée une très ancienne construction dont il ne reste que peu de choses, sinon une cave voûtée de 20 mètres de long sur 6 mètres de large et 2 mètres de hauteur. Cette cave est toujours intacte. Elle fait partie de la maison qu'habitait Gaby Marin. Elle est prolongée par les fondations d'épaisses murailles.</p>
+        <p>C'est là que Jean-Baptiste Decome, surnommé l'exilé, construit sa ferme, face au midi, à l'abri du mistral. Ce lieu tranquille et accueillant lui rappelle les horizons harmonieux des collines italiennes. Il baptise donc le lieu Turin, en souvenir de son Piémont natal. Pour remercier Dieu, il déposera un ex-voto représentant un voyageur avec un paquet sur l'épaule, au bout d'un bâton, en la chapelle voisine de Fontcouverte. Il doit faire preuve d'un zèle religieux pour prouver sa catholicité : à l'époque du Roi Soleil, les persécutions contre les protestants sont légion suite à la révocation de l'édit de Nantes en 1685, et les transfuges piémontais réfugiés en Provence sont considérés comme des suspects potentiels.</p>
+        <p>Paisible maraîcher, il trouve la mort avec sa femme et ses enfants en 1721 lors de l'épidémie de peste qui frappe la Provence. En exécution de ses dernières volontés, il est enseveli dans la chapelle de Fontcouverte, à l'ex-voto, avec son fidèle chien qui s'est laissé mourir de faim. Son fils aîné Jacques survit à l'épidémie ainsi que sa fille Marie. L'histoire des Decome peut se poursuivre.</p>
+      </div>
+    </article>
+
+    <article class="article" id="malouesse">
+      <div class="article__meta"><p class="kicker">Rues du village</p><h3>Malouesse &amp; Bon Rencontre</h3><p class="article__sub">Deuxième volet de la série sur les rues du village, guidé par Jean Pujol, président du CIQ.</p></div>
+      <div class="prose">
+        <p>Face au club Jazz Fola se trouve la fontaine Roubin, sur l'avenue Jean Pelisse. À l'origine, un chemin ressemblant à une simple piste sinueuse reliant le chemin des Frères Gris au carrefour de Bon Rencontre. Jean Pelisse, directeur d'école à la retraite demeurant avenue Léopold Cartoux, était un homme dévoué, investi dans l'action publique comme le furent beaucoup d'instituteurs. Arrivé dans le quartier à l'époque de la guerre 39-45, il s'est employé à obtenir de la Municipalité la rectification et le classement de cette voie dans le cadre du CIQ.</p>
+        <p>En remontant cette avenue, la première rue à gauche est le chemin de Bon Rencontre. On y connaît des gens de très bonne compagnie qui y résident, on peut vous assurer qu'il porte fort bien son nom.</p>
+        <p>Au bout de l'avenue Jean Pelisse se trouve le chemin des Frères Gris, qui relie la route de Marseille, à l'entrée du village en venant d'Aix, jusqu'à l'avenue des Libérateurs. La confrérie des Frères Pénitents Gris est instituée à Aix en 1677 par le cardinal Jérôme de Grimaldi, archevêque d'Aix (1655-1685), et placée sous la protection de saint Jérôme, docteur de l'Église. Après l'adoption d'un règlement et d'un costume, elle a pour but principal la pratique de la piété, de la pénitence et de la charité à l'égard du prochain, durant sa vie comme après sa mort. Les frères se consacrèrent en particulier à l'ensevelissement des indigents, des inconnus de passage, des soldats, et de tous ceux qui, par humilité, désiraient être ensevelis dans le suaire des pauvres et accompagnés par la confrérie à titre gracieux. Cette congrégation vivait où se trouve actuellement le clos des Frères Gris, lotissement sur la route Aix-Marseille.</p>
+        <p>On emprunte ce chemin en tournant à droite et la première rue à gauche est l'avenue Léopold Cartoux, qui s'est appelée autrefois chemin de la Cendrière. Elle doit son nom à cet homme qui fut conseiller général. Il était propriétaire de la maison La Brise, au carrefour Capelasse, Abeilles, Plaine des Dés, qui était sa résidence secondaire. On lui doit la création de la maison de retraite qui porte son nom, installée à Aix.</p>
+        <p>En remontant l'avenue Léopold Cartoux, on termine cette balade par le chemin des Abeilles, qui tire vraisemblablement son nom non pas de l'insecte bien connu mais d'une propriété dénommée l'Abeille, appartenant à Monsieur Pouget. Celui-ci, qui l'utilisait comme chasse privée entièrement grillagée, exploitait à Marseille, rue de Rome, un commerce de fabrication de dentelles mécaniques dénommé « le Nid d'Abeille », d'où probablement le nom de la propriété. Rappelons que Monsieur Pouget avait cédé gratuitement les terrains à la Municipalité pour ériger la fontaine qui commémore l'adduction d'eau du village en 1930.</p>
+        <p>Le quartier Malouesse doit son nom à l'épidémie de peste qui frappa la ville d'Aix en 1720. On compta, sur les quatorze mois que dura cette épidémie, près de 10 000 décès, soit le quart de la population. Les cadavres étaient emportés par des charrettes dans un terrain au sud de l'Arc où ils étaient enfouis dans la chaux vive. Cette terre s'appelle toujours Malouesse, ce qui signifie : les os des malheureux.</p>
+      </div>
+    </article>
+
+    <article class="article" id="caire">
+      <div class="article__meta"><p class="kicker">Rues du village</p><h3>La place Albertin et le lotissement Caire</h3><p class="article__sub">Une balade guidée par André Sarnette, riverain bien connu du quartier, qui nous a ouvert ses archives.</p></div>
+      <div class="prose">
+        <p>Sur la route de Marseille, à l'angle de la boulangerie « Le Coin Gourmand » et du local Planet Jeunes, se trouve le boulevard Caire, qui a la particularité d'être bordé exclusivement de marronniers. Clément Caire est né le 9 novembre 1844 à Aix-en-Provence. Il est le fils de Pierre François Caire et Élisabeth Françoise Dol. Le 26 février 1889, il reçoit donation du « domaine de Luynes » de ses parents. Le 10 novembre 1925, ce capitaine d'infanterie en retraite signe le cahier des charges du lotissement Caire à Luynes. Il y est précisé que « les sols des rues et places demeureront affectés perpétuellement à la circulation publique ». De 1925 à 1928, il vend 27 des 46 lots, mais les lots 28, 29 et 30, qui constitueront la place Albertin, ne seront pas vendus par Clément Caire. Il décède le 24 juillet 1929.</p>
+        <p>Sur ce boulevard, plusieurs rues parallèles sont dédiées à la même famille. Clément Caire avait trois héritiers, ses trois enfants vivants Henry, Camille et René, dont le nom a été donné à trois rues du lotissement. Une rue Gabriel Caire (4e enfant, décédé) existait avant de devenir allée du Sagittaire à la création du groupe Chapuis.</p>
+        <h4>Edmond Albertin</h4>
+        <p>Au bout de ce boulevard se trouve la place Albertin. Edmond Jean Michel Albertin naît le 6 septembre 1884 à La Cadière-d'Azur (Var), de père inconnu et d'Élisabeth Euphrosine Rosalie Albertin. Sa profession : huissier de justice. Le 25 août 1933, il est assassiné d'un coup de fusil, dans l'exercice de ses fonctions, lors de la saisie des biens de Raoul Bondil, épicier au 6 de la rue des Cordeliers ; ce dernier a été condamné aux travaux forcés à perpétuité. L'acte de décès nous apprend qu'Élisabeth Albertin était décédée à la mort de son fils.</p>
+        <p>Entre 1935 et 1939, une personne de la famille Albertin (son épouse, son beau-père ou un de ses fils) aurait fait don à la commune d'Aix des lots 28, 29 et 30 pour constituer la place Albertin, destinée à créer un terrain de jeu pour les jeunes du village à la mémoire d'Edmond Albertin.</p>
+        <p>Entre 1968 et 1970, un local appelé « Mille Club » a été construit sur cette place (les préfabriqués appelés « Mille Club » ont été initiés après mai 68 par André Malraux, ministre de la Culture du général de Gaulle). Inauguré le 17 janvier 1970, il sera transformé en « Maison des associations » entre 1974 et 1980. Aujourd'hui, ce local abrite six associations luynoises et, malgré des avis de démolition qui ont ému les riverains, il n'est pas question d'y toucher : la Maison des associations et le square attenant ne seront pas sacrifiés au profit de la construction d'un immeuble. Cela a été confirmé par la Municipalité. Mais les habitants nous ont dit qu'ils restaient vigilants et mobilisés.</p>
+        <p>On termine cette balade par la rue Joséphine Caire, qui relie l'avenue des Libérateurs. Le nom de cette rue est dédié à la mémoire de l'épouse ou de la sœur de Clément Caire, qui portaient le même prénom. Il y a également la rue Alcide, prénom d'un des membres de la famille Caire dont le lien de parenté n'a pu être déterminé.</p>
+      </div>
+    </article>
+
+    <article class="article" id="chapuis">
+      <div class="article__meta"><p class="kicker">Quartier</p><h3>Il était une fois le groupe Chapuis</h3><p class="article__sub">Avec les témoignages de Jean Mavel et des santonniers Roger et Mireille Jouve.</p></div>
+      <div class="prose">
+        <p>Situé à l'entrée du village en venant d'Aix, le groupe Chapuis s'est constitué en 1958. Nous allons vous conter l'histoire de ce quartier emblématique de notre village grâce à ceux qui ont accepté de nous la raconter.</p>
+        <blockquote><p>Dans les années 30, beaucoup de champs entourent le village, nous précise Jean Mavel. Un projet d'urbanisation se met en place avec la construction du groupe Mavel, du nom de ma famille qui est propriétaire des lieux. Des plans sont établis et le projet semble bien ficelé. Malheureusement, les vicissitudes de la guerre le feront avorter.</p></blockquote>
+        <p>En avril 1942, en pleine occupation allemande, Jean-Pierre Mavel, le père de Jean, vend ses terrains à Madame Chapuis. Cette dernière confie ses terres à Monsieur Rousseau, qui va y cultiver des céréales jusqu'en 1958.</p>
+        <p>À cette époque, Monsieur Mattéoda, un promoteur bien connu, achète le terrain de Madame Chapuis, dont le nom sera donné au projet de construction qui va voir le jour. C'est un terrain vague qui a été morcelé. La construction du groupe, désormais appelé Chapuis, démarre le 3 juillet 1958. Elle sera achevée en 1963 avec la réalisation de 75 villas. L'architecte est Monsieur Chartier et c'est l'entreprise Rami qui a réalisé les travaux.</p>
+        <p>Roger Jouve, le célèbre santonnier, en a été le premier habitant en septembre 1959 et nous livre une anecdote assez cocasse :</p>
+        <blockquote><p>Avant la constitution de ce quartier, une partie de ma résidence, dont mon atelier, se trouvait à l'entrée du lotissement. Pour faire l'entrée actuelle, il a fallu en démolir une partie et la reconstruire un peu plus bas, où elle se trouve aujourd'hui.</p></blockquote>
+        <p>Son épouse Mireille a un petit regret : « J'aurais aimé que les rues du quartier portent des noms provençaux. Au lieu de ça, ce sont les signes du zodiaque qui ont été choisis. »</p>
+        <p>Ce n'est que plus tard que des noms fleurant bon notre belle Provence apparaîtront dans Luynes. Ce sera la ZAC Saint-Jean, au milieu des années 80, mais ça, c'est une autre histoire !</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ 2. GUERRE & LIBÉRATION ============ -->
+<section class="chapter" id="liberation">
+  <div class="wrap">
+    <div class="chapter__head"><span class="chapter__num">02</span><h2>Guerre &amp; Libération</h2></div>
+    <p class="chapter__intro">Le 21 août 1944, Luynes retrouvait sa liberté sans un coup de feu. Récits, rues et visages de ceux qui l'ont vécue ou préparée.</p>
+
+    <article class="article" id="liberation-1944">
+      <div class="article__meta"><p class="kicker">21 août 1944</p><h3>Il y a 76 ans, le village était libéré</h3><p class="article__sub">À l'occasion des 75 ans de la libération du village.</p></div>
+      <div class="prose">
+        <p>Le 21 août 1944, sans qu'aucun coup de feu n'ait été échangé, Luynes recouvra sa liberté. L'histoire de cette journée de liesse nous a été contée voilà quelques années par Maurice Brisset, qui nous a quittés en 2015. Jeune adolescent de 17 ans, c'est lui qui sonna les cloches de l'église Saint-Georges en compagnie des regrettés Loulou Escales et Mickey Massal pour accueillir les Américains.</p>
+        <blockquote><p>À la fin de l'année 1942, les Allemands occupaient la France entière dont Luynes, racontait Maurice. Les maisons étaient réquisitionnées, la Kommandantur était située au quartier Malouesse, un peu plus loin que l'école Saint-François d'Assise. Nous étions inquiets de voir ces gens occuper notre village, ne sachant pas le sort qu'ils nous réservaient.</p></blockquote>
+        <p>Le 20 août, branle-bas de combat dans l'état-major germanique. Face à l'arrivée imminente des Américains et à la défaite consommée, les soldats allemands prirent la poudre d'escampette. Tous les vélos furent alors réquisitionnés. Même le cheval d'un dénommé Agneau Castro a été confisqué.</p>
+        <p>Le lendemain, sur le coup de 10 heures, plus un Allemand n'était présent dans le village. Mais à 10 h 30, quelques-uns venus de Marseille s'étaient rassemblés devant le bar du Nord, devenu l'auberge L et G. « On a tous cru qu'ils voulaient faire sauter le pont Saint-Martin, mais ils ont battu en retraite. »</p>
+        <p>À 11 heures, depuis la route de Gardanne, un certain Monsieur Ribes est arrivé à vélo annonçant que les Américains étaient à la gare, au quartier Turin. Le père de Maurice, alors garde champêtre, et quelques-uns de ses amis sont allés ressortir le drapeau tricolore, caché depuis de nombreuses années à la vue de l'occupant, pour partir retrouver les Libérateurs. La rencontre se fit à l'oratoire, au bout de l'avenue qui prendra plus tard le nom d'avenue des Libérateurs. L'occupant était parti. Aucun coup de feu ne fut échangé.</p>
+        <p>Les habitants firent un triomphe aux Américains. Les patrons des trois bars étendirent alors leurs terrasses dans la rue, tandis que les libérateurs offraient des chewing-gums et des cigarettes. Dans le même temps, Loulou Escales, qui avait déjà fait sonner les cloches du village en 1918, est parti en compagnie de Mickey et Maurice pour faire résonner la cloche de l'église, à la grande frayeur de l'abbé Royère, qui avait peur que le clocher ne dégringole.</p>
+        <p>Ce fut une journée inoubliable. Parmi la population enthousiaste se trouvait une petite fille de 5 ans, Suzanne Laurent, venue assister à ce moment historique en compagnie de ses parents. Elle va connaître son heure de gloire lorsqu'elle est hissée sur le premier char à côté de la tourelle et s'offre un tour du village.</p>
+        <blockquote><p>J'ai de vagues souvenirs car j'étais très jeune, confie Suzanne, qui réside toujours dans le village. Cela fait 76 ans et cet événement a marqué ma vie. J'ai surtout vu des gens heureux de ce dénouement qu'ils espéraient tant. Après trois ans d'occupation, c'était la fin du cauchemar. Nous étions enfin libres.</p></blockquote>
+      </div>
+    </article>
+
+    <article class="article" id="daugey">
+      <div class="article__meta"><p class="kicker">Résistance</p><h3>Robert Daugey, un Luynois mort pour la France</h3></div>
+      <div class="prose">
+        <p>Le 21 août marquera le 77e anniversaire de la libération de notre village par les troupes américaines, sans qu'aucun coup de feu ait été tiré. Sentant le vent du boulet, les Allemands avaient pris la poudre d'escampette la veille.</p>
+        <p>Si, lors du premier conflit mondial, 28 Luynois ont donné leur vie, seul Robert Daugey est mort pour la France lors de la seconde guerre mondiale. Né à Parentis-en-Born, dans les Landes, le 20 mai 1916, il réside à Martigues où il est instituteur. Il entre dans la Résistance sous le pseudonyme de « Landes » et mène avec ses amis la lutte contre l'oppresseur nazi. Il fera partie du maquis de Sainte-Anne, dont voici l'histoire.</p>
+        <p>C'est au début de l'année 1943 qu'ont lieu, dans la région de Lambesc, les premiers contacts des volontaires avec l'Armée secrète pour l'organisation d'un groupe de résistance. Tout se passe en secret jusqu'au 5 juin 1944. Le mot d'ordre « Méfiez-vous du Toréador », reçu ce jour-là, donne le signal de l'occupation du maquis de la chaîne des Côtes. Le groupe de Lambesc occupe le plateau dit de « la plaine du Sèze ». Le groupe de Charleval et de La Roque-d'Anthéron prend place sur le plateau de Manivert, plus connu sous le nom de « Sainte-Anne ».</p>
+        <p>Dans ces deux groupes se trouvent aussi des résistants de plusieurs villes et villages des environs (Mallemort, Aix-en-Provence, Cadenet, Alleins, Marseille, Eyguières, Salon-de-Provence, Miramas, Martigues…). Malheureusement, une personne infiltrée par la police allemande va dénoncer les résistants, et ce sera le début de la fin.</p>
+        <p>Le 7 juin 1944, à La Roque-d'Anthéron, la Gestapo arrête un résistant, Aldéric Chave. Le lendemain, 8 juin, elle arrête, devant la maison située au n° 1 de la rue Hoche, des policiers en civil ainsi que huit résistants qui se sont réunis au QG de Robert Daugey. Ils seront emmenés dans les locaux de la Gestapo à Marseille, sous les ordres du sinistre Dunker Delage, et interrogés sans ménagement.</p>
+        <p>Le 13 juin, un convoi de vingt-huit prisonniers est amené dans la clairière du vallon de Fenouillet, entre Charleval et La Roque-d'Anthéron. Dix d'entre eux avaient été arrêtés la veille lors de la chasse à l'homme de la chaîne des Côtes. Les dix-huit autres viennent des prisons de la Gestapo à Marseille et sont amenés au Fenouillet pour y être exécutés. Ces 28 hommes sont fusillés sur place sans autre forme de procès. Leurs corps (dont celui d'Arthur Favaro, de Miramas) seront retrouvés en septembre 1944. Un monument aux morts a été érigé sur le lieu de leur exécution. C'était il y a 77 ans !</p>
+        <p>Robert Daugey et sa maman ont habité Luynes, sur la Route Nationale 8. Une rue du village porte son nom, ainsi que deux groupes scolaires à Martigues et une bibliothèque à Gréasque. Il repose au cimetière de Luynes, à quelques pas du monument aux morts.</p>
+      </div>
+    </article>
+
+    <article class="article" id="honneur">
+      <div class="article__meta"><p class="kicker">Des Luynois à l'honneur</p><h3>Quatre plaques, quatre mémoires</h3><p class="article__sub">Biographies de personnes du village disparues, mises à l'honneur lors du dévoilement de plaques de rues.</p></div>
+      <div class="prose">
+        <p>La rue Anna Cahni se trouve à l'angle de la Société Générale et de l'institut de beauté, face au jeu de boules de la place de la Libération. L'espace René Decastille, au début de l'avenue Robert Daugey, accueille la stèle où se déroulent les cérémonies patriotiques. Les rues Manuel Timonéda et Pierre Bartoletti sont à côté du Lycée international. La rue Mireille Cirelli est située au quartier Malouesse.</p>
+        <div class="portrait">
+          <h4>René Decastille <span class="portrait__dates">(1913-1996)</span></h4>
+          <p>Né le 6 décembre 1913 à Montigny-lès-Metz (57). Volontaire dans l'armée de l'air à 16 ans, il participe à la seconde guerre mondiale. Prisonnier en 40, il parvient à s'évader et termine la guerre avec deux citations à l'ordre de l'armée aérienne et reçoit la médaille militaire. Il sert en Indochine et en Algérie, termine sa carrière au grade de capitaine et compte à son actif plus de 600 missions de guerre et de nombreuses heures de vol.</p>
+          <p>Commandeur de la Légion d'honneur, titulaire de 9 citations, il fonde l'association des anciens combattants de Luynes en 1969. Il en sera le premier président et assumera cette fonction avec beaucoup de classe jusqu'à la fin de l'année 1988, avant de passer le relais au regretté Aimé Floch. Passionné de football, il fut durant les années 60 vice-président du Luynes Sports et dirigeant de l'équipe première seniors. Il est décédé le 6 juin 1996. Un homme élégant, courtois, dévoué et d'une grande gentillesse.</p>
+        </div>
+        <div class="portrait">
+          <h4>Mireille Cirelli, née Mignot <span class="portrait__dates">(1924-2012)</span></h4>
+          <p>Elle voit le jour le 30 octobre 1924 à Sétif (Algérie). Avec ses 3 frères et sœurs, elle sillonne le Sahara algérien à la recherche d'eau : son père est sourcier. En 1942, elle s'engage et intègre le 27e escadron du train d'Alger. Dès la fin de sa formation d'ambulancière, c'est le départ pour la campagne d'Italie, puis la libération de la Provence, la traversée de la France et enfin l'Allemagne jusqu'au camp de Buchenwald. Blessée lorsque son ambulance saute sur une mine, elle devient invalide de guerre mais repart au front. Basée après la guerre en Allemagne puis au Maroc, elle élève ensuite ses 4 enfants. À la retraite, elle s'installe à Aix-en-Provence. Elle décède en 2012, à l'âge de 88 ans.</p>
+        </div>
+        <div class="portrait">
+          <h4>Anna Cahni <span class="portrait__dates">(1904-2010)</span></h4>
+          <p>Née le 21 avril 1904 à Puget-sur-Argens (83), cette dame a eu une longévité exceptionnelle. Elle a traversé pratiquement tout le 20e siècle plus dix années du 21e, connaissant tous les bouleversements de notre société. Elle vivait avec son fils Georges au chemin de la Blaque depuis plus de cinquante ans et était la doyenne du village. Elle nous a quittés le 28 juillet 2010 à l'âge de 106 printemps. Elle buvait encore son petit verre de vin quotidien, dans les grandes occasions un petit apéro, et regardait la télévision sans lunettes. Sa série préférée était « Les Feux de l'amour ».</p>
+        </div>
+        <p class="note">Les portraits de Pierre Bartoletti et Manuel Timonéda figurent plus bas, dans « Vie locale ».</p>
+      </div>
+    </article>
+
+    <article class="article" id="rues-liberation">
+      <div class="article__meta"><p class="kicker">Rues du village</p><h3>Les rues de la Liberté</h3><p class="article__sub">Deuxième volet, en hommage aux résistants dont le nom a été donné à des rues du village.</p></div>
+      <div class="prose">
+        <ul class="facts">
+          <li><b>Square Capitaine René Decastille</b><span>Au bout de l'espace du Mail, où se trouve le monument aux morts.</span></li>
+          <li><b>Rue Mireille Cirelli</b><span>Au quartier Malouesse.</span></li>
+          <li><b>Avenue des Libérateurs</b><span>Elle débute à l'angle de la brasserie des Sports et se finit au rond-point de la route de Gardanne et de Bouc-Bel-Air.</span></li>
+          <li><b>Place de la Libération</b><span>Elle abrite le boulodrome du village, parallèle à la mairie annexe.</span></li>
+        </ul>
+        <p>L'avenue des Libérateurs est dédiée aux troupes américaines qui ont fait leur entrée dans Luynes le 21 août 1944 et l'ont libéré sans tirer un coup de feu, les Allemands ayant pris la poudre d'escampette la veille. Ce sont les regrettés Maurice Brisset, Loulou Escales et Mickey Massal qui ont sonné les cloches de l'église Saint-Georges pour annoncer la bonne nouvelle à la population.</p>
+        <p>La place de la Libération fleure bon la liberté retrouvée, à Luynes où il fait si bon vivre.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ 3. VIE LOCALE ============ -->
+<section class="chapter" id="vie-locale">
+  <div class="wrap">
+    <div class="chapter__head"><span class="chapter__num">03</span><h2>Vie locale</h2></div>
+    <p class="chapter__intro">Ceux qui ont fait vivre le village au quotidien : élus, gardien de la tranquillité et bénévoles du sport et des fêtes.</p>
+
+    <article class="article" id="democratie">
+      <div class="article__meta"><p class="kicker">Démocratie locale</p><h3>De Elzéart André à Laurent Dillinger</h3><p class="article__sub">76 ans de démocratie de proximité.</p></div>
+      <div class="prose">
+        <p>Luynes n'a jamais été une commune indépendante : il est toujours resté un quartier d'Aix et possède un adjoint spécial, dénommé maintenant adjoint de quartier. Tout cela a été décidé en séance plénière le 11 décembre 1945, puis validé lors de la séance du conseil municipal du 14 du même mois. Elzéart André, nommé trois jours plus tôt, a fait une déclaration qui est devenue un petit moment d'histoire de notre village.</p>
+        <blockquote>
+          <p>Mes chers collègues, depuis fort longtemps les hameaux des Milles et de Puyricard sont pourvus d'un poste d'adjoint spécial. Par contre, le hameau de Luynes ne bénéficie pas de cet avantage. Ce quartier, situé à 6 kilomètres de la ville d'Aix-en-Provence, accusait une population de 1288 habitants en 1936. Depuis cette dernière date, ce chiffre s'est accru sensiblement. Les administrés se trouvent dans l'obligation d'effectuer des déplacements longs et onéreux toutes les fois qu'ils ont à remplir des formalités en Mairie. Il en résulte aussi pour eux une perte de temps dont ils se plaignent.</p>
+          <p>Dans le but de supprimer ces inconvénients, votre réunion plénière a adopté la création d'un poste d'adjoint spécial pour ce hameau. Cet administrateur remplirait les fonctions d'officier de l'état civil et veillerait à l'application des lois et règlements en vigueur. Suivant la loi, cette création ne peut être accordée que sur la demande motivée du conseil municipal et après intervention d'un décret rendu au Conseil d'État. L'adjoint spécial, élu par le conseil municipal, est désigné parmi les membres de l'assemblée communale et, à défaut, d'un conseiller résidant dans cette fraction de la commune. Il est choisi parmi les habitants du hameau.</p>
+          <p>J'ai donc l'honneur, mes chers collègues, pour les motifs exposés ci-dessus, de vous inviter à demander aux pouvoirs publics la création d'un poste d'adjoint spécial pour le hameau de Luynes.</p>
+        </blockquote>
+        <p>Le conseil municipal, présidé par le maire Henri Mouret, adopte cette résolution et Elzéart André devient officiellement le premier adjoint spécial de notre village. Voilà maintenant près de 76 ans que Luynes possède un adjoint spécial et une mairie annexe.</p>
+        <h4>La chronologie des adjoints spéciaux</h4>
+        <ul class="facts">
+          <li><b>14 décembre 1945</b><span>Elzéart André</span></li>
+          <li><b>26 octobre 1947</b><span>André Massal</span></li>
+          <li><b>5 mai 1953</b><span>Lise Reboul</span></li>
+          <li><b>23 mars 1959</b><span>Emmanuel Brunet</span></li>
+          <li><b>27 janvier 1967</b><span>Laurent Ruzzettu</span></li>
+          <li><b>2 mai 1977</b><span>Gilbert Mazars</span></li>
+          <li><b>6 juillet 1978</b><span>Louis Brunet</span></li>
+          <li><b>25 mars 1989</b><span>Gilbert Mazars</span></li>
+          <li><b>24 mars 2001</b><span>Bruno de Fontgalland</span></li>
+          <li><b>7 avril 2008</b><span>Danièle Brunet</span></li>
+          <li><b>29 novembre 2019</b><span>Laurent Dillinger</span></li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="article" id="garde">
+      <div class="article__meta"><p class="kicker">Rues du village</p><h3>Le premier garde champêtre du village</h3></div>
+      <div class="prose">
+        <p>La rue Eugène Saint-Venant se situe à l'angle du rond-point Louis Brunet et de la rue Émile Bouron. Elle mène à la résidence La Seigneurie. Cet homme a été le premier garde champêtre du village.</p>
+        <p>Il est né le 3 février 1873 à Marseille et décédé le 5 février 1952 à Aix-en-Provence. Deux fois marié, il aura 4 enfants. En 1894, il est incorporé durant trois ans au 27e bataillon de chasseurs à pied. Il est mobilisé pour la Grande Guerre le 3 août 1914 et, par ordre de réquisition, il est affecté au peloton de police municipale au titre de sous-brigadier jusqu'au 23 mars 1915. Employé de la ville d'Aix à compter du 1er décembre 1915, il est nommé garde champêtre le 1er janvier 1916 avec pour mission d'assurer le maintien de la sécurité sur le territoire de la commune. Il exercera cette fonction 17 ans et six mois avant de faire valoir ses droits à la retraite le 30 juin 1933, en qualité de sous-brigadier des gardes champêtres.</p>
+        <p>À titre anecdotique, il est intéressant de préciser qu'à quelques mètres seulement de l'actuelle mairie, un petit local austère faisait office de prison. Pour des séjours très brefs, le garde champêtre n'hésitait pas à « y boucler les voleurs de poules ».</p>
+      </div>
+    </article>
+
+    <article class="article" id="luynes-sports">
+      <div class="article__meta"><p class="kicker">Les fondateurs du Luynes Sports</p><h3>Pierre Bartoletti et Manuel Timonéda</h3><p class="article__sub">Deux rues aux abords du collège Sophie Germain portent leur nom.</p></div>
+      <div class="prose">
+        <p>Pierre Bartoletti, de 1947 à 1951, et Manuel Timonéda, de 1951 à 1954, ont été les deux premiers présidents du comité des fêtes et du Luynes Sports. Ils ont œuvré pour le bien-être de notre village.</p>
+        <div class="portrait">
+          <h4>Pierre Bartoletti <span class="portrait__dates">(1907-1999)</span></h4>
+          <p>Né le 2 octobre 1907 à Monsummano (Italie), il est le deuxième enfant d'une fratrie qui en comptera sept. Il quitte très vite son pays natal et vient s'installer, comme beaucoup d'Italiens à l'époque, dans le sud de la France, qui deviendra son pays d'adoption. Comble d'ironie, il combattra l'armée italienne sous le drapeau français. Il n'aura de cesse de travailler pour le pays et la région qui l'ont accueilli. Il sera tour à tour garçon de ferme, chauffeur de camion. Avec sa première épouse et ses enfants Odette et Auguste, il fonde une épicerie dans le village de Luynes qu'il ne quittera plus.</p>
+          <p>Passionné de cyclisme, de boules et de sports en général, il se dévoue pour le monde associatif. Il crée en compagnie d'une poignée de jeunes Luynois le comité des fêtes en 1946, puis le club de football Luynes Sports l'année suivante (6 avril 1947). Dans les années 60, à la faveur du boom de l'immobilier, il fondera une société de transport de matériaux, rejoint quelque temps plus tard par son fils Auguste. Il nous a quittés le 17 février 1999. Ceux qui l'ont connu se rappellent une personne joviale, un travailleur acharné qui ne prenait que fort peu de congés et un homme de parole. Un exemple à suivre…</p>
+        </div>
+        <div class="portrait">
+          <h4>Manuel Timonéda <span class="portrait__dates">(1904-1997)</span></h4>
+          <p>Né le 13 août 1904 dans les environs de Barcelone (Espagne), sa vie active s'est déroulée à Marseille, sur le port, où il travaille comme charpentier de marine jusqu'à sa retraite en 1970. Il s'installe à Luynes en 1941 et s'intègre à la vie du village. En compagnie de ses amis Pierre Bartoletti et Laurent Ruzzettu, il contribue à la fondation du comité des fêtes et de Luynes Sports, dont il sera président durant trois ans puis vice-président jusqu'à la fin des années 60. C'était un véritable touche-à-tout, à la fois organisateur, arbitre, juge de touche, joueur et même gardien de but pendant les sixtes.</p>
+          <p>Père de 4 filles et 3 garçons, tous bien connus des Luynois, sa grande fierté était d'avoir 3 gendres et 3 fils qui avaient choisi le Luynes Sports et partageaient donc sa passion pour le football. Il participe en 1970 à la construction du club des jeunes. Un tournoi de tennis de table portera son nom. Il se dévoue également au service des anciens dans le comité d'aide sociale et des loisirs, en compagnie de son vieux complice Laurent Ruzzettu, et occupera la fonction de vice-président de l'entraide. Il est décédé le 15 janvier 1997, année où Luynes Sports fêtait ses 50 printemps, laissant le souvenir d'un homme d'une grande gentillesse et d'un grand dévouement au service des autres.</p>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ 4. FIGURES & NOMS DE RUES ============ -->
+<section class="chapter" id="figures">
+  <div class="wrap">
+    <div class="chapter__head"><span class="chapter__num">04</span><h2>Figures &amp; noms de rues</h2></div>
+    <p class="chapter__intro">Un musicien, une mathématicienne, un écrivain de la mer : qui se cache derrière les noms que l'on croise chaque jour ?</p>
+
+    <article class="article" id="vidal">
+      <div class="article__meta"><p class="kicker">Rue François Vidal</p><h3>Le rénovateur des instruments provençaux</h3></div>
+      <div class="prose">
+        <p>La rue François Vidal relie le rond-point Louis Brunet à celui de l'entrée du village en venant de Marseille. Elle passe devant le stade Laurent Ruzzettu. Mais connaissez-vous celui qui a donné son nom à cette artère très fréquentée ?</p>
+        <p>Il naît à Aix-en-Provence le 14 juillet 1832. Une plaque commémorative est apposée au-dessus de sa maison natale, au 47 cours Sextius. Musicien, littérateur, philologue, historien, compositeur et typographe, il a plusieurs cordes à son arc. C'est sous sa direction que sont composés et imprimés <i>Lou Tresor dóu Felibrige</i>, de 1874 à 1880. Il participe en 1853 au fameux « Roumavagi dei troubaire » qui va codifier la langue provençale en un seul dialecte.</p>
+        <p>Il est le rénovateur des instruments provençaux que sont le galoubet et le tambourin. François Vidal préside l'Académie aixoise du tambourin et écrit l'ouvrage <i>Le Tambourin, histoire de l'instrument provençal suivi de la méthode du galoubet et du tambourin et des airs nationaux de Provence</i>. La renaissance félibréenne permet au galoubet et au tambourin de revivre : en 1864, il crée une Académie du tambourin à Aix-en-Provence et ouvre une classe au Conservatoire de cette ville en 1867.</p>
+        <p>On peut dire qu'il est à l'instrument provençal et à la musique ce que Frédéric Mistral est à la langue et à la littérature dans le contexte de la Renaissance provençale. Ce dernier l'encourage dans son œuvre et le nomme en 1876 parmi les premiers majoraux du Félibrige. Il terminera sa carrière professionnelle comme conservateur de la bibliothèque Méjanes. Il s'éteint à Marseille le 25 mai 1911 en ayant laissé un immense patrimoine. La culture et la musique provençales lui doivent beaucoup.</p>
+      </div>
+    </article>
+
+    <article class="article" id="germain">
+      <div class="article__meta"><p class="kicker">Le collège</p><h3>Qui est Sophie Germain ?</h3></div>
+      <div class="prose">
+        <p>Mathématicienne française née le 1er avril 1776 à Paris, Marie-Sophie Germain se passionne dès l'enfance pour les mathématiques, au point d'y consacrer sa vie dans une société où ce genre d'activité est, dans le domaine professionnel, réservé aux hommes. Elle est si déterminée qu'elle prend un nom d'homme, Antoine Auguste Le Blanc, pour demander par écrit les cours de l'École polytechnique, qu'elle obtient et qu'elle dévore.</p>
+        <p>Toujours sous son nom d'emprunt, elle communique ses remarques au grand mathématicien et astronome Joseph-Louis Lagrange, qui finit par rencontrer ce brillant « monsieur Le Blanc ». Il la soutiendra dans ses travaux. Sophie Germain s'attaque au Grand (ou Dernier) théorème de Fermat, selon lequel, avec x, y, z et n entiers, l'égalité xⁿ + yⁿ = zⁿ ne peut être vérifiée, quels que soient x, y et z, que pour n = 2. Ce théorème ne sera démontré que par Andrew Wiles en 1995. Elle correspond avec Carl Friedrich Gauss, encore une fois sous le nom de monsieur Le Blanc. Elle se trahit cependant en demandant à un général de Napoléon de protéger ce grand mathématicien prussien dont le pays va être envahi par les troupes françaises.</p>
+        <p>Elle décrit une classe particulière de nombres, devenus les nombres premiers de Sophie Germain : un nombre est de ce type si son double plus 1 est premier aussi. Elle parvient ainsi à un théorème, connu sous le nom de théorème de Sophie Germain, stipulant que, pour que l'égalité du Grand théorème de Fermat soit vérifiée, il faut que x, y ou z soit divisible par le carré de n. La mathématicienne a donné son nom à d'autres théorèmes et s'est penchée ensuite sur les surfaces courbes, ce qui l'a amenée à proposer une théorie de la vibration en opposition totale avec l'explication de Poisson, autre mathématicien contemporain. Elle décède le 27 juin 1831 des suites d'un cancer du sein.</p>
+      </div>
+    </article>
+
+    <article class="article" id="peisson">
+      <div class="article__meta"><p class="kicker">Le groupe scolaire</p><h3>Qui était Édouard Peisson ?</h3><p class="article__sub">Un personnage que beaucoup de nouveaux Luynois ne connaissent pas.</p></div>
+      <div class="prose">
+        <p>Écrivain maritime né en 1896 à Marseille et mort à Ventabren en 1963, à l'âge de 67 ans, il est l'auteur d'une trentaine de livres presque tous consacrés à la mer et aux marins. Ses romans les plus connus sont <i>Hans le marin</i> (1930), <i>Parti de Liverpool</i> (1932), <i>Gens de mer</i> (1934), <i>Le Pilote</i> (1937), <i>Le Sel de la mer</i> (1954), mais aussi <i>L'Anneau des mers</i>, <i>Capitaines de la route de New York</i>, <i>Les Démons de la haute mer</i>, <i>Les Écumeurs</i>, <i>Les Hommes de la mer</i>, <i>Les Rescapés du Névada</i>, <i>Une femme</i>, <i>Thomas et l'ange</i>, <i>Mer Baltique</i>, <i>Le Quart de nuit</i>, <i>La Route du Pôle Sud</i>, <i>Dieu te juge</i>, <i>Le Cavalier nu</i>, <i>L'Aigle de mer</i>, <i>Ian Seiffer du Jordaan</i>, <i>Le Voyage d'Edgar</i>, <i>Passage de la ligne</i>, <i>Jacques Cartier navigateur</i>, <i>Pôles, l'étonnante aventure de Roald Amundsen</i>, <i>Une certaine nuit</i>, <i>La Mer est un pays secret</i>, <i>L'Homme couvert de dollars</i>, <i>À destination d'Anvers</i>, <i>Courrier de la mer Blanche</i>, <i>La Carte marine</i>, <i>Ballero capitaine</i>, <i>Grampus</i>.</p>
+        <p>Il était le second fils de Marius Peisson, plus connu sous son nom de journaliste au <i>Petit Marseillais</i> : Odysse Richemond. Enfant, il passe ses vacances à Ventabren, village dont sa mère est originaire. Il est élève du Petit Séminaire qu'il quitte pour l'école Saint-Joseph, où il passe son brevet. Il se sent très tôt attiré par la mer, d'abord en écoutant les récits de son grand-père qui a un peu navigué autrefois, ensuite par ses lectures, comme <i>Les Aventures d'Arthur Gordon Pym</i> d'Edgar Poe ou <i>Le Pirate</i> de Walter Scott.</p>
+        <p>À 17 ans, il rencontre la famille de marins-armateurs de son ami Jean-Pierre Mattei. À la fin de l'hiver 1914, alors qu'il n'a que 18 ans, il embarque en qualité de pilotin sur le <i>Madonna</i>. Peisson, en tant que radio-télégraphiste, puis capitaine de la marine marchande, navigua pour le compte des compagnies de transports maritimes Paquet et Transatlantique. Il parcourut ainsi la Méditerranée, la ligne de l'Atlantique vers les États-Unis et la mer Blanche, les mers du Sud, sur divers cargos et paquebots. Pendant la Première Guerre mondiale, il servit sur des transports de troupes et de munitions.</p>
+        <p>En 1923, un décret ministériel réduit de manière drastique les effectifs de la marine marchande et entraîne le désarmement de nombreux navires. En 1924, il se retrouve sans travail. Il passe un concours de rédacteur à la Préfecture des Bouches-du-Rhône, mais il n'apprécie guère son nouveau métier qu'il trouve absurde et ennuyeux. C'est alors qu'il va commencer à écrire.</p>
+        <p>En 1936, il démissionne de son emploi préfectoral pour se consacrer uniquement à la littérature. Il quitte Marseille pour s'installer à Luynes, dont il ne s'absentera que pour de brefs séjours à Paris. Aux côtés notamment de Marc Bernard, Eugène Dabit et Tristan Rémy, Peisson fit partie pendant quelque temps du groupe des « écrivains prolétariens » rassemblés autour du quotidien <i>Nouvel Âge</i> d'Henri Poullaille.</p>
+        <p>Élu membre de l'Académie de Marseille en 1939, Peisson venait de Luynes pour en suivre régulièrement et avec plaisir les séances. Il recevra le prix de l'Académie française en 1940.</p>
+      </div>
+    </article>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <img src="https://actus.13080.fr/wp-content/uploads/2026/08/CIQ-LEA-Logo-rectangulaire-blanc.png" alt="CIQ Léa" class="site-footer__logo">
+  <nav class="site-footer__links" aria-label="Liens du pied de page">
+    <a href="https://13080.fr" class="site-footer__link">Retour sur 13080.fr</a>
+    <span class="site-footer__separator">•</span>
+    <a href="https://13080.fr/mentions-legales" class="site-footer__link">Mentions légales</a>
+    <span class="site-footer__separator">•</span>
+    <a href="https://ciq.13080.fr/contact" class="site-footer__link">Nous contacter</a>
+  </nav>
+</footer>
+</body>
+</html>
