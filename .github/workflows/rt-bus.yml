@@ -1,0 +1,170 @@
+name: Temps réel bus
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: rt-bus
+  cancel-in-progress: false
+
+jobs:
+  poll:
+    runs-on: ubuntu-latest
+    timeout-minutes: 58
+    steps:
+      - name: Relever le temps réel chaque minute
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          cat > rt_poll.py <<'PYEOF'
+          #!/usr/bin/env python3
+          """Relève le temps réel SIRI de la Métropole chaque minute pendant ~52 min,
+          et publie un petit fichier rt.json sur la branche « rt-data » du dépôt.
+          La page lit ce fichier (même écosystème GitHub, aucun blocage CORS)."""
+          import os, sys, time, json, subprocess, tempfile, urllib.request
+          import xml.etree.ElementTree as ET
+          from datetime import datetime, timezone
+
+          FEEDS = {
+              'KPA':       ('https://siri.lametropolemobilite.fr/KPA',       ['11', '14']),
+              'CTZ_RDT13': ('https://siri.lametropolemobilite.fr/CTZ_RDT13', ['51']),
+          }
+          DURATION = int(os.environ.get('DURATION_MIN', '52')) * 60
+          PERIOD = 60
+          REPO = os.environ.get('REPO', '')
+          TOKEN = os.environ.get('GITHUB_TOKEN', '')
+
+
+          def envelope(lines):
+              ts = datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z')
+              mid = 'Luynes::' + str(int(time.time() * 1000))
+              ld = ''.join('<siri:LineDirection><siri:LineRef>%s</siri:LineRef></siri:LineDirection>' % l for l in lines)
+              return (
+                  '<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">'
+                  '<S:Body><sw:GetEstimatedTimetable xmlns:sw="http://wsdl.siri.org.uk" xmlns:siri="http://www.siri.org.uk/siri">'
+                  '<ServiceRequestInfo><siri:RequestTimestamp>%s</siri:RequestTimestamp><siri:RequestorRef>open-data</siri:RequestorRef>'
+                  '<siri:MessageIdentifier>%s</siri:MessageIdentifier></ServiceRequestInfo>'
+                  '<Request><siri:RequestTimestamp>%s</siri:RequestTimestamp><siri:MessageIdentifier>%s</siri:MessageIdentifier>'
+                  '<siri:Lines>%s</siri:Lines></Request><RequestExtension/>'
+                  '</sw:GetEstimatedTimetable></S:Body></S:Envelope>' % (ts, mid, ts, mid, ld)
+              ).encode('utf-8')
+
+
+          def tag(e):
+              return e.tag.split('}')[-1]
+
+
+          def ms(s):
+              if not s:
+                  return 0
+              try:
+                  return int(datetime.fromisoformat(s.strip().replace('Z', '+00:00')).timestamp() * 1000)
+              except Exception:
+                  return 0
+
+
+          def fetch(url, lines):
+              last = ''
+              for ct in ('text/xml; charset=utf-8', 'text/plain;charset=UTF-8'):
+                  try:
+                      req = urllib.request.Request(url, data=envelope(lines), headers={'Content-Type': ct}, method='POST')
+                      with urllib.request.urlopen(req, timeout=40) as r:
+                          return r.read().decode('utf-8', 'replace')
+                  except Exception as e:
+                      last = str(e)
+              raise RuntimeError(last)
+
+
+          def parse(text, names):
+              root = ET.fromstring(text)
+              for e in root.iter():
+                  if tag(e) == 'Fault':
+                      raise RuntimeError('erreur SOAP')
+              journeys = []
+              for ev in root.iter():
+                  if tag(ev) != 'EstimatedVehicleJourney':
+                      continue
+                  line = ''
+                  for x in ev:
+                      if tag(x) == 'LineRef':
+                          line = (x.text or '').strip()
+                  refs = [(e.text or '').strip() for e in ev.iter()
+                          if tag(e) in ('DatedVehicleJourneyRef', 'VehicleJourneyRef') and (e.text or '').strip()]
+                  calls = []
+                  for c in ev.iter():
+                      if tag(c) != 'EstimatedCall':
+                          continue
+                      d = {tag(x): (x.text or '').strip() for x in c if len(x) == 0}
+                      ref = d.get('StopPointRef')
+                      if not ref:
+                          continue
+                      if d.get('StopPointName'):
+                          names[ref] = d['StopPointName']
+                      cancel = d.get('DepartureStatus', '').lower() == 'cancelled' or d.get('Cancellation') == 'true'
+                      aimed = ms(d.get('AimedDepartureTime') or d.get('AimedArrivalTime'))
+                      exp = ms(d.get('ExpectedDepartureTime') or d.get('ExpectedArrivalTime'))
+                      if aimed and (exp or cancel):
+                          calls.append([ref, aimed, exp, 1 if cancel else 0])
+                  if calls:
+                      journeys.append({'l': line, 'r': refs, 'c': calls})
+              return journeys
+
+
+          def snapshot():
+              out = {'ts': int(time.time() * 1000), 'feeds': {}, 'names': {}}
+              for name, (url, lines) in FEEDS.items():
+                  try:
+                      j = parse(fetch(url, lines), out['names'])
+                      out['feeds'][name] = {'ok': True, 'journeys': j}
+                      print('%s : %d trajets suivis' % (name, len(j)), flush=True)
+                  except Exception as e:
+                      out['feeds'][name] = {'ok': False, 'journeys': []}
+                      print('%s : ÉCHEC %s' % (name, e), flush=True)
+              return out
+
+
+          def git(*a, cwd):
+              return subprocess.run(['git'] + list(a), cwd=cwd, check=True, capture_output=True, text=True)
+
+
+          def main():
+              work = tempfile.mkdtemp()
+              git('init', '-q', cwd=work)
+              git('config', 'user.name', 'bus-bot', cwd=work)
+              git('config', 'user.email', 'bus-bot@users.noreply.github.com', cwd=work)
+              git('remote', 'add', 'origin', 'https://x-access-token:%s@github.com/%s.git' % (TOKEN, REPO), cwd=work)
+              first = True
+              end = time.time() + DURATION
+              while True:
+                  t0 = time.time()
+                  data = snapshot()
+                  with open(os.path.join(work, 'rt.json'), 'w') as f:
+                      json.dump(data, f, separators=(',', ':'), ensure_ascii=False)
+                  try:
+                      git('add', '-A', cwd=work)
+                      if first:
+                          git('commit', '-q', '-m', 'maj temps reel', cwd=work)
+                      else:
+                          git('commit', '-q', '--amend', '--no-edit', cwd=work)
+                      first = False
+                      git('push', '-q', '-f', 'origin', 'HEAD:refs/heads/rt-data', cwd=work)
+                      print('publié', flush=True)
+                  except subprocess.CalledProcessError as e:
+                      print('publication impossible :', (e.stderr or '').replace(TOKEN, '***')[:300], flush=True)
+                  if time.time() + PERIOD > end:
+                      break
+                  time.sleep(max(5, PERIOD - (time.time() - t0)))
+
+
+          if __name__ == '__main__':
+              if not REPO or not TOKEN:
+                  sys.exit('REPO et GITHUB_TOKEN requis')
+              main()
+          PYEOF
+          python3 rt_poll.py
