@@ -64,13 +64,11 @@
     .sub-header__toggle:checked ~ .sub-header__burger span:nth-child(3){transform:translateY(-8px) rotate(-45deg);}
   }
 
-  /* HERO */
-  .hero{color:var(--white);background:linear-gradient(90deg,rgba(23,27,65,.93) 0%,rgba(23,27,65,.8) 50%,rgba(23,27,65,.4) 100%),url('https://actus.13080.fr/wp-content/uploads/2024/04/Banniere-scaled.png') center/cover no-repeat,var(--navy-deep);}
-  .hero__inner{padding-top:72px;padding-bottom:72px;}
-  .eyebrow{font-size:.8rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:0 0 14px;}
-  .hero h1{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:800;line-height:1.06;letter-spacing:-0.025em;max-width:18ch;}
-  .hero__lead{margin:20px 0 0;max-width:56ch;font-size:1.1rem;line-height:1.6;color:rgba(255,255,255,.76);}
-
+  /* TITRE DE PAGE */
+  .page-title{padding:56px 0 8px;}
+  .page-title h1{font-size:clamp(1.9rem,3.8vw,2.8rem);font-weight:800;line-height:1.1;letter-spacing:-0.02em;max-width:24ch;}
+  .page-title__lead{margin:16px 0 0;max-width:62ch;font-size:1.05rem;line-height:1.6;color:var(--muted);}
+  .eyebrow{font-size:.8rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-dark);margin:0 0 10px;}
   /* SOMMAIRE */
   .toc{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);}
   .toc__inner{display:flex;gap:8px;overflow-x:auto;padding:12px 24px;scrollbar-width:thin;}
@@ -152,11 +150,11 @@
 </header>
 
 <main>
-<section class="hero">
-  <div class="wrap hero__inner">
+<section class="page-title">
+  <div class="wrap">
     <p class="eyebrow">Mémoire du village</p>
-    <h1>Luynes d'hier à aujourd'hui, par Christian.</h1>
-    <p class="hero__lead">Origines, quartiers, Libération, figures locales et noms de rues : tous les récits de Christian réunis en un seul endroit, à lire dans l'ordre ou au gré de vos envies.</p>
+    <h1>Luynes d'hier à aujourd'hui, par Christian</h1>
+    <p class="page-title__lead">Origines, quartiers, Libération, figures locales et noms de rues : tous les récits de Christian réunis en un seul endroit.</p>
   </div>
 </section>
 
