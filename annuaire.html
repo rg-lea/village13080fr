@@ -1,1 +1,216 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Annuaire | village.13080.fr</title>
+<link rel="icon" href="https://actus.13080.fr/wp-content/uploads/2026/08/CIQ-LEA-Logo-carre-bleu.png">
+<!-- Matomo -->
+<script>
+  var _paq = window._paq = window._paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://vigie.siweb.13080.fr/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '19']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;1,400&display=swap');
+  :root{--navy:#242E63;--navy-deep:#171B41;--gold:#FFC500;--gold-dark:#AD8901;--white:#FFF;--muted:rgba(36,46,99,.66);--line:rgba(36,46,99,.12);}
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;scroll-padding-top:72px;}
+  body{margin:0;background:var(--white);color:var(--navy);font-family:'Outfit',sans-serif;-webkit-font-smoothing:antialiased;}
+  img{max-width:100%;display:block;} a{color:inherit;}
+  h1,h2,h3{font-weight:700;margin:0;letter-spacing:-0.015em;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+  :focus-visible{outline:2px solid var(--gold-dark);outline-offset:3px;}
+  @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important;}}
 
+  /* HEADER 1 */
+  .site-header{background:#242E63;display:flex;justify-content:center;align-items:center;padding:16px 0;}
+  .site-header__logo-link{display:block;line-height:0;}
+  .site-header__logo{display:block!important;width:300px!important;height:auto!important;max-width:90vw!important;}
+  /* HEADER 2 */
+  .sub-header{background:#242E63;padding:16px 24px;position:relative;z-index:1000;}
+  .sub-header__inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;position:relative;}
+  .sub-header__brand{display:flex;align-items:center;gap:16px;}
+  .sub-header__site-link{color:#FFF;text-decoration:none;font-weight:600;font-size:16px;white-space:nowrap;}
+  .sub-header__site-link:hover,.sub-header__site-link:focus{color:#FFC500;}
+  .sub-header__back-link{color:rgba(255,255,255,.55);text-decoration:none;font-size:13px;white-space:nowrap;transition:color .2s ease;}
+  .sub-header__back-link:hover,.sub-header__back-link:focus{color:#FFC500;}
+  .sub-header__toggle{display:none;}
+  .sub-header__burger{display:none;flex-direction:column;justify-content:space-between;width:26px;height:18px;cursor:pointer;z-index:1002;}
+  .sub-header__burger span{display:block;height:2px;width:100%;background:#FFF;border-radius:2px;transition:transform .3s ease,opacity .3s ease;}
+  .sub-header__nav{display:flex;align-items:center;gap:24px;}
+  .sub-header__link{color:#FFF;text-decoration:none;font-size:15px;white-space:nowrap;}
+  .sub-header__link:hover,.sub-header__link:focus{color:#FFC500;}
+  .sub-header__btn{text-decoration:none;font-size:15px;font-weight:600;padding:8px 18px;border-radius:6px;white-space:nowrap;transition:background-color .2s ease,color .2s ease;}
+  .sub-header__btn--primary{background:#FFC500;color:#242E63;}
+  .sub-header__btn--primary:hover,.sub-header__btn--primary:focus{background:#e6b100;}
+  .sub-header__btn--secondary{background:transparent;color:#FFF;border:1px solid #FFF;}
+  .sub-header__btn--secondary:hover,.sub-header__btn--secondary:focus{background:#FFF;color:#242E63;}
+  @media (max-width:860px){
+    .sub-header__burger{display:flex;}
+    .sub-header__nav{position:absolute;z-index:1001;top:100%;left:0;right:0;margin-top:16px;background:#242E63;flex-direction:column;align-items:flex-start;gap:16px;padding:0 24px;border-radius:8px;box-shadow:0 8px 20px rgba(0,0,0,.25);max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease;}
+    .sub-header__toggle:checked ~ .sub-header__nav{max-height:400px;padding-top:20px;padding-bottom:20px;}
+    .sub-header__btn{width:100%;text-align:center;}
+    .sub-header__toggle:checked ~ .sub-header__burger span:nth-child(1){transform:translateY(8px) rotate(45deg);}
+    .sub-header__toggle:checked ~ .sub-header__burger span:nth-child(2){opacity:0;}
+    .sub-header__toggle:checked ~ .sub-header__burger span:nth-child(3){transform:translateY(-8px) rotate(-45deg);}
+  }
+
+  /* TITRE DE PAGE */
+  .page-title{padding:56px 0 8px;}
+  .page-title h1{font-size:clamp(1.9rem,3.8vw,2.8rem);font-weight:800;line-height:1.1;letter-spacing:-0.02em;max-width:24ch;}
+  .page-title__lead{margin:16px 0 0;max-width:62ch;font-size:1.05rem;line-height:1.6;color:var(--muted);}
+  .badge{display:inline-flex;align-items:center;gap:8px;font-size:.8rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);background:var(--gold);padding:6px 14px;border-radius:999px;margin:0 0 18px;}
+  section{padding:72px 0;}
+  .section-head{max-width:640px;margin-bottom:32px;}
+  .section-head h2{font-size:clamp(1.6rem,2.8vw,2.1rem);line-height:1.2;}
+  .section-head p{color:var(--muted);line-height:1.6;margin:12px 0 0;}
+  .section--alt{background:#FAFAF8;}
+  .cats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .cat{background:#FFF;border:1px solid var(--line);border-top:3px solid var(--gold-dark);border-radius:16px;padding:30px 28px;}
+  .cat__icon{width:48px;height:48px;display:grid;place-items:center;border-radius:12px;background:rgba(173,137,1,.12);color:var(--gold-dark);margin-bottom:22px;}
+  .cat h3{font-size:1.3rem;}
+  .cat p{color:var(--muted);line-height:1.55;margin:10px 0 18px;}
+  .cat__soon{font-size:.85rem;font-weight:600;color:var(--gold-dark);}
+  .mission{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:start;}
+  .mission h2{font-size:clamp(1.6rem,2.8vw,2.1rem);line-height:1.2;}
+  .mission p{color:var(--muted);line-height:1.65;max-width:56ch;margin:14px 0 0;}
+  .mission ul{margin:18px 0 0;padding:0;list-style:none;}
+  .mission li{position:relative;padding:8px 0 8px 28px;line-height:1.5;}
+  .mission li::before{content:"";position:absolute;left:0;top:15px;width:14px;height:2px;background:var(--gold-dark);}
+  .panel{border-radius:16px;background:var(--navy);color:var(--white);padding:36px 32px;}
+  .panel h3{font-size:1.25rem;line-height:1.35;}
+  .panel p{color:rgba(255,255,255,.76);font-size:.95rem;line-height:1.6;margin:12px 0 0;}
+  .panel dl{margin:22px 0 0;border-top:1px solid rgba(255,255,255,.16);}
+  .panel dl div{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.16);font-size:.95rem;}
+  .panel dt{color:rgba(255,255,255,.72);} .panel dd{margin:0;font-weight:600;text-align:right;}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 26px;border-radius:8px;font-weight:600;font-size:15px;text-decoration:none;border:1.5px solid transparent;transition:transform .15s ease,background-color .15s ease;}
+  .btn:hover{transform:translateY(-1px);}
+  .btn--primary{background:var(--gold);color:var(--navy);} .btn--primary:hover{background:#e6b200;}
+  .btn--ghost{background:transparent;color:var(--white);border-color:rgba(255,255,255,.6);} .btn--ghost:hover{background:rgba(255,255,255,.14);}
+  .panel .btn{margin-top:26px;}
+  .contact{text-align:center;}
+  .contact .section-head{margin:0 auto 24px;}
+  .btn--accent{background:var(--gold-dark);color:var(--white);} .btn--accent:hover{background:#8f6f02;}
+
+  /* FOOTER */
+  .site-footer{background:#242E63;color:#FFF;display:flex;flex-direction:column;align-items:center;padding:32px 16px;text-align:center;}
+  .site-footer__logo{display:block;width:300px;height:auto;max-width:90vw;margin:0 0 20px;}
+  .site-footer__links{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px;}
+  .site-footer__link{color:#FFF;text-decoration:none;font-size:14px;font-weight:500;}
+  .site-footer__link:hover,.site-footer__link:focus{color:#FFC500;text-decoration:underline;}
+  .site-footer__separator{color:#FFC500;font-size:14px;}
+
+  @media (max-width:900px){.cats{grid-template-columns:1fr;}.mission{grid-template-columns:1fr;gap:32px;}}
+  @media (max-width:600px){
+    .wrap{padding:0 18px;} section{padding:56px 0;}
+      .site-footer__logo{width:220px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="https://village.13080.fr" class="site-header__logo-link" aria-label="Retour à l'accueil">
+    <img src="https://actus.13080.fr/wp-content/uploads/2026/08/CIQ-LEA-VILLAGE-Logo-rectangulaire-blanc.png" alt="Village de Luynes" class="site-header__logo">
+  </a>
+</header>
+
+<header class="sub-header">
+  <div class="sub-header__inner">
+    <div class="sub-header__brand">
+      <a href="https://village.13080.fr/" class="sub-header__site-link">village.13080.fr</a>
+      <a href="https://13080.fr" class="sub-header__back-link" aria-label="Retour vers 13080.fr">← 13080.fr</a>
+    </div>
+    <input type="checkbox" id="sub-header-toggle" class="sub-header__toggle" />
+    <label for="sub-header-toggle" class="sub-header__burger" aria-label="Ouvrir le menu"><span></span><span></span><span></span></label>
+    <nav class="sub-header__nav" aria-label="Menu principal">
+      <a href="https://village.13080.fr/" class="sub-header__link">Accueil</a>
+      <a href="https://village.13080.fr/pratique" class="sub-header__link">Mon village</a>
+      <a href="https://actus.13080.fr/village" class="sub-header__link">Actualités</a>
+      <a href="https://village.13080.fr/annuaire" class="sub-header__btn sub-header__btn--primary">Annuaire</a>
+      <a href="https://ciq.13080.fr/contact" class="sub-header__btn sub-header__btn--secondary">Nous contacter</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="page-title">
+  <div class="wrap">
+    <p class="badge">Mission bénévole</p>
+    <h1>Aidez-nous à construire l'annuaire de Luynes</h1>
+    <p class="page-title__lead">L'annuaire des associations, commerces et professionnels du village n'existe pas encore : nous cherchons des bénévoles pour le créer et l'alimenter. Vous habitez Luynes ou à proximité ? Rejoignez l'équipe.</p>
+    <p style="margin:26px 0 0"><a href="https://www.jeveuxaider.gouv.fr/missions-benevolat/114052/benevolat-comite-dinteret-de-quartier-luynes-en-action-1" class="btn btn--accent" target="_blank" rel="noopener">Devenir bénévole <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></p>
+  </div>
+</section>
+
+<section aria-labelledby="mission-title">
+  <div class="wrap mission">
+    <div>
+      <h2 id="mission-title">En quoi consiste la mission ?</h2>
+      <p>Le CIQ Luynes en action reconstruit le site du village et recherche 3 bénévoles pour y participer, depuis chez eux. Chacun vient faire ce qu'il peut, quand il peut.</p>
+      <ul>
+        <li><b>Reconstruire le site :</b> mettre en place le système d'information (des compétences informatiques sont bienvenues).</li>
+        <li><b>L'alimenter :</b> faire la veille des actualités, événements, établissements, professionnels et associations du village.</li>
+      </ul>
+      <p>Tous les profils sont acceptés : quelques heures par mois suffisent, en équipe.</p>
+    </div>
+    <div class="panel">
+      <h3>Candidatez en quelques minutes</h3>
+      <p>La mission est publiée sur JeVeuxAider.gouv.fr. Un membre de l'équipe vous rappelle sous une semaine après votre candidature.</p>
+      <dl>
+        <div><dt>Lieu</dt><dd>À distance</dd></div>
+        <div><dt>Public</dt><dd>Bénévoles majeurs</dd></div>
+        <div><dt>Prérequis</dt><dd>Habiter Luynes ou à proximité</dd></div>
+        <div><dt>Engagement</dt><dd>1 mois minimum</dd></div>
+      </dl>
+      <a href="https://www.jeveuxaider.gouv.fr/missions-benevolat/114052/benevolat-comite-dinteret-de-quartier-luynes-en-action-1" class="btn btn--primary" target="_blank" rel="noopener">Voir la mission <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<section class="section--alt" aria-labelledby="cats-title">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="cats-title">Ce que contiendra l'annuaire</h2>
+      <p>Les coordonnées et les activités de ceux qui font vivre Luynes, classées en trois rubriques. Ouverture dès que l'équipe sera constituée.</p>
+    </div>
+    <div class="cats">
+      <div class="cat"><span class="cat__icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.8"/><circle cx="17" cy="9" r="2.4" stroke="currentColor" stroke-width="1.8"/><path d="M3 19c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5M15.5 14c2.8 0 5 1.6 5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><h3>Associations</h3><p>Sport, culture, solidarité, loisirs : les associations luynoises et leurs activités.</p><span class="cat__soon">À venir</span></div>
+      <div class="cat"><span class="cat__icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 9l1.5-5h13L20 9M4 9v11h16V9M4 9c0 1.7 1.3 3 3 3s3-1.3 3-3c0 1.7 1.3 3 3 3s3-1.3 3-3 1.3 3 3 3M10 20v-5h4v5" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg></span><h3>Commerces</h3><p>Boulangeries, restaurants, boutiques : les commerces de proximité du village.</p><span class="cat__soon">À venir</span></div>
+      <div class="cat"><span class="cat__icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M3 13h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><h3>Professionnels</h3><p>Santé, artisans, services : les professionnels installés à Luynes.</p><span class="cat__soon">À venir</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" aria-labelledby="contact-title">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="contact-title">Une association, un commerce, une activité à signaler ?</h2>
+      <p>Faites-vous connaître auprès de l'équipe pour figurer dans l'annuaire dès son ouverture.</p>
+    </div>
+    <a href="https://ciq.13080.fr/contact" class="btn btn--accent">Nous contacter</a>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <img src="https://actus.13080.fr/wp-content/uploads/2026/08/CIQ-LEA-Logo-rectangulaire-blanc.png" alt="CIQ Léa" class="site-footer__logo">
+  <nav class="site-footer__links" aria-label="Liens du pied de page">
+    <a href="https://13080.fr" class="site-footer__link">Retour sur 13080.fr</a>
+    <span class="site-footer__separator">•</span>
+    <a href="https://13080.fr/mentions-legales" class="site-footer__link">Mentions légales</a>
+    <span class="site-footer__separator">•</span>
+    <a href="https://ciq.13080.fr/contact" class="site-footer__link">Nous contacter</a>
+  </nav>
+</footer>
+</body>
+</html>
