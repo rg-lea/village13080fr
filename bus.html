@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-title" content="Bus Luynes">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
-:root{--navy:#242E63;--gold:#FFC500;--gd:#AD8901;--bg:#F5F6FA;--ln:rgba(36,46,99,.14);--mut:rgba(36,46,99,.72);--bad:#B3261E;--r:18px}
+:root{--navy:#242E63;--gold:#FFC500;--gd:#AD8901;--bg:#F5F6FA;--ln:rgba(36,46,99,.14);--mut:rgba(36,46,99,.72);--bad:#B3261E;--ok:#0E7C66;--r:18px}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;background:#fff;color:var(--navy);font-family:'Outfit',system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.45;font-size:17px}
 h1,h2,h3,h4{font-weight:700;margin:0;letter-spacing:-.015em}a{color:inherit}button,input{font-family:inherit;color:var(--navy);font-size:inherit}
@@ -115,6 +115,7 @@ button{-webkit-tap-highlight-color:transparent}
 .res__head{display:flex;gap:16px;align-items:center}
 .res__dir{margin:0;font-size:.92rem;color:var(--mut);font-weight:500}
 .res__head h2{font-size:clamp(1.4rem,3.6vw,1.8rem);line-height:1.12;margin:2px 0 0}
+.go{margin-top:14px}
 .seg{display:flex;margin:20px 0 0;border:2px solid var(--navy);border-radius:14px;overflow:hidden}
 .seg button{flex:1;min-height:48px;border:0;background:#fff;font-weight:600;cursor:pointer;padding:8px}
 .seg button+button{border-left:2px solid var(--navy)}
@@ -124,11 +125,18 @@ button{-webkit-tap-highlight-color:transparent}
 .alert--warn{background:#FFF6DC}.alert--warn i{background:var(--gd)}
 .alert--bad{background:#FDF3F2}.alert--bad i{background:var(--bad)}
 .alert .btn{margin-top:8px}
+/* --- statut des horaires --- */
+.status{display:flex;flex-direction:column;gap:2px;margin:14px 0 0;padding:10px 14px;border-radius:12px;font-size:.93rem;line-height:1.45;border-left:5px solid var(--ok);background:#EAF6F1}
+.status small{color:var(--mut);font-size:.85rem}
+.status--warn{border-left-color:var(--gd);background:#FFF6DC}
+.status--bad{border-left-color:var(--bad);background:#FDF3F2}
 .next{margin-top:16px;padding:22px;border-radius:16px;background:var(--navy);color:#fff;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:10px 24px}
 .next__lab{font-size:.95rem;color:rgba(255,255,255,.78)}
 .next__cd{font-size:clamp(2.8rem,10vw,4rem);font-weight:800;line-height:1.05;font-variant-numeric:tabular-nums;color:var(--gold)}
 .next__at{text-align:right}
 .next__hr{font-size:clamp(1.6rem,5vw,2.2rem);font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums}
+.next__tip{flex:0 0 100%;margin:4px 0 0;font-size:.92rem;line-height:1.5;color:rgba(255,255,255,.85)}
+.next__tip b{color:#fff}
 .sub{font-size:1.05rem;margin:24px 0 2px}
 .plist{list-style:none;margin:0;padding:0}
 .plist li{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 4px;border-bottom:1px solid var(--ln);font-variant-numeric:tabular-nums}
@@ -238,6 +246,7 @@ kbd{display:inline-block;padding:1px 7px;border-radius:5px;background:rgba(255,2
 <h2>À propos de ce service</h2>
 <p>Ce service est construit par <strong>village.13080.fr</strong> avec l’aide de l’intelligence artificielle, à partir des données publiques de la <strong>Métropole Mobilité</strong> (horaires au format GTFS). Les heures affichées sont les horaires théoriques : elles ne tiennent pas compte des retards ni des suppressions.</p>
 <p><strong>Il n’est pas garanti sans erreur.</strong> Il ne remplace pas la grille d’horaires ni les sites officiels d’Aix-en-Bus et de la Métropole : en cas de doute, ce sont eux qui font foi.</p>
+<p>Le lien « Y aller à pied » ouvre simplement votre application de cartographie avec l’arrêt comme destination : cette page ne lit jamais votre position.</p>
 <p>Aix-en-Bus : <a href="tel:+33970809013">09 70 80 90 13</a> · Métropole : <a href="tel:0800713137">0800 713 137</a></p>
 <div class="about__links"><a class="btn" href="https://www.aixenbus.fr/" target="_blank" rel="noopener">Site Aix-en-Bus</a><a class="btn" href="https://www.lametropolemobilite.fr/" target="_blank" rel="noopener">Métropole Mobilité</a><a class="btn" href="https://ciq.13080.fr/contact">Signaler une erreur</a></div>
 </div></div></section>
@@ -286,7 +295,9 @@ var CFG={
  anchor:/luynes/i,
  guardKm:4,
  center:[43.505,5.415], /* centre approximatif de Luynes, utilisé si aucun arrêt « Luynes » n'est trouvé (à vérifier) */
- cacheHours:12
+ cacheHours:12,
+ soonDays:7,      /* en dessous de ce nombre de jours avant la fin du fichier : « Mise à jour nécessaire bientôt » */
+ imminentSec:120  /* en dessous de ce délai : avertissement « départ imminent » */
 };
 var $=function(i){return document.getElementById(i)};
 var BASE_TITLE=document.title,LKEY='bus13080.v4';
@@ -306,6 +317,7 @@ function setHTML(box,html){var a=document.activeElement,k=null;
 var FM=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Paris',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'});
 function parts(ms){var p={};FM.formatToParts(new Date(ms)).forEach(function(x){p[x.type]=x.value});return p}
 function today(){var p=parts(Date.now());return p.year+'-'+p.month+'-'+p.day}
+function nowHM(){var p=parts(Date.now());return p.hour+':'+p.minute}
 function addD(iso,n){var a=iso.split('-').map(Number);return new Date(Date.UTC(a[0],a[1]-1,a[2]+n)).toISOString().slice(0,10)}
 function offs(t){var p=parts(t);return Date.UTC(+p.year,+p.month-1,+p.day,+p.hour,+p.minute,+p.second)-Math.floor(t/1000)*1000}
 function epoch(iso,min){var a=iso.split('-').map(Number),t=Date.UTC(a[0],a[1]-1,a[2])+min*6e4,g=t-offs(t);return t-offs(g)}
@@ -423,7 +435,8 @@ function idb(){return new Promise(function(res,rej){var r=indexedDB.open('bus130
 async function idbGet(k){try{var db=await idb();return await new Promise(function(res,rej){var q=db.transaction('feeds').objectStore('feeds').get(k);q.onsuccess=function(){res(q.result)};q.onerror=function(){rej(q.error)}})}catch(e){return null}}
 async function idbSet(k,v){try{var db=await idb();await new Promise(function(res,rej){var t=db.transaction('feeds','readwrite');t.objectStore('feeds').put(v,k);t.oncomplete=res;t.onerror=function(){rej(t.error)}})}catch(e){log('cache local indisponible : '+e)}}
 var FEEDS={};
-Object.keys(CFG.feeds).forEach(function(k){FEEDS[k]={key:k,state:'loading',phase:'Démarrage',prog:0,data:null,stale:false,savedAt:0,err:''}});
+/* checkedAt : dernière fois où le fichier officiel a été réellement lu (téléchargement ou copie locale) */
+Object.keys(CFG.feeds).forEach(function(k){FEEDS[k]={key:k,state:'loading',phase:'Démarrage',prog:0,data:null,stale:false,savedAt:0,checkedAt:0,err:''}});
 /* v8 : la signature change pour forcer le rechargement (ajout des lignes 161/190/290) */
 function sig(k){return CFG.lines.filter(function(l){return l.feed===k}).map(function(l){return l.name}).join(',')+'|'+CFG.guardKm+'|v8'}
 var tick=null;function progress(){if(tick)return;tick=setTimeout(function(){tick=null;renderPlanner();render()},250)}
@@ -436,17 +449,17 @@ async function download(url,f){
  return blob}
 async function loadFeed(key){
  var f=FEEDS[key],cfg=CFG.feeds[key],cached=await idbGet('feed:'+key);
- if(cached&&cached.sig===sig(key)&&Date.now()-cached.savedAt<CFG.cacheHours*36e5){f.data=cached.data;f.savedAt=cached.savedAt;f.state='ready';log('['+key+'] GTFS pris dans la copie locale');return}
+ if(cached&&cached.sig===sig(key)&&Date.now()-cached.savedAt<CFG.cacheHours*36e5){f.data=cached.data;f.savedAt=cached.savedAt;f.checkedAt=cached.savedAt;f.state='ready';log('['+key+'] GTFS pris dans la copie locale');return}
  var errs=[];
  for(var i=0;i<cfg.sources.length;i++){var u=cfg.sources[i];
   try{f.phase='Téléchargement';f.prog=.02;progress();log('['+key+'] téléchargement '+mask(u));
    var blob=await download(u,f);
    var data=await parseFeed(key,blob,function(p){f.phase=p;f.prog=Math.min(.97,f.prog+.05);progress()});
-   data.savedAt=Date.now();f.data=data;f.savedAt=data.savedAt;f.state='ready';f.stale=false;
+   data.savedAt=Date.now();f.data=data;f.savedAt=data.savedAt;f.checkedAt=Date.now();f.state='ready';f.stale=false;
    log('['+key+'] OK : '+data.nTrips+' courses, validité '+fmtD(data.start)+' → '+fmtD(data.end));
    idbSet('feed:'+key,{sig:sig(key),savedAt:data.savedAt,data:data});return}
   catch(e){var m=(e&&e.name==='TypeError'?'bloqué par le navigateur (CORS ou réseau)':String(e&&e.message||e));errs.push(mask(u)+' → '+m);log('['+key+'] échec '+mask(u)+' : '+m)}}
- if(cached&&cached.sig===sig(key)){f.data=cached.data;f.savedAt=cached.savedAt;f.stale=true;f.state='ready';log('['+key+'] copie locale ancienne utilisée');return}
+ if(cached&&cached.sig===sig(key)){f.data=cached.data;f.savedAt=cached.savedAt;f.checkedAt=cached.savedAt;f.stale=true;f.state='ready';log('['+key+'] copie locale ancienne utilisée');return}
  f.state='error';f.err=errs.join(' | ')}
 function logMissing(k){CFG.lines.forEach(function(lc){if(lc.feed!==k||lc.stops==='auto')return;var d=lineData(lc.name);if(!d)return;
  var found={};dirKeys(d,lc.name).forEach(function(x){luyStops(d,lc.name,x).forEach(function(y){found[key(y.n)]=1})});
@@ -462,6 +475,20 @@ function dirKeys(d,n){return Object.keys(d.lines[n].dirs).sort(function(a,b){ret
 function coverage(d,iso){var x=iso.replace(/-/g,'');return x>=d.start&&x<=d.end}
 function svcActive(d,sid,iso){var x=iso.replace(/-/g,''),ex=d.dates[sid]&&d.dates[sid][x];if(ex===1)return true;if(ex===2)return false;
  var c=d.cal[sid];if(!c||x<c.s||x>c.e)return false;return c.d[(new Date(iso+'T12:00:00Z').getUTCDay()+6)%7]===1}
+/* ---------- statut des horaires (jamais « à jour » juste parce que le téléchargement a réussi) ---------- */
+function svcCount(d,iso){var ids={};
+ Object.keys(d.cal).forEach(function(s){ids[s]=1});Object.keys(d.dates).forEach(function(s){ids[s]=1});
+ return Object.keys(ids).filter(function(s){return svcActive(d,s,iso)}).length}
+function feedStatus(f,d){
+ if(f.state==='error')return{k:'bad',t:'Source indisponible',w:'le fichier officiel n’a pas pu être lu'};
+ var td=today(),x=td.replace(/-/g,''),nToday=svcCount(d,td),nWeek=0,i;
+ for(i=0;i<CFG.soonDays;i++)nWeek+=svcCount(d,addD(td,i));
+ var e=iso8(d.end),left=e?Math.round((Date.parse(e)-Date.parse(td))/864e5):null;
+ if(f.stale)return{k:'warn',t:'Mise à jour nécessaire',w:'source injoignable, copie locale ancienne'};
+ if(d.end<x)return{k:'bad',t:'Mise à jour nécessaire',w:'fichier expiré le '+fmtD(d.end)};
+ if(nWeek===0)return{k:'bad',t:'Mise à jour nécessaire',w:'aucun service actif dans les '+CFG.soonDays+' prochains jours'};
+ if(left!==null&&left<=CFG.soonDays)return{k:'warn',t:'Mise à jour nécessaire bientôt',w:'valable encore '+left+' jour'+(left>1?'s':'')};
+ return{k:'ok',t:'Horaires à jour',w:nToday+' service'+(nToday>1?'s':'')+' actif'+(nToday>1?'s':'')+' aujourd’hui · valables jusqu’au '+fmtD(d.end)}}
 function theory(d,name,dir,stopId,iso){var out=[],tr=(d.trips[name]||{})[dir]||[];
  [-1,0].forEach(function(off){var day=addD(iso,off);if(!coverage(d,day))return;
   tr.forEach(function(t){var i=t.st.indexOf(stopId);if(i<0||t.t[i]===null||(i===t.st.length-1&&t.st.length>1)||!svcActive(d,t.sid,day))return;var m=t.t[i]/60,a=m+off*1440;if(a<0||a>=1440)return;
@@ -544,7 +571,6 @@ function renderPlanner(){
     if(!dx){sub='Ligne absente du fichier officiel';dis=true}
     else if(!dirKeys(dx,k).some(function(x){return luyStops(dx,k,x).length})){sub='Aucun arrêt à Luynes';dis=true}
     else sub=dirKeys(dx,k).map(function(x){return dx.lines[k].dirs[x].head}).join(' ↔ ')}
-   var bs=S.line===k?'':' style="background:'+fc.color+';color:#fff"';
    h+='<button type="button" class="ln" data-act="line" data-v="'+esc(k)+'" style="background:'+fc.color+'" title="'+esc(sub)+'" aria-label="Ligne '+esc(k)+(sub?', '+esc(sub):'')+'" aria-pressed="'+(S.line===k)+'"'+(dis?' disabled':'')+'>'+esc(k)+'</button>'});
   h+='</div>';
   if(FEEDS[fk].state==='loading')h+='<p class="hint" style="margin-top:8px">Chargement des horaires… '+Math.round(FEEDS[fk].prog*100)+' %</p>';
@@ -583,50 +609,70 @@ function empty(){var l=lastTrip(),loading=anyLoading(),errs=Object.keys(FEEDS).f
  var h='<div class="empty">'+BUS_SVG;
  if(loading)h+='<h2>Chargement des horaires…</h2><p>Lecture des fichiers publiés par la Métropole. Cela peut prendre quelques secondes la première fois.</p>'+loadingHTML();
  else h+='<h2>Vos prochains départs s’afficheront ici</h2><p>Choisissez une ligne, une direction puis un arrêt de Luynes.</p>';
- errs.forEach(function(k){h+='<div class="alert alert--bad"><i>!</i><div><b>'+esc(CFG.feeds[k].label)+' : horaires indisponibles.</b> Le fichier officiel n’a pas pu être lu. Consultez <a href="https://www.aixenbus.fr/">aixenbus.fr</a>.</div></div>'});
+ errs.forEach(function(k){h+='<div class="alert alert--bad"><i>!</i><div><b>'+esc(CFG.feeds[k].label)+' : source indisponible.</b> Le fichier officiel n’a pas pu être lu. Consultez <a href="https://www.aixenbus.fr/">aixenbus.fr</a>.</div></div>'});
  if(errs.length&&!loading)h+='<button type="button" class="btn" data-act="retry">Réessayer</button>';
  if(l&&!loading)h+='<div><button type="button" class="btn btn--gold" data-act="restore">Reprendre : '+esc(l.label)+'</button></div>';
  return h+'</div>'}
+/* ---------- itinéraire piéton vers l'arrêt ----------
+   Aucune géolocalisation ici : on ne transmet que l'arrêt comme destination.
+   L'application de cartographie demande elle-même la position (ou laisse saisir un départ). */
+function goURL(id){var d=lineData(S.line),s=d&&d.stops[id];
+ if(!s||isNaN(s.la)||isNaN(s.lo))return'';var ll=s.la+','+s.lo;
+ return device()==='ios'
+  ?'https://maps.apple.com/?daddr='+ll+'&dirflg=w'
+  :'https://www.google.com/maps/dir/?api=1&destination='+ll+'&travelmode=walking'}
 function render(){var R=$('res'),s=curStop();
  if(!s){setHTML(R,empty());return}
  var d=lineData(S.line),dd=d.lines[S.line].dirs[S.dir],f=feedOfLine(S.line),td=today(),nowMs=Date.now(),endIso=iso8(d.end),
   iso=S.mode==='next'?td:(S.date&&S.date>=td?S.date:td),isToday=iso===td,cov=coverage(d,iso);
  var fc=CFG.feeds[lineCfg(S.line).feed];
- var h='<div class="res__head"><span class="badge badge--lg" style="background:'+fc.color+';color:#fff">'+esc(S.line)+'</span><div><p class="res__dir">Direction '+esc(dd.head)+'<span class="netpill" style="background:'+fc.color+'">'+esc(fc.label)+'</span></p><h2>'+esc(s.label)+'</h2></div></div>';
- h+='<div class="seg" role="group" aria-label="Affichage"><button type="button" data-act="mode" data-v="next" aria-pressed="'+(S.mode==='next')+'">Prochains départs</button><button type="button" data-act="mode" data-v="day" aria-pressed="'+(S.mode==='day')+'">Tous les horaires</button></div>';
- h+='<div class="alert"><i>i</i><div>Horaires théoriques : ils ne tiennent pas compte des retards ni des suppressions.</div></div>';
- if(f.stale)h+='<div class="alert alert--warn"><i>!</i><div><b>Horaires peut-être pas à jour.</b> Le fichier officiel n’a pas pu être actualisé : copie du '+new Date(f.savedAt).toLocaleString('fr-FR')+'.</div></div>';
+ /* A : titre + lien « Y aller à pied » */
+ var A='<div class="res__head"><span class="badge badge--lg" style="background:'+fc.color+';color:#fff">'+esc(S.line)+'</span><div><p class="res__dir">Direction '+esc(dd.head)+'<span class="netpill" style="background:'+fc.color+'">'+esc(fc.label)+'</span></p><h2>'+esc(s.label)+'</h2></div></div>';
+ var go=goURL(s.id);
+ if(go)A+='<a class="btn btn--sm go" href="'+esc(go)+'" target="_blank" rel="noopener">🚶 Y aller à pied</a>';
+ /* C : bascule prochains départs / tous les horaires */
+ var C='<div class="seg" role="group" aria-label="Affichage"><button type="button" data-act="mode" data-v="next" aria-pressed="'+(S.mode==='next')+'">Prochains départs</button><button type="button" data-act="mode" data-v="day" aria-pressed="'+(S.mode==='day')+'">Tous les horaires</button></div>';
+ /* E : avertissements + statut des horaires */
+ var st=feedStatus(f,d);
+ var E='<div class="alert"><i>i</i><div>Horaires théoriques : ils ne tiennent pas compte des retards ni des suppressions.</div></div>'+
+  '<div class="status status--'+st.k+'"><b>'+esc(st.t)+'</b><small>'+esc(st.w)+' · dernière vérification le '+
+  esc(new Date(f.checkedAt||Date.now()).toLocaleString('fr-FR',{dateStyle:'short',timeStyle:'short'}))+'</small></div>';
+ var B='',D='',F='';
  var rows=cov?theory(d,S.line,S.dir,s.id,iso).map(function(p){return{p:p,t:p.sched}}):[];
  if(S.mode==='day'){
-  h+='<div class="daynav"><button type="button" class="iconbtn" data-act="prev" aria-label="Jour précédent"'+(iso<=td?' disabled':'')+'>‹</button>'+
+  F+='<div class="daynav"><button type="button" class="iconbtn" data-act="prev" aria-label="Jour précédent"'+(iso<=td?' disabled':'')+'>‹</button>'+
    '<label class="sr" for="date">Choisir une date</label><input type="date" id="date" min="'+td+'"'+(endIso?' max="'+endIso+'"':'')+' value="'+iso+'">'+
    '<button type="button" class="iconbtn" data-act="next" aria-label="Jour suivant"'+(endIso&&iso>=endIso?' disabled':'')+'>›</button>'+
    (isToday?'':'<button type="button" class="chip" data-act="today">Aujourd’hui</button>')+'</div>';
-  h+='<p class="daylabel"><b>'+esc(dl(iso))+'</b>'+(cov?'<span>'+rows.length+' départ'+(rows.length>1?'s':'')+'</span>':'')+'</p>'}
- if(!cov){h+='<div class="alert alert--bad"><i>!</i><div><b>Horaires indisponibles pour cette date.</b> Le fichier officiel couvre du '+fmtD(d.start)+' au '+fmtD(d.end)+'. Consultez <a href="https://www.aixenbus.fr/">aixenbus.fr</a>'+(S.line==='51'?' ou <a href="https://www.lecaraixmarseille.com/ligne-51">lecaraixmarseille.com</a>':'')+'.</div></div>'}
+  F+='<p class="daylabel"><b>'+esc(dl(iso))+'</b>'+(cov?'<span>'+rows.length+' départ'+(rows.length>1?'s':'')+'</span>':'')+'</p>'}
+ if(!cov){F+='<div class="alert alert--bad"><i>!</i><div><b>Horaires indisponibles pour cette date.</b> Le fichier officiel couvre du '+fmtD(d.start)+' au '+fmtD(d.end)+'. Consultez <a href="https://www.aixenbus.fr/">aixenbus.fr</a>'+(S.line==='51'?' ou <a href="https://www.lecaraixmarseille.com/ligne-51">lecaraixmarseille.com</a>':'')+'.</div></div>'}
  else if(S.mode==='next'){
   rows=rows.filter(function(x){return x.t>=nowMs-3e4}).slice(0,6);
-  if(!rows.length)h+='<div class="none"><b>Plus de départ aujourd’hui à cet arrêt.</b><br><button type="button" class="btn" data-act="tomorrow">Voir les horaires de demain</button></div>';
-  else{var x=rows[0];
-   h+='<div class="next"><div><div class="next__lab">Prochain départ dans</div><div class="next__cd" data-t="'+x.t+'">'+cd((x.t-nowMs)/1000)+'</div></div><div class="next__at"><div class="next__lab">à</div><div class="next__hr">'+hm(x.p.m)+'</div></div></div>';
-   if(rows.length>1){h+='<h3 class="sub">Ensuite</h3><ul class="plist">';
-    rows.slice(1).forEach(function(y){h+='<li><span class="t">'+hm(y.p.m)+'</span><span class="w" data-t="'+y.t+'">'+cd((y.t-nowMs)/1000)+'</span></li>'});h+='</ul>'}}}
+  if(!rows.length)F+='<div class="none"><b>Plus de départ aujourd’hui à cet arrêt.</b><br><button type="button" class="btn" data-act="tomorrow">Voir les horaires de demain</button></div>';
+  else{var x=rows[0],dtSec=(x.t-nowMs)/1000;
+   /* B : prochain départ, placé juste sous le titre (visible sans défiler sur mobile) */
+   B='<div class="next"><div><div class="next__lab">Prochain départ dans</div><div class="next__cd" data-t="'+x.t+'">'+cd(dtSec)+'</div></div><div class="next__at"><div class="next__lab">à</div><div class="next__hr">'+hm(x.p.m)+'</div></div>'+
+    '<p class="next__tip">Il est <b data-clock>'+nowHM()+'</b> — prévoyez le temps de rejoindre l’arrêt.'+
+    (dtSec<=CFG.imminentSec?' <b>Départ imminent : si vous n’êtes pas déjà à l’arrêt, visez le suivant.</b>':'')+'</p></div>';
+   if(rows.length>1){D='<h3 class="sub">Ensuite</h3><ul class="plist">';
+    rows.slice(1).forEach(function(y){D+='<li><span class="t">'+hm(y.p.m)+'</span><span class="w" data-t="'+y.t+'">'+cd((y.t-nowMs)/1000)+'</span></li>'});D+='</ul>'}}}
  else{
-  if(!rows.length)h+='<div class="none">Aucun départ ce jour-là à cet arrêt.</div>';
+  if(!rows.length)F+='<div class="none">Aucun départ ce jour-là à cet arrêt.</div>';
   else{var isPast=function(x){return isToday&&x.t<nowMs-3e4},nPast=rows.filter(isPast).length,fn=-1;
    rows.forEach(function(x,i){if(fn<0&&isToday&&!isPast(x))fn=i});
-   if(nPast>0)h+='<button type="button" class="btn btn--sm more" data-act="past">'+(S.showPast?'Masquer':'Afficher')+' les '+nPast+' départ'+(nPast>1?'s':'')+' déjà passé'+(nPast>1?'s':'')+'</button>';
+   if(nPast>0)F+='<button type="button" class="btn btn--sm more" data-act="past">'+(S.showPast?'Masquer':'Afficher')+' les '+nPast+' départ'+(nPast>1?'s':'')+' déjà passé'+(nPast>1?'s':'')+'</button>';
    var groups=[];
    rows.forEach(function(x,i){var pst=isPast(x);if(pst&&!S.showPast)return;var hr=Math.floor(x.p.m/60),g=groups[groups.length-1];
     if(!g||g.h!==hr){g={h:hr,it:[]};groups.push(g)}g.it.push({x:x,i:i,pst:pst})});
-   h+='<div class="tt">';
-   groups.forEach(function(g){h+='<div class="tt__row"><div class="tt__h">'+pad(g.h)+'<small>h</small></div><div class="tt__m">';
-    g.it.forEach(function(o){h+='<span class="mn'+(o.pst?' past':'')+(o.i===fn?' nx':'')+'">'+pad(Math.floor(o.x.p.m)%60)+'</span>'});
-    h+='</div></div>'});
-   h+='</div>';
-   if(fn>=0)h+='<p class="legend"><i></i>Prochain départ</p>'}}
- h+='<p class="foot">Horaires valables du '+fmtD(d.start)+' au '+fmtD(d.end)+'. Information indicative, pouvant comporter des erreurs : seules la grille d’horaires et les sites officiels d’<a href="https://www.aixenbus.fr/">Aix-en-Bus</a> et de la <a href="https://www.lametropolemobilite.fr/">Métropole</a> font foi. <a href="#a-propos">En savoir plus</a>.</p>';
- setHTML(R,h)}
+   F+='<div class="tt">';
+   groups.forEach(function(g){F+='<div class="tt__row"><div class="tt__h">'+pad(g.h)+'<small>h</small></div><div class="tt__m">';
+    g.it.forEach(function(o){F+='<span class="mn'+(o.pst?' past':'')+(o.i===fn?' nx':'')+'">'+pad(Math.floor(o.x.p.m)%60)+'</span>'});
+    F+='</div></div>'});
+   F+='</div>';
+   if(fn>=0)F+='<p class="legend"><i></i>Prochain départ</p>'}}
+ var foot='<p class="foot">Horaires valables du '+fmtD(d.start)+' au '+fmtD(d.end)+'. Information indicative, pouvant comporter des erreurs : seules la grille d’horaires et les sites officiels d’<a href="https://www.aixenbus.fr/">Aix-en-Bus</a> et de la <a href="https://www.lametropolemobilite.fr/">Métropole</a> font foi. <a href="#a-propos">En savoir plus</a>.</p>';
+ /* ordre : titre → prochain départ → bascule → suivants → avertissements/statut → reste */
+ setHTML(R,A+B+C+D+E+F+foot)}
 $('res').addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-act]');if(!b||b.disabled)return;var a=b.dataset.act,v=b.dataset.v,td=today();
  if(a==='mode'){S.mode=v;S.showPast=false;render()}
  else if(a==='past'){S.showPast=!S.showPast;render()}
@@ -667,7 +713,9 @@ function renderFav(force){var F=$('fav'),ok=complete();F.hidden=!ok;if(!ok)retur
  '<div class="fav__actions"><button type="button" class="btn btn--gold" data-fav="bm">Ajouter aux favoris</button>'+(showHome?'<button type="button" class="btn btn--gold" data-fav="home">Ajouter à l’écran d’accueil</button>':'')+'</div><div class="fav__hint" id="fav-hint" aria-live="polite"'+(favMsg?'':' hidden')+'>'+esc(favMsg)+'</div>'}
 $('fav').addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('[data-fav]');if(t)favAction(t.dataset.fav)});
 /* ---------- boucle ---------- */
-setInterval(function(){document.querySelectorAll('[data-t]').forEach(function(e){e.textContent=cd((+e.dataset.t-Date.now())/1000)})},1000);
+setInterval(function(){
+ document.querySelectorAll('[data-t]').forEach(function(e){e.textContent=cd((+e.dataset.t-Date.now())/1000)});
+ document.querySelectorAll('[data-clock]').forEach(function(e){e.textContent=nowHM()})},1000);
 setInterval(function(){var a=document.activeElement;if(a&&a.id==='date')return;render()},30000);
 document.addEventListener('visibilitychange',function(){if(!document.hidden)render()});
 /* ---------- démarrage ---------- */
